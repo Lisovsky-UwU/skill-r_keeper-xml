@@ -1,0 +1,1431 @@
+{
+ "_group_order": [
+  "Система и справочники",
+  "Устройства",
+  "Персонал",
+  "Заказы",
+  "Меню и остатки",
+  "Оплата и чеки",
+  "Касса и смены",
+  "Карты и ПДС",
+  "Банковский терминал",
+  "Печать и отчеты",
+  "Сообщения и станция",
+  "КДС",
+  "Тарификация",
+  "Доставка",
+  "Только касса",
+  "Служебные",
+  "Прочее"
+ ],
+ "_groups": {
+  "GetSystemInfo": "Система и справочники",
+  "GetSystemInfo2": "Система и справочники",
+  "GetFunctions": "Система и справочники",
+  "GetRefList": "Система и справочники",
+  "GetRefData": "Система и справочники",
+  "GetRefDataFiltered": "Система и справочники",
+  "GetItemBlob": "Система и справочники",
+  "GetDataListInfo": "Система и справочники",
+  "GetConnectInfoForNode": "Система и справочники",
+  "GetParamValue": "Система и справочники",
+  "GetUsageValue": "Система и справочники",
+  "CheckLicense": "Система и справочники",
+  "GetXMLLicenseInstanceSeqNumber": "Система и справочники",
+  "ExchangePriority": "Система и справочники",
+  "SetRefData": "Система и справочники",
+  "RegisterLogs": "Система и справочники",
+  "LogicalDevices": "Устройства",
+  "DeviceStatuses": "Устройства",
+  "ListDeviceMenu": "Устройства",
+  "CallDeviceMenu": "Устройства",
+  "PrintDataXML": "Устройства",
+  "GetEmployeeInfo": "Персонал",
+  "GetEmployeeInfo2": "Персонал",
+  "GetWaiterList": "Персонал",
+  "RegisterEmployee": "Персонал",
+  "UnregisterEmployee": "Персонал",
+  "LoginOnStation": "Персонал",
+  "CreateVisit": "Заказы",
+  "CreateOrder": "Заказы",
+  "GetOrderList": "Заказы",
+  "GetOrderList2": "Заказы",
+  "GetOrder": "Заказы",
+  "SaveOrder": "Заказы",
+  "UpdateOrder": "Заказы",
+  "CalcOrder": "Заказы",
+  "ValidateOrder": "Заказы",
+  "LockOrder": "Заказы",
+  "ChangeSessionCourse": "Заказы",
+  "CloseSeat": "Заказы",
+  "OpenSeat": "Заказы",
+  "TransferDishes": "Заказы",
+  "GetOrderBindings": "Заказы",
+  "SendToVDU": "Заказы",
+  "VoidOrder": "Заказы",
+  "CloseVisit": "Заказы",
+  "GetOrderMenu": "Меню и остатки",
+  "GetOrderMenu2": "Меню и остатки",
+  "GetDishRest": "Меню и остатки",
+  "GetDishRests": "Меню и остатки",
+  "SetDishRests": "Меню и остатки",
+  "ClearDishRests": "Меню и остатки",
+  "CalcOrder2": "Оплата и чеки",
+  "CalcOrder3": "Оплата и чеки",
+  "PrintBill": "Оплата и чеки",
+  "UndoBill": "Оплата и чеки",
+  "PayOrder": "Оплата и чеки",
+  "GetReceiptList": "Оплата и чеки",
+  "FindReceiptsForReturn": "Оплата и чеки",
+  "MakeReturnGoods": "Оплата и чеки",
+  "UndoReceipt": "Оплата и чеки",
+  "DeleteReceipt": "Оплата и чеки",
+  "DeleteReceiptPayments": "Оплата и чеки",
+  "CreateInvoice": "Оплата и чеки",
+  "GetInvoice": "Оплата и чеки",
+  "GetDrawerBalance": "Касса и смены",
+  "ChangeDrawerBalance": "Касса и смены",
+  "ConfirmOperation": "Касса и смены",
+  "CloseCardValShift": "Касса и смены",
+  "CloseCashShift": "Касса и смены",
+  "CloseCommonShift": "Касса и смены",
+  "GetCardInfo": "Карты и ПДС",
+  "ApplyPersonalCard": "Карты и ПДС",
+  "UndoPersonalCard": "Карты и ПДС",
+  "MakeCardDeposit": "Карты и ПДС",
+  "FarCardsAnyInfoXML": "Карты и ПДС",
+  "FarCardsAnyInfoRaw": "Карты и ПДС",
+  "ParseMCR": "Карты и ПДС",
+  "TerminalAuthStart2": "Банковский терминал",
+  "TerminalAuthPay2": "Банковский терминал",
+  "TerminalAuthError2": "Банковский терминал",
+  "TerminalAuthStart": "Банковский терминал",
+  "TerminalAuthPay": "Банковский терминал",
+  "TerminalAuthError": "Банковский терминал",
+  "GetPrintLayout": "Печать и отчеты",
+  "GetDocByLayout": "Печать и отчеты",
+  "PrintMaket": "Печать и отчеты",
+  "WaiterMessage": "Сообщения и станция",
+  "GetWaiterMessages": "Сообщения и станция",
+  "DelWaiterMessages": "Сообщения и станция",
+  "OpenWebForm": "Сообщения и станция",
+  "CloseWebForm": "Сообщения и станция",
+  "KDSGetDishData2": "КДС",
+  "KDSGetDishData3": "КДС",
+  "KDSSetDishData2": "КДС",
+  "KDSSetDishData3": "КДС",
+  "AddExternalTariff": "Тарификация",
+  "DeliveryGetOrderList": "Доставка",
+  "DeliveryPostOrder": "Доставка",
+  "DeliveryValidateOrder": "Доставка",
+  "DeliveryUpdateStatus": "Доставка",
+  "DeliverySetForwarder": "Доставка",
+  "DeliverySetLastProcessTime": "Доставка",
+  "DeliveryServPrint": "Доставка",
+  "DeliveryPrintInvoice": "Доставка",
+  "DeliveryPayOrders": "Доставка",
+  "DeliveryEditOrder": "Доставка",
+  "DeliveryConfirmEdit": "Доставка",
+  "DeliveryCancelEdit": "Доставка",
+  "DeliveryLockOrder": "Доставка",
+  "DeliveryChangeRestState": "Доставка",
+  "DeliverySetOrderNumGen": "Доставка",
+  "DeliveryVoidOrder": "Доставка",
+  "GotoOrder": "Только касса",
+  "ApplyMCR": "Только касса",
+  "PostMessage": "Только касса",
+  "PerformMessage": "Только касса",
+  "WaitWindow": "Только касса",
+  "ReloadWorkUdb": "Служебные"
+ },
+ "GetSystemInfo": {
+  "examples": [
+   {
+    "title": "GetSystemInfo",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetSystemInfo\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetSystemInfo2": {
+  "examples": [
+   {
+    "title": "GetSystemInfo2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetSystemInfo2\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetFunctions": {
+  "examples": [
+   {
+    "title": "GetFunctions",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetFunctions\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetRefList": {
+  "examples": [
+   {
+    "title": "GetRefList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefList\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetRefData": {
+  "examples": [
+   {
+    "title": "GetRefData - Сотрудники",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"EMPLOYEES\" OnlyActive=\"1\" PropMask=\"items.(Ident,Code,Name,GUIDString,MainParentIdent)\"/>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetRefData - Меню",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"MENUITEMS\" OnlyActive=\"1\" PropMask=\"items.(Ident,Code,Name,GUIDString,CategPath,Status)\"/>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetRefData - Столы",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"TABLES\" OnlyActive=\"1\" PropMask=\"items.(Ident,Code,Name,GUIDString)\"/>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetRefData - Валюты",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"CURRENCIES\" OnlyActive=\"1\" PropMask=\"items.(Ident,Code,Name,GUIDString)\"/>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetRefData - Станции",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"CASHES\" OnlyActive=\"1\" PropMask=\"items.(Ident,Code,Name,GUIDString,NetName)\"/>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetRefData - Один элемент",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"MENUITEMS\" RefItemIdent=\"{{dishId}}\" PropMask=\"*\"/>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetRefData - С фильтром",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefData\" RefName=\"MENUITEMS\" OnlyActive=\"1\" PropMask=\"items.(Ident,Code,Name)\">\n    <PROPFILTERS>\n      <PROPFILTER Name=\"Name\" Substring=\"Салат\"/>\n    </PROPFILTERS>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "PropMask ограничивает свойства: items.(Ident,Code,Name,GUIDString). Без него ответ по большим справочникам огромный.",
+   "OnlyActive=\"1\" - только активные элементы; IgnoreEnums=\"1\" - перечисления числами.",
+   "Фильтр <PROPFILTERS><PROPFILTER Name=... Value=... | Substring=.../></PROPFILTERS>."
+  ]
+ },
+ "GetRefDataFiltered": {
+  "examples": [
+   {
+    "title": "GetRefDataFiltered",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetRefDataFiltered\" RefName=\"MENUITEMS\" PropMask=\"items.(Ident,Code,Name)\">\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetItemBlob": {
+  "examples": [
+   {
+    "title": "GetItemBlob",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetItemBlob\" RefName=\"IMAGELIST\" RefItemIdent=\"{{refItemId}}\" EncodeBase64=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Если поле пустое, сервер отвечает Status=\"Ok\" без данных."
+  ]
+ },
+ "GetDataListInfo": {
+  "examples": [
+   {
+    "title": "GetDataListInfo",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetDataListInfo\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetConnectInfoForNode": {
+  "examples": [
+   {
+    "title": "GetConnectInfoForNode",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetConnectInfoForNode\" NetName=\"{{stationNetName}}\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "NetName - сетевое имя станции (атрибут NetName в справочнике CASHES). Для имени самого кассового сервера ответ \"Node ... is not connected\"."
+  ]
+ },
+ "GetParamValue": {
+  "examples": [
+   {
+    "title": "GetParamValue",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetParamValue\" ParamName=\"CashStation\">\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetUsageValue": {
+  "examples": [
+   {
+    "title": "GetUsageValue",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetUsageValue\" name=\"Order Category\">\n    <Station id=\"{{stationId}}\"/>\n    <Table id=\"{{tableId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Значения name содержат пробелы: \"Order Category\", \"Price Type\" и т.д. (полный список - в схеме). Значения вроде \"Station\" сервер отвергает."
+  ]
+ },
+ "CheckLicense": {
+  "examples": [
+   {
+    "title": "CheckLicense",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CheckLicense\" license=\"XMLSaveOrder\">\n    <Restaurant id=\"{{restaurantId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetXMLLicenseInstanceSeqNumber": {
+  "examples": [
+   {
+    "title": "GetXMLLicenseInstanceSeqNumber",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetXMLLicenseInstanceSeqNumber\">\n    <LicenseInfo anchor=\"6:{ProductGUID}#{RestCode}/17\" licenseToken=\"\">\n      <LicenseInstance guid=\"{{licenseInstanceGuid}}\" seqNumber=\"0\"/>\n    </LicenseInfo>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Сервер требует <LicenseInfo>, хотя в XSD он необязательный; без настоящего anchor/licenseToken от UCS - \"Bad license anchor\"."
+  ]
+ },
+ "ExchangePriority": {
+  "examples": [
+   {
+    "title": "ExchangePriority",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7Command CMD=\"ExchangePriority\" RefName=\"MENUITEMS\">\n    <Item1 Ident=\"{{dishId}}\"/>\n    <Item2 Ident=\"{{dishId}}\"/>\n  </RK7Command>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Команда справочного сервера, как и SetRefData; кассовый сервер отвечает \"Unknown command\"."
+  ]
+ },
+ "SetRefData": {
+  "examples": [
+   {
+    "title": "SetRefData",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7Command CMD=\"SetRefData\" RefName=\"TABLES\">\n    <Items>\n      <Item Ident=\"{{tableId}}\" Name=\"4\"/>\n    </Items>\n  </RK7Command>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Команда справочного сервера (RK7 Manager): кассовый сервер отвечает \"Unknown command SetRefData\". У RK7Query там задаются UserID/UserGUID/UserPass."
+  ]
+ },
+ "RegisterLogs": {
+  "examples": [
+   {
+    "title": "RegisterLogs",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"RegisterLogs\">\n    <Logs>\n      <Log Module=\"xmlinterface\" Labels=\"\">*.log</Log>\n    </Logs>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "LogicalDevices": {
+  "examples": [
+   {
+    "title": "LogicalDevices",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LogicalDevices\">\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "DeviceStatuses": {
+  "examples": [
+   {
+    "title": "DeviceStatuses",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeviceStatuses\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "ListDeviceMenu": {
+  "examples": [
+   {
+    "title": "ListDeviceMenu",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ListDeviceMenu\">\n    <Station id=\"{{stationId}}\"/>\n    <Device id=\"{{deviceId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "CallDeviceMenu": {
+  "examples": [
+   {
+    "title": "CallDeviceMenu",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CallDeviceMenu\">\n    <Station id=\"{{stationId}}\"/>\n    <Device id=\"{{deviceId}}\"/>\n    <MENUOPERATION operationId=\"1\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "MENUOPERATION@operationId - из ответа ListDeviceMenu. Если меню у устройства пустое - \"Menu ... is not found\"."
+  ]
+ },
+ "PrintDataXML": {
+  "examples": [
+   {
+    "title": "PrintDataXML",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PrintDataXML\" Timeout=\"0\">\n    <Purpose id=\"{{printPurposeId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Unfiscal>\n      <TextLine Text=\"Тестовая печать\"/>\n    </Unfiscal>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Содержимое <Unfiscal> - разметка универсального драйвера из unifr.xsd (TextLine, TextBlock, BarCode, Logo, Pass, Beep...). Сервер не проверяет ее строго: на неизвестный тег тоже отвечает Ok."
+  ]
+ },
+ "GetEmployeeInfo": {
+  "examples": [
+   {
+    "title": "GetEmployeeInfo",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetEmployeeInfo\">\n    <Waiter id=\"{{waiterId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetEmployeeInfo2": {
+  "examples": [
+   {
+    "title": "GetEmployeeInfo2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetEmployeeInfo2\">\n    <Waiter id=\"{{waiterId}}\"/>\n    <Restaurant id=\"{{restaurantId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetWaiterList": {
+  "examples": [
+   {
+    "title": "GetWaiterList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetWaiterList\" registeredOnly=\"0\">\n    <Table id=\"{{tableId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "RegisterEmployee": {
+  "examples": [
+   {
+    "title": "RegisterEmployee",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"RegisterEmployee\">\n    <Waiter id=\"{{waiterId}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "UnregisterEmployee": {
+  "examples": [
+   {
+    "title": "UnregisterEmployee",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"UnregisterEmployee\">\n    <Waiter id=\"{{waiterId}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "LoginOnStation": {
+  "examples": [
+   {
+    "title": "LoginOnStation",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LoginOnStation\" password=\"{{managerPassword}}\">\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "CreateVisit": {
+  "examples": [
+   {
+    "title": "CreateVisit",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CreateVisit\" persistentComment=\"example\">\n    <GuestType id=\"{{guestTypeId}}\"/>\n    <Guests count=\"2\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "CreateOrder": {
+  "examples": [
+   {
+    "title": "CreateOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CreateOrder\">\n    <Order persistentComment=\"example\" nonPersistentComment=\"\">\n      <Table id=\"{{tableId}}\"/>\n      <Station id=\"{{stationId}}\"/>\n      <Waiter id=\"{{waiterId}}\"/>\n      <OrderCategory id=\"{{orderCategoryId}}\"/>\n      <OrderType id=\"{{orderTypeId}}\"/>\n      <GuestType id=\"{{guestTypeId}}\"/>\n      <Guests>\n        <Guest guestLabel=\"1\"/>\n      </Guests>\n      <ExternalProps>\n        <Prop name=\"source\" value=\"example\"/>\n      </ExternalProps>\n    </Order>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Ответ: атрибуты корня VisitID, OrderID, guid и элемент <Order visit=... orderIdent=... guid=...>.",
+   "Обязателен только <Table>; без <Visit> создается новый визит.",
+   "Если в ресторане количество гостей - обязательное свойство, без <Guests> (хотя бы одного <Guest guestLabel=\"1\"/>) будет \"Количество гостей не может быть равно нулю\" (RK7ErrorN 3444)."
+  ]
+ },
+ "GetOrderList": {
+  "examples": [
+   {
+    "title": "GetOrderList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderList\" onlyOpened=\"1\" needIdents=\"1\" needCodes=\"1\" needNames=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetOrderList2": {
+  "examples": [
+   {
+    "title": "GetOrderList2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderList2\" onlyOpened=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetOrder": {
+  "examples": [
+   {
+    "title": "GetOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   },
+   {
+    "title": "GetOrder - по visit и orderIdent",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrder\">\n    <Order visit=\"{{visitId}}\" orderIdent=\"{{orderIdent}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Отсюда берут uni пакетов (<Session uni>) и line_guid блюд, предоплат, чеков - они нужны в TransferDishes, MakeReturnGoods, KDSSetDishData и др.",
+   "unpaidSum в GetOrder не учитывает обещанные (promised) предоплаты; сумму к оплате для PayOrder надежнее брать из CalcOrder2."
+  ]
+ },
+ "SaveOrder": {
+  "examples": [
+   {
+    "title": "SaveOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SaveOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Station id=\"{{stationId}}\"/>\n      <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n      <Dish id=\"{{dishId}}\" quantity=\"2000\" price=\"{{dishPrice}}\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   },
+   {
+    "title": "SaveOrder - Скидка на заказ",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SaveOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Station id=\"{{stationId}}\"/>\n      <Discount id=\"{{discountId}}\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   },
+   {
+    "title": "SaveOrder - Предоплата",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SaveOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Station id=\"{{stationId}}\"/>\n      <Prepay id=\"{{currencyId}}\" amount=\"10000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Нужна лицензия XML SaveOrder - проверяется запросом CheckLicense license=\"XMLSaveOrder\".",
+   "quantity - в тысячных (1000 = 1 шт), price - в копейках; без price берется цена из прайса.",
+   "Session без uni добавляет новый пакет; с uni перезаписывает существующий нераспечатанный пакет.",
+   "Скидка (<Discount>) и предоплата (<Prepay>) добавляются в заказ так же - внутри <Session>."
+  ]
+ },
+ "UpdateOrder": {
+  "examples": [
+   {
+    "title": "UpdateOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"UpdateOrder\" persistentComment=\"example: изменено\">\n    <Manager id=\"{{managerId}}\"/>\n    <Order guid=\"{{orderGuid}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n    <Guests>\n      <Guest guestLabel=\"1\"/>\n      <Guest guestLabel=\"2\"/>\n    </Guests>\n    <ExternalProps>\n      <Prop name=\"source\" value=\"example\"/>\n    </ExternalProps>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "CalcOrder": {
+  "examples": [
+   {
+    "title": "CalcOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CalcOrder\">\n    <Table id=\"{{tableId}}\"/>\n    <OrderCategory id=\"{{orderCategoryId}}\"/>\n    <OrderType id=\"{{orderTypeId}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"2000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "ValidateOrder": {
+  "examples": [
+   {
+    "title": "ValidateOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ValidateOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "LockOrder": {
+  "examples": [
+   {
+    "title": "LockOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LockOrder\" lockTime=\"00:01:00\" lockguid=\"{{lockGuid}}\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Employee id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "lockTime в формате чч:мм:сс. Пока блокировка действует, изменяющие запросы без того же lockguid получают отказ.",
+   "lockguid - произвольный GUID, придуманный клиентом."
+  ]
+ },
+ "ChangeSessionCourse": {
+  "examples": [
+   {
+    "title": "ChangeSessionCourse",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ChangeSessionCourse\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Employee id=\"{{waiterId}}\"/>\n    <Session uni=\"{{sessionUni}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "CloseSeat": {
+  "examples": [
+   {
+    "title": "CloseSeat",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseSeat\" seat=\"1\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "OpenSeat": {
+  "examples": [
+   {
+    "title": "OpenSeat",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"OpenSeat\" seat=\"1\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "TransferDishes": {
+  "examples": [
+   {
+    "title": "TransferDishes",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TransferDishes\">\n    <OrderSource guid=\"{{orderGuid}}\"/>\n    <OrderDest guid=\"{{orderGuid2}}\"/>\n    <Employee id=\"{{waiterId}}\"/>\n    <Dishes>\n      <Dish line_guid=\"{{dishLineGuid}}\" quantity=\"1000\"/>\n    </Dishes>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Блюдо указывается line_guid (или uni) из GetOrder исходного заказа; без quantity переносится целиком."
+  ]
+ },
+ "GetOrderBindings": {
+  "examples": [
+   {
+    "title": "GetOrderBindings",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderBindings\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "SendToVDU": {
+  "examples": [
+   {
+    "title": "SendToVDU",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SendToVDU\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "VoidOrder": {
+  "examples": [
+   {
+    "title": "VoidOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"VoidOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <DeleteReason id=\"{{deleteReasonId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "DeleteReason - причина из ORDERVOIDS; для заказа с распечатанными блюдами нужна причина, разрешенная для удаления чека/блюд."
+  ]
+ },
+ "CloseVisit": {
+  "examples": [
+   {
+    "title": "CloseVisit",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseVisit\" VisitID=\"{{visitId}}\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Работает и для пустого визита из CreateVisit, и для визита, все заказы которого закрыты."
+  ]
+ },
+ "GetOrderMenu": {
+  "examples": [
+   {
+    "title": "GetOrderMenu",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderMenu\" checkrests=\"1\">\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetOrderMenu2": {
+  "examples": [
+   {
+    "title": "GetOrderMenu2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderMenu2\">\n    <Station id=\"{{stationId}}\"/>\n    <Dishes>\n      <Item id=\"{{dishId}}\"/>\n    </Dishes>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetDishRest": {
+  "examples": [
+   {
+    "title": "GetDishRest",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetDishRest\">\n    <Dish id=\"{{dishId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetDishRests": {
+  "examples": [
+   {
+    "title": "GetDishRests",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetDishRests\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "SetDishRests": {
+  "examples": [
+   {
+    "title": "SetDishRests",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SetDishRests\">\n    <Author id=\"{{managerId}}\"/>\n    <Reason id=\"{{deleteReasonId}}\"/>\n    <DishRest id=\"{{dishId}}\" quantity=\"10000\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Reason - причина из ORDERVOIDS с флагом \"При добавлении блюда в стоп-лист\" (ImplOnAddDishInStopList); без такой причины сервер отказывает даже при prohibited=\"0\"."
+  ]
+ },
+ "ClearDishRests": {
+  "examples": [
+   {
+    "title": "ClearDishRests",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ClearDishRests\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Сбрасывает весь стоп-лист ресторана - перед вызовом посмотрите GetDishRests."
+  ]
+ },
+ "CalcOrder2": {
+  "examples": [
+   {
+    "title": "CalcOrder2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CalcOrder2\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payments>\n      <Pay id=\"{{currencyId}}\" amount=\"0\"/>\n    </Payments>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Возвращает заказ с актуальными unpaidSum/prepaySum и доступные валюты - удобно перед PayOrder."
+  ]
+ },
+ "CalcOrder3": {
+  "examples": [
+   {
+    "title": "CalcOrder3",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CalcOrder3\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payments>\n      <Pay id=\"{{currencyId}}\" amount=\"0\"/>\n    </Payments>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "PrintBill": {
+  "examples": [
+   {
+    "title": "PrintBill",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PrintBill\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Может быть запрещен параметром \"Печатать пречек с чеком намерения\" - тогда ошибка с этим текстом."
+  ]
+ },
+ "UndoBill": {
+  "examples": [
+   {
+    "title": "UndoBill",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"UndoBill\" seat=\"0\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <DeleteReason id=\"{{deleteReasonId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "seat=\"0\" отменяет все пречеки заказа."
+  ]
+ },
+ "PayOrder": {
+  "examples": [
+   {
+    "title": "PayOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PayOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payment id=\"{{currencyId}}\" amount=\"{{dishPrice}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Сумма платежей должна полностью покрывать заказ, иначе \"Недостаточно денег для полной оплаты заказа\" (RK7ErrorN 3373). Сумму берите из unpaidSum ответа CalcOrder2.",
+   "Закрывает заказ и печатает чек на станции (фискальная операция) - станция должна быть в сети.",
+   "Ответ содержит <PrintCheck CheckNum=... line_guid=...>: CheckNum нужен для UndoReceipt/DeleteReceipt/PrintMaket, line_guid - для MakeReturnGoods."
+  ]
+ },
+ "GetReceiptList": {
+  "examples": [
+   {
+    "title": "GetReceiptList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetReceiptList\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "FindReceiptsForReturn": {
+  "examples": [
+   {
+    "title": "FindReceiptsForReturn",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"FindReceiptsForReturn\">\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <CheckNum ValueL=\"1\" ValueH=\"999999\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Без узких фильтров (CheckNum, CloseTime) ищет по всем чекам - даже на маленькой базе это 10+ секунд."
+  ]
+ },
+ "MakeReturnGoods": {
+  "examples": [
+   {
+    "title": "MakeReturnGoods",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"MakeReturnGoods\">\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Reason id=\"{{returnReasonId}}\"/>\n    <PrintCheck line_guid=\"{{printCheckGuid}}\"/>\n    <Dishes>\n      <Dish line_guid=\"{{dishLineGuid}}\" quantity=\"1000\"/>\n    </Dishes>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Reason - причина из ORDERVOIDS с флагом возврата блюд (ImplOnDishReturn).",
+   "Создает отдельный чек возврата (новый CheckNum); после возврата исходный чек нельзя аннулировать."
+  ]
+ },
+ "UndoReceipt": {
+  "examples": [
+   {
+    "title": "UndoReceipt",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"UndoReceipt\" ReceiptNum=\"{{receiptNum}}\" ManagerPassword=\"{{managerPassword}}\">\n    <Manager id=\"{{managerId}}\"/>\n    <DeleteReason id=\"{{checkUndoReasonId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "DeleteReason - причина из ORDERVOIDS с флагом \"При аннулировании чека\" (ImplOnCheckUndo).",
+   "Чек, по которому были возвраты (MakeReturnGoods), аннулировать нельзя.",
+   "Заказ возвращается в редактирование; ManagerPassword - пароль менеджера."
+  ]
+ },
+ "DeleteReceipt": {
+  "examples": [
+   {
+    "title": "DeleteReceipt",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeleteReceipt\" ReceiptNum=\"{{receiptNum}}\" ManagerPassword=\"{{managerPassword}}\">\n    <Manager id=\"{{managerId}}\"/>\n    <DeleteReason id=\"{{checkDeleteReasonId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "DeleteReason - причина из ORDERVOIDS с флагом \"При удалении чека\" (ImplOnCheckVoid); иначе \"нет флага 'При удалении чека'\".",
+   "Удаляет не только чек, но и заказ (после запроса GetOrder показывает deleted=\"1\")."
+  ]
+ },
+ "DeleteReceiptPayments": {
+  "examples": [
+   {
+    "title": "DeleteReceiptPayments",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeleteReceiptPayments\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <PrintCheck line_guid=\"{{printCheckGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger"
+ },
+ "CreateInvoice": {
+  "examples": [
+   {
+    "title": "CreateInvoice",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CreateInvoice\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Invoice regno=\"7700000000\" name=\"ООО Ромашка\" address=\"г. Москва\" comment=\"example\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "GetInvoice": {
+  "examples": [
+   {
+    "title": "GetInvoice",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetInvoice\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetDrawerBalance": {
+  "examples": [
+   {
+    "title": "GetDrawerBalance",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetDrawerBalance\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "ChangeDrawerBalance": {
+  "examples": [
+   {
+    "title": "ChangeDrawerBalance",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ChangeDrawerBalance\" amount=\"100\">\n    <Cashier id=\"{{cashierId}}\"/>\n    <Currency id=\"{{currencyId}}\"/>\n    <Reason id=\"{{depositReasonId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Drawer - кассовый ящик, логическое устройство из DEVICES. Если ящик нельзя определить по кассиру, ошибка \"child element Drawer not found\"."
+  ]
+ },
+ "ConfirmOperation": {
+  "examples": [
+   {
+    "title": "ConfirmOperation",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ConfirmOperation\" param=\"0\" opengui=\"0\">\n    <Operation id=\"{{operationId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Operation - элемент справочника OPERATIONS (ищите по имени через GetRefData RefName=\"OPERATIONS\")."
+  ]
+ },
+ "CloseCardValShift": {
+  "examples": [
+   {
+    "title": "CloseCardValShift",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseCardValShift\">\n    <Station id=\"{{stationId}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger"
+ },
+ "CloseCashShift": {
+  "examples": [
+   {
+    "title": "CloseCashShift",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseCashShift\">\n    <Station id=\"{{stationId}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Закрывает кассовую смену станции и печатает сменный отчет."
+  ]
+ },
+ "CloseCommonShift": {
+  "examples": [
+   {
+    "title": "CloseCommonShift",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseCommonShift\" CloseAnyCase=\"0\">\n    <Manager id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Закрывает общую смену ресторана. CloseAnyCase=\"1\" - закрыть, даже если смена не открыта."
+  ]
+ },
+ "GetCardInfo": {
+  "examples": [
+   {
+    "title": "GetCardInfo",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetCardInfo\" cardCode=\"{{cardCode}}\">\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Status=\"Ok\" не означает, что карта существует: для несуществующего кода сервер может вернуть такой же CardInfo с пустым holder и нулевыми суммами. Существование карты надежно проверяет ApplyPersonalCard (для неизвестной - \"Пользователь не найден!\").",
+   "Interface - логический интерфейс к FarCards из DEVICES; запрос идет в карточную систему и занимает сотни миллисекунд.",
+   "Если сервер FarCards недоступен - \"Ошибка отправки данных на <имя интерфейса>\"."
+  ]
+ },
+ "ApplyPersonalCard": {
+  "examples": [
+   {
+    "title": "ApplyPersonalCard",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ApplyPersonalCard\" CardCode=\"{{cardCode}}\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Карта привязывается к гостю (Guest cardCode=...), а скидка по карте появляется в заказе строкой <Discount charge_source=\"pdsCard\" cardCode=...> - ее видно в GetOrder.",
+   "Неизвестная карта - Query Executing Error с текстом карточной системы, например «FC Test: Ошибка \"Пользователь не найден!\"(18)» (RK7ErrorN 3813).",
+   "Если в заказе уже есть другая скидка, а их сочетание не описано в композициях скидок (DISCOUNTCOMPOSITIONS), будет \"Не найдена композиция для скидки '...'\" - скидка по карте не ляжет."
+  ]
+ },
+ "UndoPersonalCard": {
+  "examples": [
+   {
+    "title": "UndoPersonalCard",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"UndoPersonalCard\" cardCode=\"{{cardCode}}\">\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <Order guid=\"{{orderGuid}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Помечает скидку по карте удаленной (state=7, deleted=\"1\") и отвязывает карту от гостя. Отвечает Ok и тогда, когда такая карта к заказу не применялась."
+  ]
+ },
+ "MakeCardDeposit": {
+  "examples": [
+   {
+    "title": "MakeCardDeposit",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"MakeCardDeposit\" cardCode=\"{{cardCode}}\" amount=\"100\">\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Currency id=\"{{currencyId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Ответ - CardInfo после операции. Ok означает, что карточная система приняла операцию; изменился ли баланс, зависит от ее настройки - сверяйте через GetCardInfo.",
+   "Списание сверх лимита - \"Персональное ограничение для ... = ...\" (RK7ErrorN 2142)."
+  ]
+ },
+ "FarCardsAnyInfoXML": {
+  "examples": [
+   {
+    "title": "FarCardsAnyInfoXML",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"FarCardsAnyInfoXML\">\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <XMLData>\n      <Request Card=\"{{cardCode}}\"/>\n    </XMLData>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Содержимое XMLData передается в FarCards как есть; что вернется, определяет расширение карточной системы - без обработчика ответ Ok без данных."
+  ]
+ },
+ "FarCardsAnyInfoRaw": {
+  "examples": [
+   {
+    "title": "FarCardsAnyInfoRaw",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"FarCardsAnyInfoRaw\">\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <RawData>VGVzdA==</RawData>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Ответ - <RawData> в Base64; без обработчика на стороне FarCards приходит пустой."
+  ]
+ },
+ "ParseMCR": {
+  "examples": [
+   {
+    "title": "ParseMCR",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ParseMCR\" data=\"{{cardCode}}\" devicetype=\"Keyboard\" deviceid=\"0\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Несмотря на пометку [Касса] в XSD, кассовый сервер этот запрос выполняет."
+  ]
+ },
+ "TerminalAuthStart2": {
+  "examples": [
+   {
+    "title": "TerminalAuthStart2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TerminalAuthStart2\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{cashierId}}\"/>\n    <Prepay id=\"{{cardCurrencyId}}\" amount=\"100\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "line_guid созданной предоплаты приходит атрибутом корня RK7QueryResult - его передают в TerminalAuthPay2 / TerminalAuthError2."
+  ]
+ },
+ "TerminalAuthPay2": {
+  "examples": [
+   {
+    "title": "TerminalAuthPay2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TerminalAuthPay2\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{cashierId}}\"/>\n    <Prepay line_guid=\"{{prepayLineGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "TerminalAuthError2": {
+  "examples": [
+   {
+    "title": "TerminalAuthError2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TerminalAuthError2\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{cashierId}}\"/>\n    <Prepay line_guid=\"{{prepayLineGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "TerminalAuthStart": {
+  "examples": [
+   {
+    "title": "TerminalAuthStart",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TerminalAuthStart\" amount=\"100\" asPrepayment=\"1\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Currency id=\"{{cardCurrencyId}}\"/>\n    <Waiter id=\"{{cashierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Добавляет в заказ обещанную (promised) предоплату; закрывается TerminalAuthPay (успех) или TerminalAuthError (отмена)."
+  ]
+ },
+ "TerminalAuthPay": {
+  "examples": [
+   {
+    "title": "TerminalAuthPay",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TerminalAuthPay\" transactionID=\"1\" authCode=\"000000\" cardCode=\"**** 0000\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "TerminalAuthError": {
+  "examples": [
+   {
+    "title": "TerminalAuthError",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"TerminalAuthError\" errorText=\"Отменено пользователем\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "GetPrintLayout": {
+  "examples": [
+   {
+    "title": "GetPrintLayout",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetPrintLayout\" format=\"txt\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Document id=\"1\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "GetDocByLayout": {
+  "examples": [
+   {
+    "title": "GetDocByLayout",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetDocByLayout\" TextReport=\"1\">\n    <Layout id=\"1\"/>\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "PrintMaket": {
+  "examples": [
+   {
+    "title": "PrintMaket",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PrintMaket\" Comment=\"example\">\n    <Station id=\"{{stationId}}\"/>\n    <Employee id=\"{{managerId}}\"/>\n    <ReceiptNum>{{receiptNum}}</ReceiptNum>\n    <Document id=\"27\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Document 1 \"Чек\" так печатать нельзя (\"Unsupported document type\"); копия чека - Document 27 с <ReceiptNum>, отчеты - другие элементы DOCUMENTS."
+  ]
+ },
+ "WaiterMessage": {
+  "examples": [
+   {
+    "title": "WaiterMessage",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"WaiterMessage\" text=\"Тестовое сообщение\" messageType=\"XMLInterface\" expireTime=\"2030-12-31T23:59:59\" external_id=\"msg-1\">\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Сервер требует expireTime, хотя в XSD атрибут необязательный (\"Attribute RK7CMD/@expireTime is not found\")."
+  ]
+ },
+ "GetWaiterMessages": {
+  "examples": [
+   {
+    "title": "GetWaiterMessages",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetWaiterMessages\">\n    <Waiter id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "DelWaiterMessages": {
+  "examples": [
+   {
+    "title": "DelWaiterMessages",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DelWaiterMessages\">\n    <Message external_id=\"msg-1\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "OpenWebForm": {
+  "examples": [
+   {
+    "title": "OpenWebForm",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"OpenWebForm\" url=\"https://example.com/?w={waiter.code}\" extguid=\"{{lockGuid}}\">\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Ответ приходит только после закрытия окна на кассе; HTTP-запрос обычно обрывается по таймауту (~60 с). Окно закрывается CloseWebForm с тем же extguid."
+  ]
+ },
+ "CloseWebForm": {
+  "examples": [
+   {
+    "title": "CloseWebForm",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseWebForm\" extguid=\"{{lockGuid}}\">\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Если окна с таким extguid нет - ошибка \"Форма с GUID ... не найден\"."
+  ]
+ },
+ "KDSGetDishData2": {
+  "examples": [
+   {
+    "title": "KDSGetDishData2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"KDSGetDishData2\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "KDSGetDishData3": {
+  "examples": [
+   {
+    "title": "KDSGetDishData3",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"KDSGetDishData3\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "KDSSetDishData2": {
+  "examples": [
+   {
+    "title": "KDSSetDishData2",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"KDSSetDishData2\" line_guid=\"{{dishLineGuid}}\" kdsstate=\"started\">\n    <Employee id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Работает и для нераспечатанных блюд; line_guid - из GetOrder."
+  ]
+ },
+ "KDSSetDishData3": {
+  "examples": [
+   {
+    "title": "KDSSetDishData3",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"KDSSetDishData3\" line_guid=\"{{dishLineGuid}}\" kdsstate=\"ready\">\n    <Employee id=\"{{waiterId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "AddExternalTariff": {
+  "examples": [
+   {
+    "title": "AddExternalTariff",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"AddExternalTariff\" lane=\"1\" extnumber=\"1\" amount=\"100\">\n    <Manager id=\"{{managerId}}\"/>\n    <Device id=\"{{deviceId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliveryGetOrderList": {
+  "examples": [
+   {
+    "title": "DeliveryGetOrderList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryGetOrderList\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read"
+ },
+ "DeliveryPostOrder": {
+  "examples": [
+   {
+    "title": "DeliveryPostOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryPostOrder\" orderName=\"example\" persistentComment=\"example\">\n    <Restaurant id=\"{{restaurantId}}\"/>\n    <Creator id=\"{{waiterId}}\"/>\n    <OrderCategory id=\"{{deliveryCategoryId}}\"/>\n    <ExtSource source=\"example\" extID=\"1\"/>\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <DeliveryBlock isTakeOut=\"1\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n    </Session>\n    <HolderXML>\n      <holder>\n        <Holders_Addresses/>\n      </holder>\n    </HolderXML>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "GUID заказа (<Order guid>) генерирует клиент: новый GUID создает заказ, повторная отправка с тем же GUID перезаписывает его.",
+   "HolderXML должен содержать минимум <holder><Holders_Addresses/></holder>, иначе \"child element holder / Holders_Addresses not found\".",
+   "Даже если запрос упал на проверке HolderXML, сервер может успеть создать пустой заказ доставки - проверьте DeliveryGetOrderList и удалите лишнее DeliveryVoidOrder."
+  ]
+ },
+ "DeliveryValidateOrder": {
+  "examples": [
+   {
+    "title": "DeliveryValidateOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryValidateOrder\" readyTime=\"{{readyTime}}\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <Restaurant id=\"{{restaurantId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "read",
+  "notes": [
+   "Для заказов, созданных DeliveryPostOrder, наблюдалась внутренняя ошибка \"заказ состояния кассы и заказ сессий должны совпадать\" (r_keeper 7.26.8)."
+  ]
+ },
+ "DeliveryUpdateStatus": {
+  "examples": [
+   {
+    "title": "DeliveryUpdateStatus",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryUpdateStatus\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <DeliveryBlock deliveryState=\"1\"/>\n    <ExtSource source=\"example\" extID=\"1\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliverySetForwarder": {
+  "examples": [
+   {
+    "title": "DeliverySetForwarder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliverySetForwarder\">\n    <Employee id=\"{{waiterId}}\"/>\n    <Order guid=\"{{deliveryGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliverySetLastProcessTime": {
+  "examples": [
+   {
+    "title": "DeliverySetLastProcessTime",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliverySetLastProcessTime\" lastProcessTime=\"{{readyTime}}\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliveryServPrint": {
+  "examples": [
+   {
+    "title": "DeliveryServPrint",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryServPrint\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliveryPrintInvoice": {
+  "examples": [
+   {
+    "title": "DeliveryPrintInvoice",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryPrintInvoice\" preview=\"1\" print=\"0\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <HolderXML>\n      <holder>\n        <Holders_Addresses/>\n      </holder>\n    </HolderXML>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliveryPayOrders": {
+  "examples": [
+   {
+    "title": "DeliveryPayOrders",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryPayOrders\" docType=\"bill\">\n    <Employee id=\"{{waiterId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Order guid=\"{{deliveryGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliveryEditOrder": {
+  "examples": [
+   {
+    "title": "DeliveryEditOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryEditOrder\" readyTime=\"{{readyTime}}\">\n    <Station id=\"{{stationId}}\"/>\n    <Restaurant id=\"{{restaurantId}}\"/>\n    <Employee id=\"{{waiterId}}\"/>\n    <ClientID>0</ClientID>\n    <AddressID>0</AddressID>\n    <Interface id=\"{{pdsInterfaceId}}\"/>\n    <Table id=\"{{deliveryTableId}}\"/>\n    <DeliveryBlock/>\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <InitialOrder/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Открывает на кассе Station окно редактора и ждет, пока его закроют: HTTP-ответ обычно обрывается по таймауту.",
+   "Заказ остается заблокированным станцией; DeliveryCancelEdit без ее ключа блокировки не проходит - блокировку снимают на кассе.",
+   "Сервер требует readyTime и <Table> (стол доставки), хотя в XSD они необязательные."
+  ]
+ },
+ "DeliveryConfirmEdit": {
+  "examples": [
+   {
+    "title": "DeliveryConfirmEdit",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryConfirmEdit\" readyTime=\"{{readyTime}}\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <HolderXML>\n      <holder>\n        <Holders_Addresses/>\n      </holder>\n    </HolderXML>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "readyTime должен быть не позже чем примерно через сутки от текущего времени сервера, иначе \"Введенное время не может превышать ... (максимальное время)\"."
+  ]
+ },
+ "DeliveryCancelEdit": {
+  "examples": [
+   {
+    "title": "DeliveryCancelEdit",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryCancelEdit\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Если по заказу печатался пречек (DeliveryPayOrders docType=\"bill\"), нужно право на операцию \"Отмена пречека\"."
+  ]
+ },
+ "DeliveryLockOrder": {
+  "examples": [
+   {
+    "title": "DeliveryLockOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryLockOrder\" lockguid=\"{{lockGuid}}\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliveryChangeRestState": {
+  "examples": [
+   {
+    "title": "DeliveryChangeRestState",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryChangeRestState\" restaurantState=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write"
+ },
+ "DeliverySetOrderNumGen": {
+  "examples": [
+   {
+    "title": "DeliverySetOrderNumGen",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliverySetOrderNumGen\" value=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Меняет нумерацию заказов доставки ресторана."
+  ]
+ },
+ "DeliveryVoidOrder": {
+  "examples": [
+   {
+    "title": "DeliveryVoidOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeliveryVoidOrder\">\n    <Order guid=\"{{deliveryGuid}}\"/>\n    <Employee id=\"{{managerId}}\"/>\n    <DeleteReason id=\"{{deleteReasonId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger"
+ },
+ "GotoOrder": {
+  "examples": [
+   {
+    "title": "GotoOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GotoOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command GotoOrder\"."
+  ]
+ },
+ "ApplyMCR": {
+  "examples": [
+   {
+    "title": "ApplyMCR",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ApplyMCR\" data=\"{{cardCode}}\" devicetype=\"Keyboard\" deviceid=\"0\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command ApplyMCR\"."
+  ]
+ },
+ "PostMessage": {
+  "examples": [
+   {
+    "title": "PostMessage",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PostMessage\" message=\"1024\" wparam=\"1\" lparam=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command PostMessage\"."
+  ]
+ },
+ "PerformMessage": {
+  "examples": [
+   {
+    "title": "PerformMessage",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PerformMessage\" message=\"1024\" wparam=\"1\" lparam=\"1\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command PerformMessage\"."
+  ]
+ },
+ "WaitWindow": {
+  "examples": [
+   {
+    "title": "WaitWindow",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"WaitWindow\" form=\"1\" timeout=\"2000-01-01T00:00:05\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "write",
+  "notes": [
+   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command WaitWindow\"."
+  ]
+ },
+ "ReloadWorkUdb": {
+  "examples": [
+   {
+    "title": "ReloadWorkUdb",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ReloadWorkUdb\" filename=\"work.udb\"/>\n</RK7Query>\n"
+   }
+  ],
+  "impact": "danger",
+  "notes": [
+   "Недокументированная команда (схема qryChangeWorkUdb.xsd). Перечитывает справочники кассового сервера из указанного файла в каталоге его базы."
+  ]
+ }
+}

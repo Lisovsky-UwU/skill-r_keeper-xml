@@ -1,0 +1,46 @@
+# LockOrder
+
+[Касса, Кассовый сервер] Временная блокировка заказа
+
+Схемы: `schemas/qryLockOrder.xsd`, `schemas/resLockOrder.xsd`
+Влияние: изменяет данные
+
+## Практика
+
+- lockTime в формате чч:мм:сс. Пока блокировка действует, изменяющие запросы без того же lockguid получают отказ.
+- lockguid - произвольный GUID, придуманный клиентом.
+
+## Запрос
+
+Обозначения: `!` обязательный атрибут, `?` необязательный элемент, `*` 0..n, `+` 1..n.
+
+```
+<RK7CMD>
+  <Order> [orderElement]  - Заказ
+  <Station>? [refItem]  - Станция, от имени которой блокируется заказ
+  <Employee>? [refItem]  - Работник, блокирующий заказ
+  @CMD: string = "LockOrder"
+  @lockTime: time  - Время, на которое нужно заблокировать заказ
+  @lockguid: normalizedString  - Токен блокировки (идентификатор сессии блокировки). Если указан, то с заказом может работать только тот, кто использует такой же токен блокировки. С версии 7.6.4.005
+```
+
+## Ответ
+
+Помимо общих атрибутов RK7QueryResult (см. protocol.md):
+
+```
+@locked!: boolean  - Флаг "Заказ заблокирован"
+```
+
+## Пример: LockOrder
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RK7Query>
+  <RK7CMD CMD="LockOrder" lockTime="00:01:00" lockguid="{{lockGuid}}">
+    <Order guid="{{orderGuid}}"/>
+    <Station id="{{stationId}}"/>
+    <Employee id="{{waiterId}}"/>
+  </RK7CMD>
+</RK7Query>
+```

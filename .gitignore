@@ -1,0 +1,8 @@
+# XSD schemas belong to UCS and are not distributed - put your own set here.
+/schemas/*
+!/schemas/README.md
+
+__pycache__/
+*.pyc
+.env
+*.zip
