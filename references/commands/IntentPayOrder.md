@@ -154,7 +154,7 @@
     <Order guid="{{orderGuid}}"/>
     <Station id="{{stationId}}"/>
     <Cashier id="{{cashierId}}"/>
-    <Payment id="{{currencyId}}" amount="{{dishPrice}}"/>
+    <Payment id="{{currencyId}}" amount="{{orderSum}}"/>
   </RK7CMD>
 </RK7Query>
 ```

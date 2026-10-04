@@ -803,7 +803,7 @@
   "examples": [
    {
     "title": "PayOrder",
-    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PayOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payment id=\"{{currencyId}}\" amount=\"{{dishPrice}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PayOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payment id=\"{{currencyId}}\" amount=\"{{orderSum}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
   "impact": "write",
@@ -1518,7 +1518,7 @@
   "examples": [
    {
     "title": "IntentPayOrder",
-    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"IntentPayOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payment id=\"{{currencyId}}\" amount=\"{{dishPrice}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"IntentPayOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payment id=\"{{currencyId}}\" amount=\"{{orderSum}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
   "notes": [
@@ -1537,7 +1537,8 @@
   ],
   "notes": [
    "Удаляет чек намерения (state=7, deleted=\"1\") и возвращает заказ в неоплаченное состояние.",
-   "DeleteReason необязателен. Если указан, нужна причина из ORDERVOIDS с флагом \"Для отмены пречека\" (ImplOnBillCancel), иначе ошибка 3383."
+   "DeleteReason необязателен. Если указан, нужна причина из ORDERVOIDS с флагом \"Для отмены пречека\" (ImplOnBillCancel), иначе ошибка 3383.",
+   "Если чека намерения нет, сервер все равно отвечает Ok."
   ]
  },
  "CancelSbpPay": {

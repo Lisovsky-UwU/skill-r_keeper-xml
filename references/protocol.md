@@ -183,6 +183,7 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
 | `cardCode` | номер карты гостя | карточная система |
 | `orderGuid`, `visitId`, `orderIdent`, `orderGuid2` | заказы | ответ `CreateOrder` / `GetOrderList` |
 | `sessionUni`, `dishLineGuid`, `prepayLineGuid` | строки заказа | ответ `GetOrder` / TerminalAuthStart2 |
+| `orderSum` | сумма к оплате заказа, копейки | `unpaidSum` из `CalcOrder2` |
 | `receiptNum`, `printCheckGuid` | номер и GUID чека | ответ `PayOrder` / `GetReceiptList` |
 | `lockGuid`, `deliveryGuid`, `licenseInstanceGuid` | GUID, придуманные клиентом | сгенерировать новый |
 | `readyTime` | время готовности доставки | не позже ~суток от текущего времени сервера |
