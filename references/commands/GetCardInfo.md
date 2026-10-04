@@ -29,6 +29,7 @@
       @value: normalizedString
   @CMD: string = "GetCardInfo"
   @cardCode!: normalizedString  - Код карты
+  @chMode: string {NotCheck | Sale | OrderEditing | OrderCalc} (по умолчанию "OrderEditing")  - chMode, который будет передаваться в farcards
 ```
 
 ## Ответ
@@ -43,6 +44,7 @@
   <DopInfo> [normalizedString]  - Доп инфо по карте
   <Message> [normalizedString]  - Сообщение для экрана
   <PrintMessage> [normalizedString]  - Сообщение для печати
+  <Image> [normalizedString]  - Фото клиента, в base64
   <OutBuf>  - Ответный буфер от сервера карт/фаркадс
     (текстовое содержимое: normalizedString)
     @kind: integer  - Тип данных в буфере
@@ -61,6 +63,7 @@
   @amount: nonNegativeInteger  - Остаток (в копейках)
   @maxDisc: nonNegativeInteger  - Максимальная сумма скидки (в копейках)
   @InternalCardCode: integer  - Числовой код карты
+  @ManagerConfirmation: boolean  - Флаг - требуется менеджерское подтверждение
 ```
 
 ## Пример: GetCardInfo

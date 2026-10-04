@@ -28,6 +28,7 @@
   <FaultyTag>  - Сбойный тэг
     <любой XML>
   @RK7ErrorN!: positiveInteger  - Код ошибки RK7
+  @Component!: errorArea {Printer | Authorization terminal | PDS | Rights}  - Компонент, в котором была сгенерирована ошибка
   @ErrorText!: normalizedString  - Текст ошибки
 <Session>*
   @sessionID!: positiveInteger  - ID пакета

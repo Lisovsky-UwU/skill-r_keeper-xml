@@ -28,10 +28,13 @@
   <Guests>? [Guests_Item]  - Список гостей
     <Guest>* [guest_item]
       <Interface>? [refItem]  - Интерфейс к карте гостя
+      <EntranceCardType>? [refItem]  - Тип карты на входе. Добавлено в 7.07.00.300
       @guestLabel!: token  - Текстовая метка гостя
       @cardCode: normalizedString  - Код карты гостя
-      @clientID: long  - ID адреса гостя
-      @addressID: long  - ID адреса гостя
+      @clientID: int  - ID адреса гостя
+      @addressID: int  - ID адреса гостя
+      @maxamount: int  - Максимальная сумма по заказам, в копейках. Только для чтения. Добавлено в 7.07.00.300
+      @restAmount: int  - Остаток масимальной суммы по заказам, в копейках. Только для чтения. Добавлено в 7.07.00.362+
     @count: int  - Количество гостей
   <Orders>?  - Список заказов
     <Order>* [orderItem]
@@ -73,12 +76,15 @@
       @unpaidSum!: int  - Неоплаченная сумма заказа (в копейках)
       @totalPieces!: nonNegativeInteger  - Количество порций в заказе (в тысячных долях)
       @paid: boolean (по умолчанию "false")  - Флаг - заказ оплачен
+      @payAtExit: boolean (по умолчанию "false")  - Флаг - заказ закрыт на оплату на выходе
+      @visitPayOrder: boolean (по умолчанию "false")  - Флаг - заказ является расчетным заказом по визиту
       @finished: boolean  - Флаг - заказ завершен
       @receiptError: boolean  - Флаг - в заказе есть ошибочный чек
       @bySeats: boolean  - Флаг - заказ рассчитан по местам
       @readyExists: boolean  - Флаг - в заказе есть готовые, но незабранные блюда
       @weightNeeded: boolean  - Флаг - в заказе есть блюда, для которых требуется указание веса
       @billTime: dateTime  - ДатаВремя печати пречека
+      @purchase: boolean  - Признак заказа возврата
       @dessertTime: dateTime  - ДатаВремя добавления в заказ десерта
       @reserve: boolean  - Резервный заказ
       @duration: dateTime  - Длительность заказа (банкета)

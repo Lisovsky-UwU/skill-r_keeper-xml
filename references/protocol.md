@@ -13,7 +13,12 @@
 
 ## 1. Транспорт
 
-- `POST https://<host>:<port>/rk7api/v0/xmlinterface.xml`, тело - XML в UTF-8, `Content-Type: application/xml`.
+- `POST https://<host>:<port>/rk7api/v0/xmlinterface.xml`, тело - XML в UTF-8, `Content-Type: application/xml`
+  (подходит и `text/plain`). С `application/x-www-form-urlencoded` - а его ставит, например, `curl -d`
+  без заголовка - сервер не видит тело и отвечает `Query Parse Error` "Empty input XML".
+- Кодировка - UTF-8. Старые примеры UCS объявляют `encoding="windows-1251"`: они писались для
+  библиотеки RK7XML.dll (функции CallRK7XMLRPC*, SetCryptKey), а по HTTP запрос в windows-1251 ломает
+  кириллицу - сервер падает с невнятной ошибкой вроде "Sort collection ... Required value is null".
 - Авторизация HTTP Basic; логин и пароль выдает администратор r_keeper.
 - Сертификат у кассового сервера обычно самоподписанный, часто со слабым ключом (RSA 1024) и иногда
   со старыми версиями TLS, поэтому клиенту нужно отключать проверку сертификата. Многие серверы
@@ -109,6 +114,13 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
 - `SetRefData` и `ExchangePriority` - команды справочного сервера (RK7 Manager); кассовый сервер
   отвечает `Unknown command`. Читать справочники (`GetRefData`) можно и с кассового сервера.
 - Список того, что реально поддерживает конкретный узел, - `GetFunctions` (там же пометка `deprecated="1"`).
+- Схемы и сервер расходятся в обе стороны. Сервер 7.26 не объявляет GotoOrder, PostMessage,
+  PerformMessage (по наблюдениям интеграторов, убраны в 7.5.8), ApplyMCR, WaitWindow, ReloadWorkUdb, а
+  SetRefData и ExchangePriority выполняет только справочный сервер. И наоборот, у него есть команды без
+  XSD: GetBatchOfGoodsList, GetOrders, FindEmployee, AddReservation / DelReservation /
+  GetReservationResults, GetRefItemBlob, KDSGetRefsData, KDSGetSystemInfo, KDSSetDishFlag, PrintRawData,
+  SetDishRate, WriteGtinToMenuItem, WriteOperationToLog, CheckEgaisMark, DeleteBottle, VerifyAgeViaMax и
+  другие. Для них справочника нет - пробуйте на стенде.
 
 ## 7. Блокировки, лицензии, версии
 
@@ -119,9 +131,10 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
 - **Лицензии.** SaveOrder требует лицензию XML SaveOrder (`CheckLicense license="XMLSaveOrder"`).
   Элемент `LicenseInfo` (anchor, licenseToken, LicenseInstance guid/seqNumber) нужен в SaaS-схеме
   лицензирования UCS; без настоящих значений сервер отвечает `Bad license anchor`.
-- **Версии.** XSD, из которых собран справочник, - срез на определенную версию; сервер новее может знать больше команд
-  (например CalcOrder4/5, GetOrders, AddReservation - их нет в схемах). Для них ориентируйтесь на
-  `GetFunctions` и пробуйте запрос на стенде.
+- **Версии.** Справочник собран из XSD UCS для r_keeper 7.26 (файлы 2023-2026 годов). Сервер другой
+  версии может знать иной набор команд - сверяйтесь с `GetFunctions`.
+- **Смена.** Если общая смена открыта слишком давно, новые заказы не создаются (RK7ErrorN 2133), а
+  пока смена закрывается, любые запросы получают "UCSERR(2172): В данный момент закрывается общая смена".
 
 ## 8. Чего ждать от сервера
 
@@ -129,6 +142,9 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
   доказывает, что разметка правильная (PrintDataXML отвечает Ok на выдуманный тег). Сверяйтесь с XSD.
 - **И наоборот:** иногда сервер требует то, что в XSD необязательно (expireTime у WaiterMessage,
   LicenseInfo у GetXMLLicenseInstanceSeqNumber, readyTime и Table у DeliveryEditOrder).
+- **Ошибки в самих XSD.** В наборе UCS встречаются невалидные схемы: `qryOpenLowAlcKeg.xsd` не
+  разбирается (это устаревший дубль LowAlcKegOpen), в `qryAddBatchOfGoods.xsd` атрибуты записаны без
+  complexType. Генератор такие места переживает, но в спорных случаях проверяйте на стенде.
 - **Причины удаления с флагами.** Справочник ORDERVOIDS один на все случаи, но каждая операция
   принимает только причину с нужным флагом: удаление чека (ImplOnCheckVoid), аннулирование
   (ImplOnCheckUndo), возврат блюд (ImplOnDishReturn), стоп-лист (ImplOnAddDishInStopList), отмена

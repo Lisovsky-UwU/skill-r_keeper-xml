@@ -27,7 +27,8 @@
   <CommonShift> [CommonShift]  - Общая смена
     @ShiftDate: dateTime  - Логическая дата смены
     @ShiftNum: int  - Номер смены
-    @ShiftStartTime: dateTime  - ДатаВремя начала смены
+    @ShiftCreateTime: dateTime  - ДатаВремя создания смены
+    @ShiftStartTime: dateTime  - ДатаВремя начала смены. Смена открывается в результате создания первого заказа/оплаты первого чека
   @ProcessID: int  - Идентификатор процесса
   @RestCode: int  - Код ресторана
   @uptime: dateTime  - Время работы программы

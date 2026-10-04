@@ -23,6 +23,12 @@
       @seqNumber: nonNegativeInteger  - При первом вызове для конкретного guid должно быть 0, в дальнейшем каждый следующий вызов на 1 больше, можно повторить идентичный запрос (с там же seqNumber), ответ может кэшироваться RK7 (заново не обязан вычисляться)
     @anchor: normalizedString  - формат якоря: 6:_ProductGUID_#_RestCode_/17, где _ProductGUID_ - GUID продукта, сообщается UCS, _RestCode_ - 9-значный код ресторана
     @licenseToken: normalizedString  - Токен лицензии запрашивается у системы лицензирования, инструкции по обращению к системе лицензирования за токеном лицензии сообщаются UCS вместе с GUID продукта
+  <MobileLicenseInfo>? [MobileLicenseInfoItem]  - Информация о лицензии мобильного официанта, необходимой для выполнения запроса
+    <LicenseInstance> [MobileLicenseInstanceItem]
+      @guid!: guidString  - Генерируется клиентом один раз при инсталляции или первом запуске приложения/инстанса как настоящий уникальный GUID и сохраняется. Количество разных значений в течении суток ограничено и связано с количеством подключений в лицензии.
+      @seqNumber: nonNegativeInteger  - При первом вызове для конкретного guid должно быть 0, в дальнейшем каждый следующий вызов на 1 больше, можно повторить идентичный запрос (с там же seqNumber), ответ может кэшироваться RK7 (заново не обязан вычисляться)
+      @name: normalizedString  - имя инстанса
+    @kind: MobileLicenseKind {waiter | administrator}  - тип лицензии (официант/админ)
   <Order> [orderElement]  - Заказ
   <Station> [refItem]  - Станция
   <Cashier> [refItem]  - Кассир
@@ -47,24 +53,28 @@
       @basicSum: int  - Сумма платежа в базовой валюте (в копейках). Начиная с 7.6.0.087
       @cardCode: normalizedString  - Номер персональной карты
       @extTransactionInfo: normalizedString  - Расширенная информация об авторизации. Начиная с версии 7.5.3.111
-      @TransactionStatus: TransactionStatusType {1 | 3 | 4 | 5 | 6}  - Статус авторизации. Начиная с версии 7.5.4.211
+      @TransactionStatus: TransactionStatusType {1 | 2 | 3 | 4 | 5 | 6}  - Статус авторизации. Начиная с версии 7.5.4.211
       @seat: nonNegativeInteger (по умолчанию "0")  - Номер посадочного места: 0 - не задано
       @discount_line_guid: guidString (по умолчанию "")  - GUID-связанной с оплатой скидкой (для оплат как скидка). Начиная с 7.6.0.087
       @deleted: boolean  - Признак того что платеж удален
       @owner: normalizedString (по умолчанию "")  - Владелец валюты (VISA, Master card). С версии 7.06.04.430+, 7.06.05.296+
-      @authtype: AuthType {"" | error | auto | voice | terminal | voicepossible} (по умолчанию "auto")  - Тип авторизации. С версии 7.06.04.430+, 7.06.05.296+
+      @authtype: AuthType {error | auto | voice | terminal | voicepossible} (по умолчанию "auto")  - Тип авторизации. С версии 7.06.04.430+, 7.06.05.296+
       @authcode: normalizedString (по умолчанию "")  - Код авторизации. С версии 7.06.04.430+, 7.06.05.296+
       @extIntegerInfo: int (по умолчанию "0")  - Номер банковского терминала. С версии 7.06.04.430+, 7.06.05.296+
       @transactionNumber: int (по умолчанию "0")  - Номер транзакции. С версии 7.06.04.430+, 7.06.05.296+
       <TipCharge>? [refItem]  - Наценка в чаевые
       <TerminalMaket>? [refItem]  - Представление документа для терминала авторизации
+      <Slip>? [normalizedString]  - Слип, переданный от внешнего банковского терминала, который не подключен как устройство к rk7. С версии 7.25.12.0
       @tipAmount: positiveInteger  - Сумма чаевых (в копейках)
+      @terminalNumber: normalizedString  - Пользовательский номер терминала. Если задан, то для авторизации будет выбран терминал, у которого в настройках указан такой же TerminalNumber. С версии 7.07.00.287.
+      @sbpPayGuid: normalizedString  - Идентификатор СБП платежа. Используется при необходимости отмены платежа до его подтверждения на стороне банка
     <PrintCheck> [poPrintCheckItem]  - Чек с платежами. Идентифицируется seat или line_guid
       <Payment>* [poPaymentItem]  - Платежи чека (структура - см. выше)
       @line_guid: normalizedString  - GUID чека
       @seat: nonNegativeInteger  - Номер места
   @CMD: string = "PayOrder"
   @lockguid: normalizedString  - Токен блокировки (идентификатор сессии блокировки). С версии 7.6.4.005
+  @pdsPaysTimeout: integer (по умолчанию "0")  - Время в милисекундах, которое отведено на подтверждение ПДС оплат. 0 - таймаута нет. Версия 7.7.0.306+
   @calcBySeats: boolean  - true - рассчет по местам, false - общий чек
   @sendtovdu: boolean (по умолчанию "true")  - Флаг "Отправить заказ на VDU". Если включен, то заказ будет передан на VDU, иначе не будет. Версия 7.5.8.065+
   @seat: integer  - Номер посадочного места
@@ -92,12 +102,12 @@
     @basicSum: int  - Сумма платежа в базовой валюте (в копейках). Начиная с 7.6.0.087
     @cardCode: normalizedString  - Номер персональной карты
     @extTransactionInfo: normalizedString  - Расширенная информация об авторизации. Начиная с версии 7.5.3.111
-    @TransactionStatus: TransactionStatusType {1 | 3 | 4 | 5 | 6}  - Статус авторизации. Начиная с версии 7.5.4.211
+    @TransactionStatus: TransactionStatusType {1 | 2 | 3 | 4 | 5 | 6}  - Статус авторизации. Начиная с версии 7.5.4.211
     @seat: nonNegativeInteger (по умолчанию "0")  - Номер посадочного места: 0 - не задано
     @discount_line_guid: guidString (по умолчанию "")  - GUID-связанной с оплатой скидкой (для оплат как скидка). Начиная с 7.6.0.087
     @deleted: boolean  - Признак того что платеж удален
     @owner: normalizedString (по умолчанию "")  - Владелец валюты (VISA, Master card). С версии 7.06.04.430+, 7.06.05.296+
-    @authtype: AuthType {"" | error | auto | voice | terminal | voicepossible} (по умолчанию "auto")  - Тип авторизации. С версии 7.06.04.430+, 7.06.05.296+
+    @authtype: AuthType {error | auto | voice | terminal | voicepossible} (по умолчанию "auto")  - Тип авторизации. С версии 7.06.04.430+, 7.06.05.296+
     @authcode: normalizedString (по умолчанию "")  - Код авторизации. С версии 7.06.04.430+, 7.06.05.296+
     @extIntegerInfo: int (по умолчанию "0")  - Номер банковского терминала. С версии 7.06.04.430+, 7.06.05.296+
     @transactionNumber: int (по умолчанию "0")  - Номер транзакции. С версии 7.06.04.430+, 7.06.05.296+
@@ -112,12 +122,12 @@
     @basicSum: int  - Сумма платежа в базовой валюте (в копейках). Начиная с 7.6.0.087
     @cardCode: normalizedString  - Номер персональной карты
     @extTransactionInfo: normalizedString  - Расширенная информация об авторизации. Начиная с версии 7.5.3.111
-    @TransactionStatus: TransactionStatusType {1 | 3 | 4 | 5 | 6}  - Статус авторизации. Начиная с версии 7.5.4.211
+    @TransactionStatus: TransactionStatusType {1 | 2 | 3 | 4 | 5 | 6}  - Статус авторизации. Начиная с версии 7.5.4.211
     @seat: nonNegativeInteger (по умолчанию "0")  - Номер посадочного места: 0 - не задано
     @discount_line_guid: guidString (по умолчанию "")  - GUID-связанной с оплатой скидкой (для оплат как скидка). Начиная с 7.6.0.087
     @deleted: boolean  - Признак того что платеж удален
     @owner: normalizedString (по умолчанию "")  - Владелец валюты (VISA, Master card). С версии 7.06.04.430+, 7.06.05.296+
-    @authtype: AuthType {"" | error | auto | voice | terminal | voicepossible} (по умолчанию "auto")  - Тип авторизации. С версии 7.06.04.430+, 7.06.05.296+
+    @authtype: AuthType {error | auto | voice | terminal | voicepossible} (по умолчанию "auto")  - Тип авторизации. С версии 7.06.04.430+, 7.06.05.296+
     @authcode: normalizedString (по умолчанию "")  - Код авторизации. С версии 7.06.04.430+, 7.06.05.296+
     @extIntegerInfo: int (по умолчанию "0")  - Номер банковского терминала. С версии 7.06.04.430+, 7.06.05.296+
     @transactionNumber: int (по умолчанию "0")  - Номер транзакции. С версии 7.06.04.430+, 7.06.05.296+
@@ -136,6 +146,8 @@
   @bill: boolean  - Флаг "Чек является пречеком"
   @printTime: dateTime  - Время печати чека
   @startTime: dateTime  - Время начала обслуживания чека
+  @intentReceiptType: IntentReceiptType {"" | OneCheck | CreditCheck}  - Тип чека намерения (с версии 7.25.03.0)
+  @intentReceiptStage: IntentReceiptStage {"" | First stage | Completed}  - Этап печати чека намерения (с версии 7.25.03.0)
 <PrintCheckWarning>? [string]
 ```
 

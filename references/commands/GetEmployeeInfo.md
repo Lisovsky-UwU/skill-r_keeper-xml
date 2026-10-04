@@ -33,7 +33,7 @@
     @id: positiveInteger  - ID стола
 <Orders>?  - Список доступных столов
   <Order>*
-    @orderIdent!: positiveInteger
+    @orderIdent!: nonNegativeInteger
     @own_order: boolean  - Флаг "Свой заказ"
 ```
 

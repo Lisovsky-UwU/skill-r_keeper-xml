@@ -72,6 +72,18 @@ def wrap(body):
     return '<?xml version="1.0" encoding="utf-8"?>\n<RK7Query>\n' + body.strip() + "\n</RK7Query>\n"
 
 
+def crypt_password(employee_id, password):
+    """Password encoding CheckPassword expects (see qryCheckPassword.xsd):
+    key = base64(str(EmpID)), result = base64(password XOR key, key repeated)."""
+    key = base64.b64encode(str(employee_id).encode("ascii"))
+    try:
+        raw = password.encode("cp1251")  # r_keeper strings are ANSI on the server side
+    except UnicodeEncodeError:
+        raw = password.encode("utf-8")
+    mixed = bytes(b ^ key[i % len(key)] for i, b in enumerate(raw))
+    return base64.b64encode(mixed).decode("ascii")
+
+
 def attr(text, name):
     m = re.search(r"<RK7QueryResult\b[^>]*?\s" + name + r'="([^"]*)"', text)
     return m.group(1) if m else ""
@@ -93,8 +105,13 @@ def main():
     ap.add_argument("--summary", action="store_true", help="print only Status / ErrorText, not the body")
     ap.add_argument("--save", help="also write the response body to this file")
     ap.add_argument("--dry-run", action="store_true", help="print the final query and do not send it")
+    ap.add_argument("--crypt-password", nargs=2, metavar=("EMPLOYEE_ID", "PASSWORD"),
+                    help="print the encrypted password for CheckPassword and exit")
     args = ap.parse_args()
 
+    if args.crypt_password:
+        print(crypt_password(*args.crypt_password))
+        return 0
     if args.cmd:
         body = '<RK7CMD CMD="%s"/>' % args.cmd
     elif args.fragment:

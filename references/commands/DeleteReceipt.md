@@ -36,7 +36,8 @@
 <Errors>? [ErrorStack]
   <Error>*  - Стэк ошибок, возникших при выполнени команды
     (текстовое содержимое: string)
-    @RK7ErrorN!: positiveInteger
+    @RK7ErrorN!: positiveInteger  - Код ошибки RK7
+    @Component!: errorArea {Printer | Authorization terminal | PDS | Rights}  - Компонент, в котором была сгенерирована ошибка
 @ServerVersion!: normalizedString  - Версия кассовой программы
 @XmlVersion!: positiveInteger  - Версия xml протокола
 @NetName: token  - Сетевое имя программы (с 7.5.3.260)

@@ -202,6 +202,10 @@ class Printer:
         self.line(indent, head)
         if ct is not None and len(chain) < 12:
             self.body(ct, indent + 1, chain)
+        elif ct is None:
+            # Invalid but real: some UCS schemas put xs:attribute straight under
+            # xs:element, without a complexType. The server still expects them.
+            self.attributes(e, indent + 1)
 
 
 def summarize(path, cache):
@@ -257,7 +261,12 @@ def main():
     index = []
     for qry in sorted(glob.glob(os.path.join(args.xsd_dir, "**", "qry*.xsd"), recursive=True)):
         base = os.path.basename(qry)[3:-4]
-        root_el, description, req_lines = summarize(qry, cache)
+        try:
+            root_el, description, req_lines = summarize(qry, cache)
+        except ET.ParseError as e:
+            # UCS ships an occasional malformed schema; one bad file should not stop the rest.
+            print("skip (malformed XML: %s): %s" % (e, qry), file=sys.stderr)
+            continue
         if root_el is None or root_el.get("name") == "RK7QueryResult":
             print("skip (not an RK7Query): %s" % qry, file=sys.stderr)
             continue
@@ -265,7 +274,10 @@ def main():
         res = os.path.join(os.path.dirname(qry), "res" + base + ".xsd")
         res_lines, res_doc = [], ""
         if os.path.exists(res):
-            _, res_doc, res_lines = summarize(res, cache)
+            try:
+                _, res_doc, res_lines = summarize(res, cache)
+            except ET.ParseError as e:
+                print("response schema skipped (malformed XML: %s): %s" % (e, res), file=sys.stderr)
         rel_q = os.path.relpath(qry, args.xsd_dir).replace("\\", "/")
         rel_r = os.path.relpath(res, args.xsd_dir).replace("\\", "/") if os.path.exists(res) else None
         n = notes.get(cmd, {})

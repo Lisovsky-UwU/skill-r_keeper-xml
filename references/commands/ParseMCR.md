@@ -16,8 +16,9 @@
 ```
 <RK7CMD>
   @CMD: string = "ParseMCR"
-  @data!: normalizedString  - Строка с данными
-  @devicetype: devicetype  - Тип устройства
+  @base64data!: base64binary  - Строка с данными в base64 формате
+  @data: normalizedString  - Строка с данными в utf-8. Используется только если не заполнен атрибут base64data
+  @devicetype: devicetype (по умолчанию "MAGNETICCARD")  - Тип устройства
   @deviceid: int (по умолчанию "0")  - Номер устройства
 ```
 

@@ -12,10 +12,13 @@
 ```
 <RK7CMD>
   <Employee>? [refItem]  - Работник, который изменяет статус
-  <Station> [refItem]  - Станция КДС, с которой вызывается запрос
+  <Station>? [refItem]  - Станция КДС, с которой вызывается запрос
   @CMD: string = "KDSSetDishData3"
   @line_guid!: normalizedString  - GUID строки блюда
   @kdsstate!: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed}  - Новый статус блюда
+  @kdsrate!: int  - Коэффициент загруженности кухни. С версии 7.07.00.329
+  @sendtovdu: boolean (по умолчанию "true")  - Флаг "Отправить заказ на VDU". Если включен, то заказ будет передан на VDU, иначе не будет. Версия 7.7.0.354+
+  @kds_state_sender: normalizedString (по умолчанию "")  - Информация об отправителе запроса, пробрасывается на КДС/VDU (4-я версия протокола)
 ```
 
 ## Ответ
@@ -26,6 +29,7 @@
 <Station> [resRefItem]  - Станция КДС
 <Manager> [resRefItem]  - Менеджер, изменивший статус КДС
 @kdsstate!: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed}  - КДС статус блюда
+@kdsrate!: int  - Коэффициент загруженности кухни. С версии 7.07.00.329
 ```
 
 ## Пример: KDSSetDishData3

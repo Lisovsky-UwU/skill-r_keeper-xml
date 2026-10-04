@@ -17,6 +17,8 @@
 
 ## 1. Знакомство с сервером
 
+Пароль работника проверяет `CheckPassword` (пароль шифруется - `scripts/rk7.py --crypt-password`).
+
 1. `GetSystemInfo` / `GetSystemInfo2` - версия, ресторан, текущая общая смена.
 2. `GetFunctions` - какие команды этот узел поддерживает.
 3. `GetRefData` по CASHES, EMPLOYEES, TABLES, CURRENCIES, UNCHANGEABLEORDERTYPES - идентификаторы
@@ -38,6 +40,11 @@
 7. `PayOrder` с `<Payment id="валюта" amount="unpaidSum"/>` -> `<PrintCheck CheckNum line_guid>`;
    заказ закрыт, чек напечатан на станции.
 8. `CloseVisit`, если визит больше не нужен.
+
+Чек намерения (с 7.25.04, режим "Печатать пречек с чеком намерения"): вместо PrintBill + PayOrder
+сначала `IntentPayOrder` с платежами - он печатает пречек и создает чек намерения (платеж становится
+обещанным, unpaidSum = 0). Отмена - `CorrectIntentReceipt` (заказ снова не оплачен). Расчет с учетом
+двух фискальных регистраторов - `CalcOrder5`, виртуальный расчет с добавленными пакетами - `CalcOrder4`.
 
 ## 3. Расчет без создания заказа
 
@@ -85,12 +92,18 @@
    окна; завершение - `DeliveryConfirmEdit` (readyTime не позже ~суток) или `DeliveryCancelEdit`.
 4. `DeliveryGetOrderList` - список заказов доставки, `DeliveryVoidOrder` - удалить.
 
-## 8. Стоп-лист
+## 8. Стоп-лист и маркировка
 
 - `GetDishRests` / `GetDishRest` - текущие остатки.
 - `SetDishRests` - остаток (`quantity` в тысячных) или запрет продажи (`prohibited="1"`); нужна
   причина с флагом ImplOnAddDishInStopList.
 - `ClearDishRests` - сбросить весь стоп-лист.
+- Модификаторы: `GetModifierStopList`, `AddModifierToStopList`, `DeleteModifierFromStopList`.
+- Маркировка: `ParseMarkingData` (GTIN по марке), `CheckMarking` (проверка марки в ОФД),
+  партии - `AddBatchOfGoods` / `GetBatchOfGoodsList` / `DeleteBatchOfGoods`.
+- Разливное: кеги - `LowAlcKegOpen` / `LowAlcKegList` / `LowAlcKegStatus` / `LowAlcKegDeactivate`
+  (нужна настройка "Честного знака" у ресторана), крепкий алкоголь - `OpenBottle` /
+  `GetOpenedBottleList` (нужен сервис учета алкоголя).
 
 ## 9. Касса, смены, печать
 

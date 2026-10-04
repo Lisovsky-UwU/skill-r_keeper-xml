@@ -22,7 +22,7 @@
 
 ```
 <Order>*
-  @orderIdent!: positiveInteger
+  @orderIdent!: nonNegativeInteger
   @version: nonNegativeInteger  - Версия заказа
   @crc32!: int  - Контрольная сумма по содержимому заказа
 ```

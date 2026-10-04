@@ -15,6 +15,7 @@
 | [GetDataListInfo](commands/GetDataListInfo.md) ✓ | R | [Кассовый сервер] Информация об очереди отправки данных |
 | [GetFunctions](commands/GetFunctions.md) ✓ | R | [ВСЕ] Список поддерживаемых XML-функций |
 | [GetItemBlob](commands/GetItemBlob.md) ✓ | R | Выполнение запроса AnyInfo на сервере FarCards |
+| [GetMobLicensesInfo](commands/GetMobLicensesInfo.md) ✓ | R | [Касса,Кассовый сервер] Получение номера запроса по инстансу |
 | [GetParamValue](commands/GetParamValue.md) ✓ | R | Получить значение параметра |
 | [GetRefData](commands/GetRefData.md) ✓ | R | Получить коллекцию |
 | [GetRefDataFiltered](commands/GetRefDataFiltered.md) ✓ | R | xml-запрос GetRefDataLimited: Получить коллекцию |
@@ -39,6 +40,7 @@
 
 | Команда | Влияние | Назначение |
 |---|---|---|
+| [CheckPassword](commands/CheckPassword.md) ✓ | R | [Кассовый сервер]: Проверка коректности пароля Для работы запроса требуется лицензия на xml. После ошибки проверки пароля, следующий запрос проверки пароля будет обработан только через секунду (защита от brutforce). |
 | [GetEmployeeInfo](commands/GetEmployeeInfo.md) ✓ | R | [Кассовый сервер] Получить информацию о работнике (права, список обслуживаемых столов) |
 | [GetEmployeeInfo2](commands/GetEmployeeInfo2.md) ✓ | R | [Касса,Кассовый сервер] Получить информацию о работнике (права/привилегии) |
 | [GetWaiterList](commands/GetWaiterList.md) ✓ | R | [Кассовый сервер] Получить список официантов, работающих со столом |
@@ -56,7 +58,7 @@
 | [CloseVisit](commands/CloseVisit.md) ✓ | W | Закрыть визит |
 | [CreateOrder](commands/CreateOrder.md) ✓ | W | [Кассовый сервер] Создать заказ |
 | [CreateVisit](commands/CreateVisit.md) ✓ | W |  |
-| [GetOrder](commands/GetOrder.md) ✓ | R | Получение содержимого заказа |
+| [GetOrder](commands/GetOrder.md) ✓ | R | Получение содержимого заказа. Порядок поиска: по трибутам visit+orderIdent, если заказ не найден, то поиск по атрибуту guid, если заказ не найден, то поиск по ExternalProps |
 | [GetOrderBindings](commands/GetOrderBindings.md) ✓ | R | Получение биндингов по заказу |
 | [GetOrderList](commands/GetOrderList.md) ✓ | R | Получить список заказов |
 | [GetOrderList2](commands/GetOrderList2.md) ✓ | R | Получить список заказов (ver 2) |
@@ -73,11 +75,16 @@
 
 | Команда | Влияние | Назначение |
 |---|---|---|
+| [AddModifierToStopList](commands/AddModifierToStopList.md) ✓ | W | [Кассовый сервер] Добавить модификатор в стоп-лист |
 | [ClearDishRests](commands/ClearDishRests.md) ✓ | D | [Кассовый сервер] Очистить список остатков блюд |
+| [DeleteModifierFromStopList](commands/DeleteModifierFromStopList.md) ✓ | W | [Кассовый сервер] Удалить модификатор из стоп-листа |
 | [GetDishRest](commands/GetDishRest.md) ✓ | R | Получить остаток по блюду |
 | [GetDishRests](commands/GetDishRests.md) ✓ | R | [Кассовый сервер] Получить список остатков блюд |
+| [GetModifierStopList](commands/GetModifierStopList.md) ✓ | R | [Кассовый сервер] Получить стоп-лист по модификаторам |
 | [GetOrderMenu](commands/GetOrderMenu.md) ✓ | R | Получение списка доступных блюд и модификаторов |
 | [GetOrderMenu2](commands/GetOrderMenu2.md) ✓ | R | Получение списка доступных блюд и модификаторов |
+| [GetOrderMenuLimited](commands/GetOrderMenuLimited.md) ✓ | R | Получение списка элементов меню с указанием причины недоступности |
+| [GetSelectedDishes](commands/GetSelectedDishes.md) ✓ | R | [Кассовый сервер] Получить список избранных блюд |
 | [SetDishRests](commands/SetDishRests.md) ✓ | W | [Кассовый сервер] Изменить остатки блюд |
 
 ## Оплата и чеки
@@ -86,12 +93,17 @@
 |---|---|---|
 | [CalcOrder2](commands/CalcOrder2.md) ✓ | R | [Кассовый сервер] Рассчет суммы заказа (версия 2) |
 | [CalcOrder3](commands/CalcOrder3.md) ✓ | R | [Кассовый сервер] Рассчет суммы заказа (версия 3), с возвратом причины недоступности валют |
+| [CalcOrder4](commands/CalcOrder4.md) ✓ | R | [Кассовый сервер] Рассчет суммы заказа (версия 4), с возвратом причины недоступности валют |
+| [CalcOrder5](commands/CalcOrder5.md) ✓ | R | [Кассовый сервер] Рассчет суммы заказа с учетом разбиения на 2ФР. С версии 7.26.05.0 |
+| [CancelSbpPay](commands/CancelSbpPay.md) ✓ | W | [Кассовый сервер] Прервать оплату СБП, вызванную через xml интерфейс |
+| [CorrectIntentReceipt](commands/CorrectIntentReceipt.md) ✓ | W | [Кассовый сервер] Коррекция чека намерения, с 7.25.04.0 |
 | [CreateInvoice](commands/CreateInvoice.md) ✓ | W | [Кассовый сервер] Создать счет/фактуру, привязать к заказу |
 | [DeleteReceipt](commands/DeleteReceipt.md) ✓ | D | Удаление чека |
 | [DeleteReceiptPayments](commands/DeleteReceiptPayments.md) ✓ | D | [Кассовый сервер] Удалить оплаты в ошибочном чеке |
 | [FindReceiptsForReturn](commands/FindReceiptsForReturn.md) ✓ | R | Поиск чеков для возврата |
 | [GetInvoice](commands/GetInvoice.md) ✓ | R | [Кассовый сервер] Получить содержимое счет/фактуры. Указать нужно либо заказ, либо guid счет/фактуры |
 | [GetReceiptList](commands/GetReceiptList.md) ✓ | R | [Кассовый сервер] Получить список чеков (с версии 7.5.3.202) |
+| [IntentPayOrder](commands/IntentPayOrder.md) ✓ | W | [Кассовый сервер] Печать чека намерения, с 7.25.04.0 |
 | [MakeReturnGoods](commands/MakeReturnGoods.md) ✓ | D | [Кассовый сервер] Возврат товара |
 | [PayOrder](commands/PayOrder.md) ✓ | W | [Касса,Кассовый сервер] Оплата заказа/чека |
 | [PrintBill](commands/PrintBill.md) ✓ | W | [Кассовый сервер] Печать пречека |
@@ -138,7 +150,8 @@
 |---|---|---|
 | [GetDocByLayout](commands/GetDocByLayout.md) ✓ | R | [Кассовый сервер] Получить данные по макету печати. УСТАРЕВШИЙ!!! Рекомендуется использовать GetPrintLayout |
 | [GetPrintLayout](commands/GetPrintLayout.md) ✓ | R | [Кассовый сервер] Получить данные по макету печати |
-| [PrintMaket](commands/PrintMaket.md) ✓ | W | Печать документа |
+| [GetPrintedData](commands/GetPrintedData.md) ✓ | R | Печать пользовательского документа |
+| [PrintMaket](commands/PrintMaket.md) ✓ | W | Печать пользовательского документа |
 
 ## Сообщения и станция
 
@@ -164,6 +177,27 @@
 | Команда | Влияние | Назначение |
 |---|---|---|
 | [AddExternalTariff](commands/AddExternalTariff.md) ✓ | W | Добавить данные по внешней тарификации |
+| [AddTariff](commands/AddTariff.md) ✓ | W | [Кассовый сервер] Добавить тарификацию в заказ |
+| [CloseTariff](commands/CloseTariff.md) ✓ | W | [Кассовый сервер] Завершить тарификацию |
+| [PauseTariff](commands/PauseTariff.md) ✓ | W | [Кассовый сервер] Поставить тарификацию на паузу |
+| [ResumeTariff](commands/ResumeTariff.md) ✓ | W | [Кассовый сервер] Возобновить поставленную на паузу тарификацию |
+| [UpdateTariff](commands/UpdateTariff.md) ✓ | W | [Кассовый сервер] Изменить параметры тарификации |
+
+## Маркировка и алкоголь
+
+| Команда | Влияние | Назначение |
+|---|---|---|
+| [AddBatchOfGoods](commands/AddBatchOfGoods.md) ✓ | W | [Кассовый сервер] Регистрация партии маркированной продукции |
+| [ApproveKegManually](commands/ApproveKegManually.md) ✓ | W | Ручная постановка ошибочного кега со слабоалкогольным напитком на кран |
+| [CheckMarking](commands/CheckMarking.md) ✓ | R | [Кассовый сервер] проверка корректности марки маркированной продукции |
+| [DeleteBatchOfGoods](commands/DeleteBatchOfGoods.md) ✓ | W | [Кассовый сервер] Удалить партию товара |
+| [GetOpenedBottleList](commands/GetOpenedBottleList.md) ✓ | R | GetOpenedBottleList: Получить список вскрытых бутылок |
+| [LowAlcKegDeactivate](commands/LowAlcKegDeactivate.md) ✓ | W | Отключение кега от крана |
+| [LowAlcKegList](commands/LowAlcKegList.md) ✓ | R | Получить список поставленных на кран кег |
+| [LowAlcKegOpen](commands/LowAlcKegOpen.md) ✓ | W | Постановка кега со слабоалкогольным напитком на кран |
+| [LowAlcKegStatus](commands/LowAlcKegStatus.md) ✓ | R | Проверка статуса отправки данных по кегу в Честный Знак |
+| [OpenBottle](commands/OpenBottle.md) ✓ | W | [Кассовый сервер] Открыть бутылку в системе учёта алкоголя (например SH5) с 7.7.0.347 |
+| [ParseMarkingData](commands/ParseMarkingData.md) ✓ | R | [Кассовый сервер] Определение ГТИНа по марке |
 
 ## Доставка
 
@@ -186,7 +220,7 @@
 | [DeliveryValidateOrder](commands/DeliveryValidateOrder.md) ✓ | R | [Касса, Кассовый сервер]Доставка: проверить блюда заказа на доступность + расчет новых цен |
 | [DeliveryVoidOrder](commands/DeliveryVoidOrder.md) ✓ | D | [Касса, Кассовый сервер] Доставка: удалить заказ |
 
-## Только касса
+## Нет на сервере 7.26
 
 | Команда | Влияние | Назначение |
 |---|---|---|
@@ -200,10 +234,5 @@
 
 | Команда | Влияние | Назначение |
 |---|---|---|
+| [ETPC](commands/ETPC.md) | R | xml-query to ETPC |
 | [ReloadWorkUdb](commands/ReloadWorkUdb.md) ✓ | D | [Кассовый сервер] Загрузить новый work.udb без перезапуска кассового сервера |
-
-## Прочее
-
-| Команда | Влияние | Назначение |
-|---|---|---|
-| [ETPC](commands/ETPC.md) |  | xml-query to ETPC |

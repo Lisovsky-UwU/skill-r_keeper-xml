@@ -8,6 +8,7 @@
 ## Практика
 
 - Работает и для пустого визита из CreateVisit, и для визита, все заказы которого закрыты.
+- Не проходит, пока любой заказ визита заблокирован, в том числе удаленный: "Визит ... не может быть завершён. Заказ ... заблокирован станцией" (RK7ErrorN 2129).
 
 ## Запрос
 
@@ -16,6 +17,7 @@
 ```
 <RK7CMD>
   <Order> [orderElement]  - Заказ. Визит этого заказа нужно закрыть
+  <Station>? [refItem]  - Станция, на которой будут распечатаны документы
   @CMD: string = "CloseVisit"
   @VisitID: positiveInteger  - ID визита. Используется, если не заполнен тэг Order
 ```
@@ -28,7 +30,8 @@
 <Errors>? [ErrorStack]
   <Error>*  - Стэк ошибок, возникших при выполнени команды
     (текстовое содержимое: string)
-    @RK7ErrorN!: positiveInteger
+    @RK7ErrorN!: positiveInteger  - Код ошибки RK7
+    @Component!: errorArea {Printer | Authorization terminal | PDS | Rights}  - Компонент, в котором была сгенерирована ошибка
 @ServerVersion!: normalizedString  - Версия кассовой программы
 @XmlVersion!: positiveInteger  - Версия xml протокола
 @NetName: token  - Сетевое имя программы (с 7.5.3.260)

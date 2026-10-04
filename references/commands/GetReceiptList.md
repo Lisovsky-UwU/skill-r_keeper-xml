@@ -24,7 +24,9 @@
 ```
 <ReceiptsList>
   <Receipt>* [Item]
-    <Order> [orderElement]  - Заказ
+    <Order> [resOrderElement]  - Заказ
+      (orderElement: id | code | guid)
+      @url: normalizedString  - URL заказа для code.ucs.ru
     <CloseStation>? [resRefItem]  - Станция, с которой чек был распечатан
     <PrintStation>? [resRefItem]  - Станция, на которой чек был распечатан
     <Cashier>? [resRefItem]  - Кассир

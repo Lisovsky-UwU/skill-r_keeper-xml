@@ -49,6 +49,7 @@
       @Version: integer  - Версия заказа (с 7.4.8.0)
       @crc32!: int  - Контрольная сумма по содержимому заказа
       @guid!: normalizedString  - GUID заказа
+      @purchase: boolean  - Признак заказа возврата
       @dontcheckLicense: boolean  - Флаг "Не проверять лицензию xml-сохранение заказа". Такие заказы не видны на кассе"
       @promoCode: normalizedString  - Промо-код заказа
       @locked: boolean  - Флаг "Заказ заблокирован"

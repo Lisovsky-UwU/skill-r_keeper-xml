@@ -22,10 +22,13 @@
   <Guests>? [Guests_Item]  - Список гостей
     <Guest>* [guest_item]
       <Interface>? [refItem]  - Интерфейс к карте гостя
+      <EntranceCardType>? [refItem]  - Тип карты на входе. Добавлено в 7.07.00.300
       @guestLabel!: token  - Текстовая метка гостя
       @cardCode: normalizedString  - Код карты гостя
-      @clientID: long  - ID адреса гостя
-      @addressID: long  - ID адреса гостя
+      @clientID: int  - ID адреса гостя
+      @addressID: int  - ID адреса гостя
+      @maxamount: int  - Максимальная сумма по заказам, в копейках. Только для чтения. Добавлено в 7.07.00.300
+      @restAmount: int  - Остаток масимальной суммы по заказам, в копейках. Только для чтения. Добавлено в 7.07.00.362+
     @count: int  - Количество гостей
   <ExtraTables>?  - Список дополнительных столов
     <Item>+ [refItem]
@@ -41,6 +44,7 @@
   @duration: dateTime  - Длительность заказа (для резерва)
   @holder: normalizedString  - Владелец (для резерва)
   @promoCode: normalizedString  - Промо-код заказа
+  @rkFriendsAnchor: normalizedString  - Якорь в Friends (идентификатор заявки)
 ```
 
 ## Ответ
@@ -51,7 +55,8 @@
 <Errors>? [ErrorStack]
   <Error>*  - Стэк ошибок, возникших при выполнени команды
     (текстовое содержимое: string)
-    @RK7ErrorN!: positiveInteger
+    @RK7ErrorN!: positiveInteger  - Код ошибки RK7
+    @Component!: errorArea {Printer | Authorization terminal | PDS | Rights}  - Компонент, в котором была сгенерирована ошибка
 @ServerVersion!: normalizedString  - Версия кассовой программы
 @XmlVersion!: positiveInteger  - Версия xml протокола
 @NetName: token  - Сетевое имя программы (с 7.5.3.260)

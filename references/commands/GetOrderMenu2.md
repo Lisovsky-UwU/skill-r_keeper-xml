@@ -16,12 +16,15 @@
   <Waiter>? [refItem]  - Официант
   <Table>? [refItem]  - Стол
   <OrderCategory>? [refItem]  - Категория заказа
-  <Dishes>?  - Список блюд, которые должны быть в ответе
+  <OrderType>? [refItem]  - Тип заказа
+  <GuestType>? [refItem]  - Тип гостей
+  <Course>? [refItem]  - Порядок подачи
+  <Dishes>?  - Список свойств блюд, которые должны быть в ответе
     <Item>* [refItem]
-  <Modifiers>?  - Список модификаторов, которые должны быть в ответе
-    <Item>* [uModiItem]
-  <OrderTypes>?  - Список типов заказа, которые должны быть в ответе
-    <Item>* [OrderTypeItem]
+  <Modifiers>?  - Список свойств модификаторов, которые должны быть в ответе
+    <Item>* [refItem]
+  <OrderTypes>?  - Список свойств типов заказа, которые должны быть в ответе
+    <Item>* [refItem]
   @CMD: string = "GetOrderMenu2"
   @dateTime: dateTime  - Время, на которое нужно получить список блюд
 ```

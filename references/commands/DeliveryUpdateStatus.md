@@ -40,10 +40,13 @@
   <Guests>? [Guests_Item]  - Список гостей
     <Guest>* [guest_item]
       <Interface>? [refItem]  - Интерфейс к карте гостя
+      <EntranceCardType>? [refItem]  - Тип карты на входе. Добавлено в 7.07.00.300
       @guestLabel!: token  - Текстовая метка гостя
       @cardCode: normalizedString  - Код карты гостя
-      @clientID: long  - ID адреса гостя
-      @addressID: long  - ID адреса гостя
+      @clientID: int  - ID адреса гостя
+      @addressID: int  - ID адреса гостя
+      @maxamount: int  - Максимальная сумма по заказам, в копейках. Только для чтения. Добавлено в 7.07.00.300
+      @restAmount: int  - Остаток масимальной суммы по заказам, в копейках. Только для чтения. Добавлено в 7.07.00.362+
     @count: int  - Количество гостей
   <ExtraTables>?  - Список дополнительных столов
     <Item>+ [refItem]

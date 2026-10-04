@@ -13,8 +13,9 @@
   "Сообщения и станция",
   "КДС",
   "Тарификация",
+  "Маркировка и алкоголь",
   "Доставка",
-  "Только касса",
+  "Нет на сервере 7.26",
   "Служебные",
   "Прочее"
  ],
@@ -131,12 +132,43 @@
   "DeliveryChangeRestState": "Доставка",
   "DeliverySetOrderNumGen": "Доставка",
   "DeliveryVoidOrder": "Доставка",
-  "GotoOrder": "Только касса",
-  "ApplyMCR": "Только касса",
-  "PostMessage": "Только касса",
-  "PerformMessage": "Только касса",
-  "WaitWindow": "Только касса",
-  "ReloadWorkUdb": "Служебные"
+  "GotoOrder": "Нет на сервере 7.26",
+  "ApplyMCR": "Нет на сервере 7.26",
+  "PostMessage": "Нет на сервере 7.26",
+  "PerformMessage": "Нет на сервере 7.26",
+  "WaitWindow": "Нет на сервере 7.26",
+  "ReloadWorkUdb": "Служебные",
+  "CalcOrder4": "Оплата и чеки",
+  "CalcOrder5": "Оплата и чеки",
+  "IntentPayOrder": "Оплата и чеки",
+  "CorrectIntentReceipt": "Оплата и чеки",
+  "CancelSbpPay": "Оплата и чеки",
+  "GetOrderMenuLimited": "Меню и остатки",
+  "GetSelectedDishes": "Меню и остатки",
+  "GetModifierStopList": "Меню и остатки",
+  "AddModifierToStopList": "Меню и остатки",
+  "DeleteModifierFromStopList": "Меню и остатки",
+  "CheckPassword": "Персонал",
+  "GetMobLicensesInfo": "Система и справочники",
+  "GetPrintedData": "Печать и отчеты",
+  "AddTariff": "Тарификация",
+  "UpdateTariff": "Тарификация",
+  "PauseTariff": "Тарификация",
+  "ResumeTariff": "Тарификация",
+  "CloseTariff": "Тарификация",
+  "ParseMarkingData": "Маркировка и алкоголь",
+  "CheckMarking": "Маркировка и алкоголь",
+  "AddBatchOfGoods": "Маркировка и алкоголь",
+  "DeleteBatchOfGoods": "Маркировка и алкоголь",
+  "GetBatchOfGoodsList": "Маркировка и алкоголь",
+  "LowAlcKegList": "Маркировка и алкоголь",
+  "LowAlcKegStatus": "Маркировка и алкоголь",
+  "LowAlcKegOpen": "Маркировка и алкоголь",
+  "ApproveKegManually": "Маркировка и алкоголь",
+  "LowAlcKegDeactivate": "Маркировка и алкоголь",
+  "GetOpenedBottleList": "Маркировка и алкоголь",
+  "OpenBottle": "Маркировка и алкоголь",
+  "ETPC": "Служебные"
  },
  "GetSystemInfo": {
   "examples": [
@@ -313,11 +345,24 @@
    {
     "title": "SetRefData",
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7Command CMD=\"SetRefData\" RefName=\"TABLES\">\n    <Items>\n      <Item Ident=\"{{tableId}}\" Name=\"4\"/>\n    </Items>\n  </RK7Command>\n</RK7Query>\n"
+   },
+   {
+    "title": "Группы меню (из документации UCS, на кассовом сервере не выполняется)",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7Command CMD=\"SetRefData\" RefName=\"CATEGLIST\">\n    <Items>\n      <Item GUIDString=\"{{groupGuid}}\" Code=\"20\" Name=\"Кухня\" AltName=\"\" Status=\"rsActive\" ExtCode=\"12\"/>\n      <Item GUIDString=\"{{subgroupGuid}}\" MainParentIdent=\"{{groupGuid}}\" Code=\"13\" Name=\"Вторые блюда\" AltName=\"\" Status=\"rsActive\" ExtCode=\"14\"/>\n    </Items>\n  </RK7Command>\n</RK7Query>\n"
+   },
+   {
+    "title": "Блюда (из документации UCS, на кассовом сервере не выполняется)",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7Command CMD=\"SetRefData\" RefName=\"MenuItems\">\n    <Items>\n      <Item GUIDString=\"{{newGuid}}\" MainParentIdent=\"{{subgroupGuid}}\" Code=\"33\" Name=\"Рыба\" AltName=\"\" Status=\"rsActive\" TaxDishType=\"1\" ExtCode=\"33\" PRICETYPES-0=\"5000\"/>\n    </Items>\n  </RK7Command>\n</RK7Query>\n"
    }
   ],
   "impact": "danger",
   "notes": [
-   "Команда справочного сервера (RK7 Manager): кассовый сервер отвечает \"Unknown command SetRefData\". У RK7Query там задаются UserID/UserGUID/UserPass."
+   "Команда справочного сервера (RK7 Manager): кассовый сервер отвечает \"Unknown command SetRefData\". У RK7Query там задаются UserID/UserGUID/UserPass.",
+   "Логика записи - вставка или обновление; ключ - GUIDString. Не заполненные атрибуты не меняются; чтобы очистить значение, передайте \"\".",
+   "Родитель (группа) - MainParentIdent: GUID родителя, который уже существует или идет в этом же запросе раньше.",
+   "Физически ничего не удаляется: удаление - Status=\"rsDeleted\" (rsActive - активен, rsInactive - недоступен). Есть и <ItemsToDelete>.",
+   "Цена блюда - PRICETYPES-0 (в копейках, тип цены 0 - по умолчанию), категория - CLASSIFICATORGROUPS-0 (GUID), налог - TaxDishType. Полный список свойств - чтение справочника через GetRefData.",
+   "Ответ: <RK7QueryResult Status=\"Ok\"><CommandResult CMD=\"SetRefData\" Status=\"Ok\" ErrorText=\"\"/></RK7QueryResult>."
   ]
  },
  "RegisterLogs": {
@@ -365,7 +410,8 @@
   ],
   "impact": "write",
   "notes": [
-   "MENUOPERATION@operationId - из ответа ListDeviceMenu. Если меню у устройства пустое - \"Menu ... is not found\"."
+   "MENUOPERATION@operationId - из ответа ListDeviceMenu. Если меню у устройства пустое - \"Menu ... is not found\".",
+   "Типичное применение - дополнительные функции устройства, например сверка итогов на терминале авторизации."
   ]
  },
  "PrintDataXML": {
@@ -432,7 +478,10 @@
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LoginOnStation\" password=\"{{managerPassword}}\">\n    <Station id=\"{{stationId}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
-  "impact": "write"
+  "impact": "write",
+  "notes": [
+   "Регистрирует работника в смене на станции и возвращает список доступных ему заказов с учетом ограничений."
+  ]
  },
  "CreateVisit": {
   "examples": [
@@ -454,7 +503,8 @@
   "notes": [
    "Ответ: атрибуты корня VisitID, OrderID, guid и элемент <Order visit=... orderIdent=... guid=...>.",
    "Обязателен только <Table>; без <Visit> создается новый визит.",
-   "Если в ресторане количество гостей - обязательное свойство, без <Guests> (хотя бы одного <Guest guestLabel=\"1\"/>) будет \"Количество гостей не может быть равно нулю\" (RK7ErrorN 3444)."
+   "Если в ресторане количество гостей - обязательное свойство, без <Guests> (хотя бы одного <Guest guestLabel=\"1\"/>) будет \"Количество гостей не может быть равно нулю\" (RK7ErrorN 3444).",
+   "Если общая смена открыта слишком давно, новые заказы не создаются: \"Общая смена N была открыта слишком давно. Нужно закрыть\" (RK7ErrorN 2133). Изменять существующие заказы при этом можно."
   ]
  },
  "GetOrderList": {
@@ -552,7 +602,10 @@
   "impact": "write",
   "notes": [
    "lockTime в формате чч:мм:сс. Пока блокировка действует, изменяющие запросы без того же lockguid получают отказ.",
-   "lockguid - произвольный GUID, придуманный клиентом."
+   "lockguid - произвольный GUID, придуманный клиентом.",
+   "lockTime принимается и в старом формате дата-время от нулевой даты Delphi: 1899-12-30T00:02:00 = 2 минуты (проверено).",
+   "Изменяющий запрос без того же lockguid получает \"Не получается заблокировать. Заказ заблокирован другим ключом блокировки\" (RK7ErrorN 2219).",
+   "CloseVisit не проходит, пока заказ визита заблокирован, даже удаленный (RK7ErrorN 2129) - дождитесь окончания lockTime."
   ]
  },
  "ChangeSessionCourse": {
@@ -601,7 +654,10 @@
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderBindings\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
-  "impact": "read"
+  "impact": "read",
+  "notes": [
+   "Для обычного заказа возвращает только ссылку на сам заказ (<Order visit orderIdent guid>)."
+  ]
  },
  "SendToVDU": {
   "examples": [
@@ -633,7 +689,8 @@
   ],
   "impact": "write",
   "notes": [
-   "Работает и для пустого визита из CreateVisit, и для визита, все заказы которого закрыты."
+   "Работает и для пустого визита из CreateVisit, и для визита, все заказы которого закрыты.",
+   "Не проходит, пока любой заказ визита заблокирован, в том числе удаленный: \"Визит ... не может быть завершён. Заказ ... заблокирован станцией\" (RK7ErrorN 2129)."
   ]
  },
  "GetOrderMenu": {
@@ -726,7 +783,8 @@
   ],
   "impact": "write",
   "notes": [
-   "Может быть запрещен параметром \"Печатать пречек с чеком намерения\" - тогда ошибка с этим текстом."
+   "Может быть запрещен параметром \"Печатать пречек с чеком намерения\" - тогда ошибка с этим текстом.",
+   "В этом режиме пречек печатается командой IntentPayOrder (чек намерения)."
   ]
  },
  "UndoBill": {
@@ -906,7 +964,8 @@
   ],
   "impact": "danger",
   "notes": [
-   "Закрывает общую смену ресторана. CloseAnyCase=\"1\" - закрыть, даже если смена не открыта."
+   "Закрывает общую смену ресторана. CloseAnyCase=\"1\" - закрыть, даже если смена не открыта.",
+   "Пока смена закрывается, любые запросы получают Query Parse Error \"UCSERR(2172): В данный момент закрывается общая смена\" - повторите позже."
   ]
  },
  "GetCardInfo": {
@@ -971,7 +1030,8 @@
   ],
   "impact": "read",
   "notes": [
-   "Содержимое XMLData передается в FarCards как есть; что вернется, определяет расширение карточной системы - без обработчика ответ Ok без данных."
+   "Содержимое XMLData передается в FarCards как есть; что вернется, определяет расширение карточной системы - без обработчика ответ Ok без данных.",
+   "По сути запрос на запись: передает в FarCards произвольные данные о продаже, в виде XML."
   ]
  },
  "FarCardsAnyInfoRaw": {
@@ -983,7 +1043,8 @@
   ],
   "impact": "read",
   "notes": [
-   "Ответ - <RawData> в Base64; без обработчика на стороне FarCards приходит пустой."
+   "Ответ - <RawData> в Base64; без обработчика на стороне FarCards приходит пустой.",
+   "По сути запрос на запись: так передают в FarCards произвольные данные о продаже (как настройка PDS-интерфейса \"Всегда передавать данные продаж\")."
   ]
  },
  "ParseMCR": {
@@ -1365,7 +1426,7 @@
   ],
   "impact": "danger",
   "notes": [
-   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command GotoOrder\"."
+   "По наблюдениям интеграторов, команду убрали из r_keeper в версии 7.5.8; сервер 7.26 ее не объявляет в GetFunctions и отвечает \"Unknown command\"."
   ]
  },
  "ApplyMCR": {
@@ -1377,7 +1438,7 @@
   ],
   "impact": "write",
   "notes": [
-   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command ApplyMCR\"."
+   "Сервер 7.26 команду не объявляет в GetFunctions и отвечает \"Unknown command\"; по XSD она для XML-интерфейса кассы."
   ]
  },
  "PostMessage": {
@@ -1389,7 +1450,7 @@
   ],
   "impact": "write",
   "notes": [
-   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command PostMessage\"."
+   "По наблюдениям интеграторов, команду убрали в 7.5.8; сервер 7.26 ее не объявляет и отвечает \"Unknown command\"."
   ]
  },
  "PerformMessage": {
@@ -1401,7 +1462,7 @@
   ],
   "impact": "write",
   "notes": [
-   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command PerformMessage\"."
+   "По наблюдениям интеграторов, команду убрали в 7.5.8; сервер 7.26 ее не объявляет и отвечает \"Unknown command\"."
   ]
  },
  "WaitWindow": {
@@ -1413,7 +1474,7 @@
   ],
   "impact": "write",
   "notes": [
-   "Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает \"Unknown command WaitWindow\"."
+   "Сервер 7.26 команду не объявляет в GetFunctions и отвечает \"Unknown command\"; по XSD она для XML-интерфейса кассы."
   ]
  },
  "ReloadWorkUdb": {
@@ -1426,6 +1487,340 @@
   "impact": "danger",
   "notes": [
    "Недокументированная команда (схема qryChangeWorkUdb.xsd). Перечитывает справочники кассового сервера из указанного файла в каталоге его базы."
+  ]
+ },
+ "CalcOrder4": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "CalcOrder4",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CalcOrder4\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Order может ссылаться на несуществующий заказ - тогда считается виртуальный заказ; пакеты Session добавляются только на время расчета, сохраненный заказ не меняется."
+  ]
+ },
+ "CalcOrder5": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "CalcOrder5",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CalcOrder5\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Сервер требует <Station>, хотя в XSD она не обязательна (\"child element Station not found\")."
+  ]
+ },
+ "IntentPayOrder": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "IntentPayOrder",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"IntentPayOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n    <Payment id=\"{{currencyId}}\" amount=\"{{dishPrice}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Создает чек намерения: <PrintCheck state=\"3\" intentReceiptType=\"OneCheck\" intentReceiptStage=\"First stage\"> с платежом promised=\"1\"; у заказа unpaidSum становится 0, сумма уходит в promisedSum. Одновременно печатается пречек (bill=\"1\").",
+   "Если включен параметр \"Печатать пречек с чеком намерения\", PrintBill запрещен - пречек печатается через IntentPayOrder.",
+   "Отменяется CorrectIntentReceipt."
+  ]
+ },
+ "CorrectIntentReceipt": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "CorrectIntentReceipt",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CorrectIntentReceipt\" seat=\"0\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Cashier id=\"{{cashierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Удаляет чек намерения (state=7, deleted=\"1\") и возвращает заказ в неоплаченное состояние.",
+   "DeleteReason необязателен. Если указан, нужна причина из ORDERVOIDS с флагом \"Для отмены пречека\" (ImplOnBillCancel), иначе ошибка 3383."
+  ]
+ },
+ "CancelSbpPay": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "CancelSbpPay",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CancelSbpPay\">\n    <Payment sbpPayGuid=\"{{sbpPayGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Без активного СБП-платежа с таким sbpPayGuid - \"СБП оплата с гуид ... не найдена\"."
+  ]
+ },
+ "GetOrderMenuLimited": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetOrderMenuLimited",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderMenuLimited\">\n    <Station id=\"{{stationId}}\"/>\n    <Dishes>\n      <Item id=\"{{dishId}}\"/>\n    </Dishes>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "GetSelectedDishes": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetSelectedDishes",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetSelectedDishes\"/>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "GetModifierStopList": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetModifierStopList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetModifierStopList\"/>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "AddModifierToStopList": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "AddModifierToStopList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"AddModifierToStopList\">\n    <Modifier id=\"{{modifierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Проверено: модификатор появляется в GetModifierStopList и убирается DeleteModifierFromStopList."
+  ]
+ },
+ "DeleteModifierFromStopList": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "DeleteModifierFromStopList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeleteModifierFromStopList\">\n    <Modifier id=\"{{modifierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "CheckPassword": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "CheckPassword",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CheckPassword\" password=\"{{cryptedPassword}}\">\n    <Employee id=\"{{employeeId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Пароль шифруется: XOR с ключом base64(<id работника строкой>), результат в base64. Готовое значение: `python scripts/rk7.py --crypt-password <id> <пароль>` (проверено на сервере).",
+   "Неверный пароль - \"Неправильный код пользователя или пароль\" (RK7ErrorN 2102); следующая проверка возможна только через секунду."
+  ]
+ },
+ "GetMobLicensesInfo": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetMobLicensesInfo",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetMobLicensesInfo\"/>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "GetPrintedData": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetPrintedData",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetPrintedData\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Возвращает <PrintedDocuments>; если по заказу ничего не печаталось, список пустой. С пустым guid заказа сервер отвечает невнятной ошибкой про справочник причин внесения денег."
+  ]
+ },
+ "AddTariff": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "AddTariff",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"AddTariff\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n    <Tariff status=\"active\">\n      <Table id=\"{{tariffTableId}}\"/>\n      <Detail id=\"{{tariffDetailId}}\"/>\n    </Tariff>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Table - стол, настроенный как тарифицируемое устройство; обычный стол - \"Стол ... не является устройством\".",
+   "Detail и TariffType у PauseTariff - элементы справочника типов тарификации (Tariffication Types)."
+  ]
+ },
+ "UpdateTariff": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "UpdateTariff",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"UpdateTariff\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Tariff moneyLimit=\"100000\">\n      <Table id=\"{{tariffTableId}}\"/>\n      <Detail id=\"{{tariffDetailId}}\"/>\n    </Tariff>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Без активной тарификации на устройстве - \"На устройстве ... нет активной тарификации\"."
+  ]
+ },
+ "PauseTariff": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "PauseTariff",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"PauseTariff\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Device id=\"{{tariffTableId}}\"/>\n    <TariffType id=\"{{tariffDetailId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "ResumeTariff": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "ResumeTariff",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ResumeTariff\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Device id=\"{{tariffTableId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "CloseTariff": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "CloseTariff",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CloseTariff\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Manager id=\"{{managerId}}\"/>\n    <Device id=\"{{tariffTableId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "ParseMarkingData": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "ParseMarkingData",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ParseMarkingData\" base64data=\"{{markingData}}\"/>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Ответ - <Data gtin=\"...\"/>. Разделитель GS (0x1D) марки должен быть внутри данных до кодирования в base64."
+  ]
+ },
+ "CheckMarking": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "CheckMarking",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CheckMarking\" data=\"{{markingData}}\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Dish id=\"{{dishId}}\" quantity=\"1000\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Сервер требует <Order>, хотя в XSD он необязателен (\"child element Order not found\").",
+   "Марка проверяется в ОФД (разрешительный режим); недостоверная - \"Штрих-код не прошел проверку на достоверность в ОФД\"."
+  ]
+ },
+ "AddBatchOfGoods": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "AddBatchOfGoods",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"AddBatchOfGoods\">\n    <Batch markingData=\"{{markingData}}\" name=\"Тестовая партия\" quantity=\"1000\"/>\n    <Author id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Ответ - <Batch quantity srcQuantity markingData gtin startDateTime>: GTIN определяется по марке. Атрибут name сервер 7.26 не сохраняет (в ответе пустой).",
+   "Список партий - GetBatchOfGoodsList (команда без XSD, объявлена в GetFunctions); удалить - DeleteBatchOfGoods с той же маркой."
+  ]
+ },
+ "DeleteBatchOfGoods": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "DeleteBatchOfGoods",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeleteBatchOfGoods\" data=\"{{markingData}}\" quantity=\"1000\">\n    <Manager id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "GetBatchOfGoodsList": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetBatchOfGoodsList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetBatchOfGoodsList\"/>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "LowAlcKegList": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "LowAlcKegList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LowAlcKegList\"/>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "LowAlcKegStatus": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "LowAlcKegStatus",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LowAlcKegStatus\">\n    <Keg markingData=\"{{markingData}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Для марки, которой нет среди поставленных кегов, - \"Кег с маркировкой ... не найден\"."
+  ]
+ },
+ "LowAlcKegOpen": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "LowAlcKegOpen",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LowAlcKegOpen\">\n    <Keg markingData=\"{{markingData}}\" bottleVolume=\"30000\"/>\n    <Author id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Нужно свойство ресторана \"Адрес службы для отправки документов в ЧЗ\" - без него ошибка с этим текстом."
+  ]
+ },
+ "ApproveKegManually": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "ApproveKegManually",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"ApproveKegManually\">\n    <Keg markingData=\"{{markingData}}\" bottleVolume=\"30000\"/>\n    <Author id=\"{{managerId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Работает только для кега, который уже пытались поставить (LowAlcKegOpen) - иначе \"Кег ... не найден\"."
+  ]
+ },
+ "LowAlcKegDeactivate": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "LowAlcKegDeactivate",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"LowAlcKegDeactivate\">\n    <Keg markingData=\"{{markingData}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "GetOpenedBottleList": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "GetOpenedBottleList",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOpenedBottleList\"/>\n</RK7Query>\n"
+   }
+  ]
+ },
+ "OpenBottle": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "OpenBottle",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"OpenBottle\" gtin=\"{{gtin}}\">\n    <Station id=\"{{stationId}}\"/>\n    <Mark>{{markingData}}</Mark>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Нужен настроенный сервис учета алкоголя (например StoreHouse); без него - \"Сервис учёта алкоголя не доступен\" (RK7ErrorN 8007)."
+  ]
+ },
+ "ETPC": {
+  "impact": "read",
+  "notes": [
+   "Не команда RK7CMD: корень запроса - список <Row>, это формат обмена с внешним сервисом расчета скидок (ETPC), а не XML-интерфейс кассового сервера. Цены в копейках, количество в тысячных."
   ]
  }
 }

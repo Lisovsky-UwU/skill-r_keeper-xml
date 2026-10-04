@@ -7,7 +7,7 @@
 
 ## Практика
 
-- Выполняется XML-интерфейсом самой кассы: кассовый сервер отвечает "Unknown command GotoOrder".
+- По наблюдениям интеграторов, команду убрали из r_keeper в версии 7.5.8; сервер 7.26 ее не объявляет в GetFunctions и отвечает "Unknown command".
 
 ## Запрос
 
@@ -28,7 +28,8 @@
 <Errors>? [ErrorStack]
   <Error>*  - Стэк ошибок, возникших при выполнени команды
     (текстовое содержимое: string)
-    @RK7ErrorN!: positiveInteger
+    @RK7ErrorN!: positiveInteger  - Код ошибки RK7
+    @Component!: errorArea {Printer | Authorization terminal | PDS | Rights}  - Компонент, в котором была сгенерирована ошибка
 @ServerVersion!: normalizedString  - Версия кассовой программы
 @XmlVersion!: positiveInteger  - Версия xml протокола
 @NetName: token  - Сетевое имя программы (с 7.5.3.260)

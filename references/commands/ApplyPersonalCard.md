@@ -29,6 +29,7 @@
   @CMD!: string = "ApplyPersonalCard"
   @lockguid: normalizedString (по умолчанию "")  - Токен блокировки (идентификатор сессии блокировки). С версии 7.6.4.006. При блокировке заказа использовать указанный токен. Если заказ был заблокирован, то проверить токен блокировки, выдавать ошибку если заказ был заблокирован при помощи другого токена
   @CardCode!: normalizedString  - Код карточки
+  @chMode: string {NotCheck | Sale | OrderEditing | OrderCalc} (по умолчанию "OrderEditing")  - chMode, который будет передаваться в farcards
   @seat: nonNegativeInteger (по умолчанию "0")  - Номер посадочного места: 0 - не задано
 ```
 
@@ -41,6 +42,8 @@
   <Property>+ [extCardProperty]
     @name!: normalizedString
     @value: normalizedString
+<CardCode>?
+  @code!: normalizedString  - Новый код карты, если значнеие кода карты перезаписывается в ПДС
 ```
 
 ## Пример: ApplyPersonalCard

@@ -5,6 +5,10 @@
 Схемы: `schemas/qryLoginOnStation.xsd`, `schemas/resLoginOnStation.xsd`
 Влияние: изменяет данные
 
+## Практика
+
+- Регистрирует работника в смене на станции и возвращает список доступных ему заказов с учетом ограничений.
+
 ## Запрос
 
 Обозначения: `!` обязательный атрибут, `?` необязательный элемент, `*` 0..n, `+` 1..n.
@@ -41,7 +45,7 @@
     @id: positiveInteger  - ID стола
 <Orders>?  - Список доступных столов
   <Order>*
-    @orderIdent!: positiveInteger
+    @orderIdent!: nonNegativeInteger
     @own_order: boolean  - Флаг "Свой заказ"
 ```
 

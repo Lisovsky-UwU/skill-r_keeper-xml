@@ -47,7 +47,7 @@
   <MainWaiter> [resRefItem]  - Главный официант
   <Creator> [resRefItem]  - Работник, создавший заказ (оператор)
   <Restaurant>? [resRefItem]  - Ресторан доставки
-  @orderIdent!: positiveInteger
+  @orderIdent!: nonNegativeInteger
   @version: nonNegativeInteger  - Версия заказа
   @crc32!: int  - Контрольная сумма по содержимому заказа
   @guid: normalizedString  - GUID заказа

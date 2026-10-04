@@ -16,6 +16,9 @@
   <Waiter>? [refItem]  - Официант
   <Table>? [refItem]  - Стол
   <OrderCategory>? [refItem]  - Категория заказа
+  <OrderType>? [refItem]  - Тип заказа
+  <GuestType>? [refItem]  - Тип гостей
+  <Course>? [refItem]  - Порядок подачи
   @CMD: string = "GetOrderMenu"
   @dateTime: dateTime  - Время, на которое нужно получить список блюд
   @checkrests: boolean (по умолчанию "true")  - Нужно ли проверять ограничения по остаткам блюд
