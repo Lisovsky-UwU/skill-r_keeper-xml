@@ -2,7 +2,7 @@
 
 Выполнение запроса AnyInfo на сервере FarCards
 
-Схемы: `schemas/qryFarCardsAnyInfoXML.xsd`, `schemas/resFarCardsAnyInfoXML.xsd`
+Схемы: `schemas/qryFarCardsAnyInfoXML.xsd`, `schemas/resFarCardsAnyInfoXml.xsd`
 Влияние: только чтение
 
 ## Практика

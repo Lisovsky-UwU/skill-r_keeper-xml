@@ -234,11 +234,14 @@ def summarize(path, cache):
 def find_case_insensitive(path):
     """UCS names a few files inconsistently (resFarCardsAnyInfoXml.xsd for
     qryFarCardsAnyInfoXML.xsd). Windows does not care, Linux does - and the
-    reference must come out the same on both."""
-    if os.path.exists(path):
-        return path
+    reference must come out the same on both. os.path.exists() is no help:
+    on Windows it says yes to the wrong case, so the real spelling is taken
+    from the directory listing."""
     folder, name = os.path.split(path)
-    for candidate in os.listdir(folder or "."):
+    entries = os.listdir(folder or ".")
+    if name in entries:
+        return path
+    for candidate in entries:
         if candidate.lower() == name.lower():
             return os.path.join(folder, candidate)
     return path

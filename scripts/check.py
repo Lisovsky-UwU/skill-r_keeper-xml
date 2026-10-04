@@ -76,6 +76,19 @@ def main():
             if not isinstance(note, str):
                 fail("%s: notes must be strings" % cmd)
 
+    # Schema paths must match the files letter for letter: Windows forgives a
+    # wrong case, Linux (and CI) does not.
+    schema_files = set()
+    for dirpath, _, filenames in os.walk(os.path.join(ROOT, "schemas")):
+        for f in filenames:
+            schema_files.add(os.path.relpath(os.path.join(dirpath, f), ROOT).replace(os.sep, "/"))
+    if any(f.endswith(".xsd") for f in schema_files):
+        for c in sorted(files):
+            text = open(os.path.join(cmd_dir, c + ".md"), encoding="utf-8").read()
+            for p in re.findall(r"`(schemas/[^`]+\.xsd)`", text):
+                if p not in schema_files:
+                    fail("commands/%s.md names %s, but no file is spelled exactly like that" % (c, p))
+
     out = subprocess.run(
         [sys.executable, os.path.join(ROOT, "scripts", "rk7.py"), "--fragment", '<RK7CMD CMD="GetSystemInfo"/>', "--dry-run"],
         capture_output=True, text=True, encoding="utf-8")
