@@ -41,6 +41,13 @@
                                             </xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
+                  <xs:attribute name="storeZeroQuantity" type="xs:boolean" use="optional">
+                    <xs:annotation>
+                      <xs:documentation xml:lang="ru">
+                        Флаг хранения нулевых остатков блюда (если true, то удалять не нужно; если false, то удалять блюдо с нулевым количеством). Если не передан, по умолчанию false.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>

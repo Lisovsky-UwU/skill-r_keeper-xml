@@ -318,6 +318,28 @@ def main():
         open(os.path.join(out_dir, cmd + ".md"), "w", encoding="utf-8", newline="\n").write("\n".join(md))
         index.append((groups.get(cmd, "Прочее"), cmd, description, n.get("impact", ""), bool(n.get("examples"))))
 
+    # Commands the server runs but UCS ships no schema for: a page from the notes alone,
+    # so their verified examples are not lost.
+    produced_cmds = {row[1] for row in index}
+    for cmd, n in sorted(notes.items()):
+        if cmd.startswith("_") or not n.get("no_schema") or cmd in produced_cmds:
+            continue
+        description = n.get("description", "")
+        md = ["# %s" % cmd, ""]
+        if description:
+            md += [description, ""]
+        md.append("Схемы в наборе UCS нет - страница собрана из проверки на сервере.")
+        if n.get("impact"):
+            md.append("Влияние: %s" % {"read": "только чтение", "write": "изменяет данные",
+                                        "danger": "**опасно** - необратимые или массовые изменения, блокировка кассы"}[n["impact"]])
+        md.append("")
+        if n.get("notes"):
+            md += ["## Практика", ""] + ["- " + x for x in n["notes"]] + [""]
+        for ex in n.get("examples", []):
+            md += ["## Пример: %s" % ex["title"], "", "```xml", ex["xml"].rstrip(), "```", ""]
+        open(os.path.join(out_dir, cmd + ".md"), "w", encoding="utf-8", newline="\n").write("\n".join(md))
+        index.append((groups.get(cmd, "Прочее"), cmd, description + " (без XSD)", n.get("impact", ""), bool(n.get("examples"))))
+
     order = notes.get("_group_order", [])
     index.sort(key=lambda r: (order.index(r[0]) if r[0] in order else len(order), r[1]))
     lines = ["# Команды XML-интерфейса r_keeper 7", "",
@@ -332,6 +354,12 @@ def main():
         flag = {"read": "R", "write": "W", "danger": "D"}.get(impact, "")
         lines.append("| [%s](commands/%s.md)%s | %s | %s |" % (cmd, cmd, " ✓" if has_ex else "", flag, description.replace("|", "/")))
     open(os.path.join(refs, "commands.md"), "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
+    # A command whose schema left the set must not linger as a stale page.
+    produced = {cmd + ".md" for _, cmd, _, _, _ in index}
+    for name in sorted(os.listdir(out_dir)):
+        if name.endswith(".md") and name not in produced:
+            os.remove(os.path.join(out_dir, name))
+            print("removed (no schema any more): %s" % name, file=sys.stderr)
     print("%d commands written to %s" % (len(index), out_dir))
 
 

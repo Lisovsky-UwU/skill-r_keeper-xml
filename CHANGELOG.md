@@ -1,5 +1,18 @@
 # Изменения
 
+## 0.4.0 - 2026-10-04
+
+- Схемы обновлены до актуального набора UCS. Новые команды CreaterkFriendsAnchor (лояльность
+  r_k Friends) и VerifyAgeViaMax (проверка возраста через MAX); изменения в стоп-листе модификаторов
+  (несколько за раз), SetDishRests (storeZeroQuantity), KDSSetDishData3 (StationName, kdsrate
+  необязателен), ответах с составом заказа (KdsState, LoyaltyInfo). Проверено на сервере 7.26.8,
+  кроме storeZeroQuantity и LoyaltyInfo - их не позволяет проверить конфигурация стенда.
+- Команды, которые UCS убрала из набора: CheckLicense и ReloadWorkUdb сервер выполняет - их схемы
+  сохранены в schemas/Hidden; ExchangePriority и OpenLowAlcKeg сервер не знает - удалены.
+- Страницы для команд без XSD (GetSystemInfo, GetBatchOfGoodsList) - из проверки на сервере.
+- Генератор удаляет страницы команд, схем которых больше нет; check.py ловит заметки под неверным
+  именем команды и плейсхолдеры, не описанные в protocol.md.
+
 ## 0.3.0 - 2026-10-04
 
 - XSD UCS для r_keeper 7.26 теперь в репозитории (`schemas/`, без изменений; права - у UCS, см. NOTICE).

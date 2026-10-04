@@ -5,13 +5,17 @@
 Схемы: `schemas/qryDeleteModifierFromStopList.xsd`, `schemas/resDeleteModifierFromStopList.xsd`
 Влияние: изменяет данные
 
+## Практика
+
+- <Modifier> можно повторять - несколько модификаторов за один запрос (проверено).
+
 ## Запрос
 
 Обозначения: `!` обязательный атрибут, `?` необязательный элемент, `*` 0..n, `+` 1..n.
 
 ```
 <RK7CMD>
-  <Modifier> [refItem]  - Модификатор, удаляемый из стоп-листа
+  <Modifier>+ [refItem]  - Модификатор, удаляемый из стоп-листа
   @CMD: string = "DeleteModifierFromStopList"
 ```
 
@@ -44,6 +48,7 @@
 <RK7Query>
   <RK7CMD CMD="DeleteModifierFromStopList">
     <Modifier id="{{modifierId}}"/>
+  <Modifier id="{{modifierId2}}"/>
   </RK7CMD>
 </RK7Query>
 ```

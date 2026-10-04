@@ -56,11 +56,6 @@
               </xs:element>
             </xs:sequence>
             <xs:attribute name="CMD" fixed="CalcOrder"/>
-            <xs:attribute name="rkFriendsAnchor" type="xs:normalizedString" use="optional">
-              <xs:annotation>
-                <xs:documentation xml:lang="ru">ID заявки лояльности</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
           </xs:complexType>
         </xs:element>
       </xs:all>

@@ -5,6 +5,11 @@
 Схемы: `schemas/qryKDSSetDishData3.xsd`, `schemas/resKDSSetDishData3.xsd`
 Влияние: изменяет данные
 
+## Практика
+
+- kdsrate необязателен (раньше схема требовала); StationName - название кухонной станции, с 7.26.07; оба возвращаются в ответе.
+- История статусов блюда видна в GetOrder как <KdsState name="started" at="..."/> - именно в таком регистре (KdsState, не KDSState).
+
 ## Запрос
 
 Обозначения: `!` обязательный атрибут, `?` необязательный элемент, `*` 0..n, `+` 1..n.
@@ -16,9 +21,10 @@
   @CMD: string = "KDSSetDishData3"
   @line_guid!: normalizedString  - GUID строки блюда
   @kdsstate!: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed}  - Новый статус блюда
-  @kdsrate!: int  - Коэффициент загруженности кухни. С версии 7.07.00.329
+  @kdsrate: int  - Коэффициент загруженности кухни. С версии 7.07.00.329
+  @StationName: string  - Наименование кухонной станции KDS. С версии 7.26.07.0
   @sendtovdu: boolean (по умолчанию "true")  - Флаг "Отправить заказ на VDU". Если включен, то заказ будет передан на VDU, иначе не будет. Версия 7.7.0.354+
-  @kds_state_sender: normalizedString (по умолчанию "")  - Информация об отправителе запроса, пробрасывается на КДС/VDU (4-я версия протокола)
+  @kds_state_sender: string (по умолчанию "")  - Информация об отправителе запроса, пробрасывается на КДС/VDU (4-я версия протокола)
 ```
 
 ## Ответ
@@ -29,7 +35,8 @@
 <Station> [resRefItem]  - Станция КДС
 <Manager> [resRefItem]  - Менеджер, изменивший статус КДС
 @kdsstate!: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed}  - КДС статус блюда
-@kdsrate!: int  - Коэффициент загруженности кухни. С версии 7.07.00.329
+@kdsrate: int  - Коэффициент загруженности кухни. С версии 7.07.00.329
+@StationName: string  - Наименование кухонной станции KDS. С версии 7.26.07.0
 ```
 
 ## Пример: KDSSetDishData3
@@ -37,7 +44,7 @@
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RK7Query>
-  <RK7CMD CMD="KDSSetDishData3" line_guid="{{dishLineGuid}}" kdsstate="ready">
+  <RK7CMD CMD="KDSSetDishData3" line_guid="{{dishLineGuid}}" kdsstate="ready" StationName="Кухня">
     <Employee id="{{waiterId}}"/>
     <Station id="{{stationId}}"/>
   </RK7CMD>

@@ -79,7 +79,7 @@
             </xs:annotation>
           </xs:element>
         </xs:all>
-        <xs:attribute name="CMD" ype="xs:string" use="required" fixed="VoidOrder"/>
+        <xs:attribute name="CMD" type="xs:string" use="required" fixed="VoidOrder"/>
         <xs:attribute name="lockguid" type="xs:normalizedString" default="">
           <xs:annotation>
             <xs:documentation xml:lang="ru">Токен блокировки (идентификатор сессии блокировки). С версии 7.6.4.006.

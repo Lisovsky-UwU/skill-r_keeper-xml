@@ -8,6 +8,7 @@
 ## Практика
 
 - Reason - причина из ORDERVOIDS с флагом "При добавлении блюда в стоп-лист" (ImplOnAddDishInStopList); без такой причины сервер отказывает даже при prohibited="0".
+- storeZeroQuantity="1" у DishRest - хранить нулевой остаток, а не удалять блюдо из списка остатков (по умолчанию false).
 
 ## Запрос
 
@@ -23,6 +24,7 @@
     @guid: guidString
     @quantity: nonNegativeInteger  - Остаток блюда (в тысячных долях)
     @prohibited: boolean  - Запретить/разрешить продажу блюда. Если prohibited = true, то продажа блюда запрещена, если prohibited = false, то продажа блюда разрешена
+    @storeZeroQuantity: boolean  - Флаг хранения нулевых остатков блюда (если true, то удалять не нужно; если false, то удалять блюдо с нулевым количеством). Если не передан, по умолчанию false.
   @CMD: string = "SetDishRests"
 ```
 

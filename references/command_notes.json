@@ -33,7 +33,6 @@
   "GetUsageValue": "Система и справочники",
   "CheckLicense": "Система и справочники",
   "GetXMLLicenseInstanceSeqNumber": "Система и справочники",
-  "ExchangePriority": "Система и справочники",
   "SetRefData": "Система и справочники",
   "RegisterLogs": "Система и справочники",
   "LogicalDevices": "Устройства",
@@ -168,7 +167,9 @@
   "LowAlcKegDeactivate": "Маркировка и алкоголь",
   "GetOpenedBottleList": "Маркировка и алкоголь",
   "OpenBottle": "Маркировка и алкоголь",
-  "ETPC": "Служебные"
+  "ETPC": "Служебные",
+  "VerifyAgeViaMax": "Маркировка и алкоголь",
+  "CreaterkFriendsAnchor": "Карты и ПДС"
  },
  "GetSystemInfo": {
   "examples": [
@@ -177,7 +178,12 @@
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetSystemInfo\"/>\n</RK7Query>\n"
    }
   ],
-  "impact": "read"
+  "impact": "read",
+  "no_schema": true,
+  "notes": [
+   "Схемы в наборе UCS нет (есть только у GetSystemInfo2), но команда работает: версия сервера, ресторан, дата смены."
+  ],
+  "description": "[Кассовый сервер] Информация о сервере: версия, ресторан, дата смены"
  },
  "GetSystemInfo2": {
   "examples": [
@@ -314,7 +320,10 @@
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CheckLicense\" license=\"XMLSaveOrder\">\n    <Restaurant id=\"{{restaurantId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
-  "impact": "read"
+  "impact": "read",
+  "notes": [
+   "В актуальном наборе XSD UCS эту схему убрала (схема сохранена из предыдущего набора), но сервер 7.26.8 команду выполняет."
+  ]
  },
  "GetXMLLicenseInstanceSeqNumber": {
   "examples": [
@@ -326,18 +335,6 @@
   "impact": "read",
   "notes": [
    "Сервер требует <LicenseInfo>, хотя в XSD он необязательный; без настоящего anchor/licenseToken от UCS - \"Bad license anchor\"."
-  ]
- },
- "ExchangePriority": {
-  "examples": [
-   {
-    "title": "ExchangePriority",
-    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7Command CMD=\"ExchangePriority\" RefName=\"MENUITEMS\">\n    <Item1 Ident=\"{{dishId}}\"/>\n    <Item2 Ident=\"{{dishId}}\"/>\n  </RK7Command>\n</RK7Query>\n"
-   }
-  ],
-  "impact": "danger",
-  "notes": [
-   "Команда справочного сервера, как и SetRefData; кассовый сервер отвечает \"Unknown command\"."
   ]
  },
  "SetRefData": {
@@ -539,7 +536,9 @@
   "impact": "read",
   "notes": [
    "Отсюда берут uni пакетов (<Session uni>) и line_guid блюд, предоплат, чеков - они нужны в TransferDishes, MakeReturnGoods, KDSSetDishData и др.",
-   "unpaidSum в GetOrder не учитывает обещанные (promised) предоплаты; сумму к оплате для PayOrder надежнее брать из CalcOrder2."
+   "unpaidSum в GetOrder не учитывает обещанные (promised) предоплаты; сумму к оплате для PayOrder надежнее брать из CalcOrder2.",
+   "Статусы КДС у блюда приходят элементами <KdsState name at> (с 7.26 - в этом регистре).",
+   "Если в заказе работает лояльность, в ответе есть <LoyaltyInfo AvailableWithdrawAmount=...> - сколько бонусов можно списать."
   ]
  },
  "SaveOrder": {
@@ -581,7 +580,10 @@
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CalcOrder\">\n    <Table id=\"{{tableId}}\"/>\n    <OrderCategory id=\"{{orderCategoryId}}\"/>\n    <OrderType id=\"{{orderTypeId}}\"/>\n    <Waiter id=\"{{waiterId}}\"/>\n    <Session>\n      <Dish id=\"{{dishId}}\" quantity=\"2000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
-  "impact": "read"
+  "impact": "read",
+  "notes": [
+   "Атрибут rkFriendsAnchor из схемы убран (остался у CreateOrder и UpdateOrder)."
+  ]
  },
  "ValidateOrder": {
   "examples": [
@@ -738,7 +740,8 @@
   ],
   "impact": "write",
   "notes": [
-   "Reason - причина из ORDERVOIDS с флагом \"При добавлении блюда в стоп-лист\" (ImplOnAddDishInStopList); без такой причины сервер отказывает даже при prohibited=\"0\"."
+   "Reason - причина из ORDERVOIDS с флагом \"При добавлении блюда в стоп-лист\" (ImplOnAddDishInStopList); без такой причины сервер отказывает даже при prohibited=\"0\".",
+   "storeZeroQuantity=\"1\" у DishRest - хранить нулевой остаток, а не удалять блюдо из списка остатков (по умолчанию false)."
   ]
  },
  "ClearDishRests": {
@@ -1237,10 +1240,14 @@
   "examples": [
    {
     "title": "KDSSetDishData3",
-    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"KDSSetDishData3\" line_guid=\"{{dishLineGuid}}\" kdsstate=\"ready\">\n    <Employee id=\"{{waiterId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"KDSSetDishData3\" line_guid=\"{{dishLineGuid}}\" kdsstate=\"ready\" StationName=\"Кухня\">\n    <Employee id=\"{{waiterId}}\"/>\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
-  "impact": "write"
+  "impact": "write",
+  "notes": [
+   "kdsrate необязателен (раньше схема требовала); StationName - название кухонной станции, с 7.26.07; оба возвращаются в ответе.",
+   "История статусов блюда видна в GetOrder как <KdsState name=\"started\" at=\"...\"/> - именно в таком регистре (KdsState, не KDSState)."
+  ]
  },
  "AddExternalTariff": {
   "examples": [
@@ -1486,7 +1493,8 @@
   ],
   "impact": "danger",
   "notes": [
-   "Недокументированная команда (схема qryChangeWorkUdb.xsd). Перечитывает справочники кассового сервера из указанного файла в каталоге его базы."
+   "Недокументированная команда (схема qryChangeWorkUdb.xsd). Перечитывает справочники кассового сервера из указанного файла в каталоге его базы.",
+   "Не объявлена в GetFunctions и в актуальном наборе XSD отсутствует (схема сохранена из предыдущего), но сервер 7.26.8 ее выполняет: на несуществующий файл отвечает RK7ErrorN 702 \"File ... not found\"."
   ]
  },
  "CalcOrder4": {
@@ -1585,11 +1593,12 @@
   "examples": [
    {
     "title": "AddModifierToStopList",
-    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"AddModifierToStopList\">\n    <Modifier id=\"{{modifierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"AddModifierToStopList\">\n    <Modifier id=\"{{modifierId}}\"/>\n  <Modifier id=\"{{modifierId2}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
   "notes": [
-   "Проверено: модификатор появляется в GetModifierStopList и убирается DeleteModifierFromStopList."
+   "Проверено: модификатор появляется в GetModifierStopList и убирается DeleteModifierFromStopList.",
+   "<Modifier> можно повторять - несколько модификаторов за один запрос (проверено)."
   ]
  },
  "DeleteModifierFromStopList": {
@@ -1597,8 +1606,11 @@
   "examples": [
    {
     "title": "DeleteModifierFromStopList",
-    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeleteModifierFromStopList\">\n    <Modifier id=\"{{modifierId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"DeleteModifierFromStopList\">\n    <Modifier id=\"{{modifierId}}\"/>\n  <Modifier id=\"{{modifierId2}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
+  ],
+  "notes": [
+   "<Modifier> можно повторять - несколько модификаторов за один запрос (проверено)."
   ]
  },
  "CheckPassword": {
@@ -1741,6 +1753,11 @@
     "title": "GetBatchOfGoodsList",
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetBatchOfGoodsList\"/>\n</RK7Query>\n"
    }
+  ],
+  "no_schema": true,
+  "description": "[Кассовый сервер] Список зарегистрированных партий маркированной продукции",
+  "notes": [
+   "Схемы в наборе UCS нет, команда объявлена в GetFunctions и работает; партии добавляются AddBatchOfGoods, удаляются DeleteBatchOfGoods."
   ]
  },
  "LowAlcKegList": {
@@ -1822,6 +1839,33 @@
   "impact": "read",
   "notes": [
    "Не команда RK7CMD: корень запроса - список <Row>, это формат обмена с внешним сервисом расчета скидок (ETPC), а не XML-интерфейс кассового сервера. Цены в копейках, количество в тысячных."
+  ]
+ },
+ "VerifyAgeViaMax": {
+  "impact": "read",
+  "examples": [
+   {
+    "title": "VerifyAgeViaMax",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"VerifyAgeViaMax\" sessionID=\"{{maxSessionId}}\"/>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "sessionID берется из QR-кода, который покупатель открывает в мессенджере MAX; ответ - adult=\"1\" / \"0\".",
+   "Без настроенного адреса сервиса MAX - RK7ErrorN 7287 \"Ошибка проверки возраста в MAX (EIdURIException): Protocol field is empty\"."
+  ]
+ },
+ "CreaterkFriendsAnchor": {
+  "impact": "write",
+  "examples": [
+   {
+    "title": "CreaterkFriendsAnchor",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"CreaterkFriendsAnchor\" phone=\"{{loyaltyPhone}}\">\n    <Order guid=\"{{orderGuid}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
+   }
+  ],
+  "notes": [
+   "Имя команды в запросе - CreaterkFriendsAnchor (так ее объявляет GetFunctions; схема лежит в qryCreateRkFriendsAnchor.xsd). Написание CreateRkFriendsAnchor сервер тоже принимает, хотя в остальном имена команд чувствительны к регистру.",
+   "Без настроенной лояльности r_k Friends сервер отвечает Ok с пустым rkFriendsAnchor и пустым ClientInfo - проверяйте поля, а не только Status.",
+   "В актуальном наборе XSD атрибут rkFriendsAnchor остался у CreateOrder и UpdateOrder, а из CalcOrder убран."
   ]
  }
 }

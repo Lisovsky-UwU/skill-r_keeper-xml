@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:complexType name="rkFriendsClientInfo">
+    <xs:attribute name="Name" type="xs:normalizedString" use="required"/>
+    <xs:attribute name="HasVk" type="xs:boolean" use="required"/>
+    <xs:attribute name="HasMax" type="xs:boolean" use="required"/>
+    <xs:attribute name="HasTelegram" type="xs:boolean" use="required"/>
+    <xs:attribute name="BonusesAvailable" type="xs:positiveInteger" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="RK7QueryResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">xml-ответ: CreateRkFriendsAnchor</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="RK7QueryResult">
+          <xs:all>
+            <xs:element name="ClientInfo" type="rkFriendsClientInfo">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Информация об участнике</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:all>
+          <xs:attribute name="rkFriendsAnchor" type="xs:normalizedString">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Якорь лояльности (идентификатор заявки)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

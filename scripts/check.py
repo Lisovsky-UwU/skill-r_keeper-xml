@@ -61,7 +61,14 @@ def main():
         fail("commands/%s.md is not in commands.md" % c)
 
     for cmd, entry in notes.items():
-        if cmd.startswith("_") or cmd not in files:
+        if cmd.startswith("_"):
+            continue
+        if cmd not in files:
+            # Notes under a name the generator never produces are silently lost
+            # (CMD spellings like CreaterkFriendsAnchor make this easy to do).
+            if not entry.get("no_schema"):
+                fail("command_notes.json: '%s' has no commands/%s.md - fix the name "
+                     "(it must match the CMD in the schema) or mark it \"no_schema\": true" % (cmd, cmd))
             continue
         if entry.get("impact") not in ("read", "write", "danger"):
             fail("%s: impact must be read / write / danger" % cmd)
@@ -75,6 +82,17 @@ def main():
         for note in entry.get("notes", []):
             if not isinstance(note, str):
                 fail("%s: notes must be strings" % cmd)
+
+    # Every {{placeholder}} in the examples is explained in protocol.md, section 9.
+    protocol = open(os.path.join(ROOT, "references", "protocol.md"), encoding="utf-8").read()
+    section = protocol[protocol.find("## 9."):] if "## 9." in protocol else ""
+    documented = set(re.findall(r"`([A-Za-z0-9_.-]+)`", section))
+    for cmd, entry in notes.items():
+        if cmd.startswith("_"):
+            continue
+        for ex in entry.get("examples", []):
+            for name in sorted(set(re.findall(r"\{\{([A-Za-z0-9_.-]+)\}\}", ex["xml"])) - documented):
+                fail("%s: placeholder {{%s}} is not described in protocol.md, section 9" % (cmd, name))
 
     # Schema paths must match the files letter for letter: Windows forgives a
     # wrong case, Linux (and CI) does not.

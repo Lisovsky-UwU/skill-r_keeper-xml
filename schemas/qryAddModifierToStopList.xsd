@@ -9,7 +9,7 @@
       <xs:element name="RK7CMD">
         <xs:complexType>
           <xs:all>
-            <xs:element name="Modifier" type="refItem" minOccurs="1" maxOccurs="1">
+            <xs:element name="Modifier" type="refItem" minOccurs="1" maxOccurs="unbounded">
               <xs:annotation>
                 <xs:documentation xml:lang="ru">Модификатор, добавляемый в стоп-лист</xs:documentation>
               </xs:annotation>

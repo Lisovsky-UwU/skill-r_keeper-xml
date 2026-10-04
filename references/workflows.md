@@ -61,6 +61,10 @@
   2. Внешний терминал проводит оплату.
   3. `TerminalAuthPay2` (успех) или `TerminalAuthError2` (отказ) с этим `line_guid`.
 - Версия 1: `TerminalAuthStart` (создает обещанную предоплату) -> `TerminalAuthPay` / `TerminalAuthError`.
+- Карты ПДС (FarCards): `GetCardInfo` -> `ApplyPersonalCard` (скидка по карте ложится в заказ) ->
+  `UndoPersonalCard`; лояльность r_k Friends: `CreaterkFriendsAnchor` по телефону или токену гостя ->
+  `rkFriendsAnchor` (его принимают CreateOrder / UpdateOrder); доступные бонусы видны в GetOrder
+  как `<LoyaltyInfo AvailableWithdrawAmount>`.
 
 ## 5. Отмена, возврат, удаление
 
@@ -101,6 +105,7 @@
 - Модификаторы: `GetModifierStopList`, `AddModifierToStopList`, `DeleteModifierFromStopList`.
 - Маркировка: `ParseMarkingData` (GTIN по марке), `CheckMarking` (проверка марки в ОФД),
   партии - `AddBatchOfGoods` / `GetBatchOfGoodsList` / `DeleteBatchOfGoods`.
+- Возраст покупателя: `VerifyAgeViaMax` с sessionID из QR-кода в мессенджере MAX (ответ adult).
 - Разливное: кеги - `LowAlcKegOpen` / `LowAlcKegList` / `LowAlcKegStatus` / `LowAlcKegDeactivate`
   (нужна настройка "Честного знака" у ресторана), крепкий алкоголь - `OpenBottle` /
   `GetOpenedBottleList` (нужен сервис учета алкоголя).

@@ -10,7 +10,6 @@
 | Команда | Влияние | Назначение |
 |---|---|---|
 | [CheckLicense](commands/CheckLicense.md) ✓ | R | [Кассовый сервер] Проверить есть ли у ресторана конкретная лицензия |
-| [ExchangePriority](commands/ExchangePriority.md) ✓ | D | Команда ExchangePriority - переставить местами элементы по приоритету |
 | [GetConnectInfoForNode](commands/GetConnectInfoForNode.md) ✓ | R | Получение низкоуровневой информации о подключенном узле |
 | [GetDataListInfo](commands/GetDataListInfo.md) ✓ | R | [Кассовый сервер] Информация об очереди отправки данных |
 | [GetFunctions](commands/GetFunctions.md) ✓ | R | [ВСЕ] Список поддерживаемых XML-функций |
@@ -20,6 +19,7 @@
 | [GetRefData](commands/GetRefData.md) ✓ | R | Получить коллекцию |
 | [GetRefDataFiltered](commands/GetRefDataFiltered.md) ✓ | R | xml-запрос GetRefDataLimited: Получить коллекцию |
 | [GetRefList](commands/GetRefList.md) ✓ | R | GetRefList: Получить список имен коллекций |
+| [GetSystemInfo](commands/GetSystemInfo.md) ✓ | R | [Кассовый сервер] Информация о сервере: версия, ресторан, дата смены (без XSD) |
 | [GetSystemInfo2](commands/GetSystemInfo2.md) ✓ | R | [Касса, Кассовый сервер] Получить инфо о программе |
 | [GetUsageValue](commands/GetUsageValue.md) ✓ | R | [Касса, Кассовый сервер] Получить значение использования |
 | [GetXMLLicenseInstanceSeqNumber](commands/GetXMLLicenseInstanceSeqNumber.md) ✓ | R | [Касса,Кассовый сервер] Получение номера запроса по инстансу |
@@ -126,6 +126,7 @@
 | Команда | Влияние | Назначение |
 |---|---|---|
 | [ApplyPersonalCard](commands/ApplyPersonalCard.md) ✓ | W | Применение карты ПДС |
+| [CreaterkFriendsAnchor](commands/CreaterkFriendsAnchor.md) ✓ | W | Создание якоря лояльности на основе содержимого для конкретного заказа |
 | [FarCardsAnyInfoRaw](commands/FarCardsAnyInfoRaw.md) ✓ | R | Выполнение запроса AnyInfo на сервере FarCards |
 | [FarCardsAnyInfoXML](commands/FarCardsAnyInfoXML.md) ✓ | R | Выполнение запроса AnyInfo на сервере FarCards |
 | [GetCardInfo](commands/GetCardInfo.md) ✓ | R | [Касса, Кассовый сервер] Получить инфо о карте ПДС |
@@ -191,6 +192,7 @@
 | [ApproveKegManually](commands/ApproveKegManually.md) ✓ | W | Ручная постановка ошибочного кега со слабоалкогольным напитком на кран |
 | [CheckMarking](commands/CheckMarking.md) ✓ | R | [Кассовый сервер] проверка корректности марки маркированной продукции |
 | [DeleteBatchOfGoods](commands/DeleteBatchOfGoods.md) ✓ | W | [Кассовый сервер] Удалить партию товара |
+| [GetBatchOfGoodsList](commands/GetBatchOfGoodsList.md) ✓ | R | [Кассовый сервер] Список зарегистрированных партий маркированной продукции (без XSD) |
 | [GetOpenedBottleList](commands/GetOpenedBottleList.md) ✓ | R | GetOpenedBottleList: Получить список вскрытых бутылок |
 | [LowAlcKegDeactivate](commands/LowAlcKegDeactivate.md) ✓ | W | Отключение кега от крана |
 | [LowAlcKegList](commands/LowAlcKegList.md) ✓ | R | Получить список поставленных на кран кег |
@@ -198,6 +200,7 @@
 | [LowAlcKegStatus](commands/LowAlcKegStatus.md) ✓ | R | Проверка статуса отправки данных по кегу в Честный Знак |
 | [OpenBottle](commands/OpenBottle.md) ✓ | W | [Кассовый сервер] Открыть бутылку в системе учёта алкоголя (например SH5) с 7.7.0.347 |
 | [ParseMarkingData](commands/ParseMarkingData.md) ✓ | R | [Кассовый сервер] Определение ГТИНа по марке |
+| [VerifyAgeViaMax](commands/VerifyAgeViaMax.md) ✓ | R | Проверка возраста через MAX |
 
 ## Доставка
 

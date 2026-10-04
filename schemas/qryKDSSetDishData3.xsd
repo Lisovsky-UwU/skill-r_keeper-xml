@@ -32,9 +32,14 @@
                 <xs:documentation xml:lang="ru">Новый статус блюда</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="kdsrate" type="xs:int" use="required">
+            <xs:attribute name="kdsrate" type="xs:int">
               <xs:annotation>
                 <xs:documentation xml:lang="ru">Коэффициент загруженности кухни. С версии 7.07.00.329</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="StationName" type="xs:string">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Наименование кухонной станции KDS. С версии 7.26.07.0</xs:documentation>
               </xs:annotation>
             </xs:attribute>
             <xs:attribute name="sendtovdu" type="xs:boolean" default="true">
@@ -42,7 +47,7 @@
                 <xs:documentation xml:lang="ru">Флаг "Отправить заказ на VDU". Если включен, то заказ будет передан на VDU, иначе не будет. Версия 7.7.0.354+</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="kds_state_sender" type="xs:normalizedString" default="">
+            <xs:attribute name="kds_state_sender" type="xs:string" default="">
               <xs:annotation>
                 <xs:documentation xml:lang="ru">Информация об отправителе запроса, пробрасывается на КДС/VDU (4-я версия протокола)</xs:documentation>
               </xs:annotation>

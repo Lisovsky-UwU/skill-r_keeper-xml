@@ -5,6 +5,11 @@
       <xs:pattern value="\s*|\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="dotNetGuidString">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\s*|[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:attributeGroup name="refItemAttributes">
     <xs:attribute name="id" type="xs:nonNegativeInteger"/>
     <xs:attribute name="code" type="xs:nonNegativeInteger"/>
@@ -1083,7 +1088,7 @@
               <xs:documentation xml:lang="ru">Информация о тарифе, заполняется для блюд тарификации</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="KDSState" type="KDSStateItem" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="KdsState" type="KDSStateItem" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
                  <xs:documentation xml:lang="ru">Подробная информация о КДС статусе блюда (с версии 7.26.03.0)</xs:documentation>
             </xs:annotation>
@@ -1137,7 +1142,7 @@
     <xs:complexContent>
       <xs:extension base="comboComponent">
         <xs:sequence>
-          <xs:element name="KDSState" type="KDSStateItem" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="KdsState" type="KDSStateItem" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
                  <xs:documentation xml:lang="ru">Подробная информация о КДС статусе блюда (с версии 7.26.03.0)</xs:documentation>
             </xs:annotation>
@@ -1162,7 +1167,7 @@
               <xs:documentation xml:lang="ru">Комбо компонент</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="KDSState" type="KDSStateItem" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="KdsState" type="KDSStateItem" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
                  <xs:documentation xml:lang="ru">Подробная информация о КДС статусе блюда (с версии 7.26.03.0)</xs:documentation>
             </xs:annotation>
@@ -1391,6 +1396,19 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
+
+  <xs:complexType name="resLoyaltyInfo">
+    <xs:element name="LoyaltyInfo">
+      <xs:all>
+        <xs:attribute name="AvailableWithdrawAmount" type="xs:integer" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Доступное к списанию число бонусов в разрезе текущего наполнения заказа</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:all>
+    </xs:element>
+  </xs:complexType>
+
   <xs:complexType name="resOrderItem">
     <xs:sequence>
       <xs:element name="Creator" type="resEmployeeItem" minOccurs="0">
@@ -1474,6 +1492,11 @@
           <xs:documentation xml:lang="ru">Список пакетов заказа</xs:documentation>
         </xs:annotation>
       </xs:element>
+        <xs:element name="LoyaltyInfo" type="resLoyaltyInfo" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Информация по лояльности в рамках заказа</xs:documentation>
+          </xs:annotation>
+        </xs:element>
     </xs:sequence>
     <xs:attribute name="visit" type="xs:nonNegativeInteger" default="0"/>
     <xs:attribute name="orderIdent" type="xs:nonNegativeInteger" default="0"/>
@@ -2063,5 +2086,4 @@
         </xs:annotation>
       </xs:attribute>
   </xs:complexType>
-
 </xs:schema>

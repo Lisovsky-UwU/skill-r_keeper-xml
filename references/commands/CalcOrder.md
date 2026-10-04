@@ -5,6 +5,10 @@
 Схемы: `schemas/qryCalcOrder.xsd`, `schemas/resCalcOrder.xsd`
 Влияние: только чтение
 
+## Практика
+
+- Атрибут rkFriendsAnchor из схемы убран (остался у CreateOrder и UpdateOrder).
+
 ## Запрос
 
 Обозначения: `!` обязательный атрибут, `?` необязательный элемент, `*` 0..n, `+` 1..n.
@@ -168,7 +172,6 @@
         @promised: boolean  - Предоплата является обещанным платежом
     @fixedPrice: boolean  - Флаг "Зафиксировать цены"
   @CMD: string = "CalcOrder"
-  @rkFriendsAnchor: normalizedString  - ID заявки лояльности
 ```
 
 ## Ответ
@@ -324,7 +327,7 @@
           @status: tariffStatus {active | paused | finished}  - Статус тарификации (active, paused, finished)
           @startTime: dateTime  - Время начала тарификации
           @endTime: dateTime  - Время окончания тарификации
-        <KDSState>* [KDSStateItem]  - Подробная информация о КДС статусе блюда (с версии 7.26.03.0)
+        <KdsState>* [KDSStateItem]  - Подробная информация о КДС статусе блюда (с версии 7.26.03.0)
           @name: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed}  - КДС статус блюда
           @at: dateTime  - Датавремя выставления КДС статуса
         @amount: int  - Сумма блюда (в копейках)
@@ -370,9 +373,9 @@
           <ComboModi>? [refItem]  - Комбо-модификатор, соответствующий комбо-компоненту. По умолчанию возьмется первый подходящий
           @count: positiveInteger (по умолчанию "1")
           @isDefault: boolean (по умолчанию "1")  - Флаг - компонент по умолчанию
-          <KDSState>* [KDSStateItem]  - Подробная информация о КДС статусе блюда (с версии 7.26.03.0) (структура - см. выше)
+          <KdsState>* [KDSStateItem]  - Подробная информация о КДС статусе блюда (с версии 7.26.03.0) (структура - см. выше)
           @kdsstate: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed} (по умолчанию "")  - КДС статус блюда (с версии 7.5.5.037)
-        <KDSState>* [KDSStateItem]  - Подробная информация о КДС статусе блюда (с версии 7.26.03.0) (структура - см. выше)
+        <KdsState>* [KDSStateItem]  - Подробная информация о КДС статусе блюда (с версии 7.26.03.0) (структура - см. выше)
         @kdsstate: KDSStateType {"" | sent | started | ready | taken | collect | collected | startpark | endpark | removed} (по умолчанию "")  - КДС статус блюда (с версии 7.5.5.037)
         @amount: int  - Сумма блюда (в копейках)
         @new: boolean  - Флаг - новое блюдо (последний добавленный элемент)
@@ -459,6 +462,8 @@
     <TradeGroup> [resRefItem]  - Торговая группа
     @cookMins!: nonNegativeInteger  - Время приготовления (минуты)
     @sessionID: int  - UNI пакета
+  <LoyaltyInfo>? [resLoyaltyInfo]  - Информация по лояльности в рамках заказа
+    <LoyaltyInfo>
   @visit: nonNegativeInteger (по умолчанию "0")
   @orderIdent: nonNegativeInteger (по умолчанию "0")
   @url!: normalizedString  - URL заказа для code.ucs.ru

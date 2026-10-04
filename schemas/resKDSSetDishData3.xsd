@@ -25,9 +25,14 @@
               <xs:documentation xml:lang="ru">КДС статус блюда</xs:documentation>
             </xs:annotation>
           </xs:attribute>
-          <xs:attribute name="kdsrate" type="xs:int" use="required">
+          <xs:attribute name="kdsrate" type="xs:int">
             <xs:annotation>
               <xs:documentation xml:lang="ru">Коэффициент загруженности кухни. С версии 7.07.00.329</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="StationName" type="xs:string">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Наименование кухонной станции KDS. С версии 7.26.07.0</xs:documentation>
             </xs:annotation>
           </xs:attribute>
         </xs:extension>

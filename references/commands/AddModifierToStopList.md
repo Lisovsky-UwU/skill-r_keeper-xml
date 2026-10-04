@@ -8,6 +8,7 @@
 ## Практика
 
 - Проверено: модификатор появляется в GetModifierStopList и убирается DeleteModifierFromStopList.
+- <Modifier> можно повторять - несколько модификаторов за один запрос (проверено).
 
 ## Запрос
 
@@ -15,7 +16,7 @@
 
 ```
 <RK7CMD>
-  <Modifier> [refItem]  - Модификатор, добавляемый в стоп-лист
+  <Modifier>+ [refItem]  - Модификатор, добавляемый в стоп-лист
   @CMD: string = "AddModifierToStopList"
 ```
 
@@ -48,6 +49,7 @@
 <RK7Query>
   <RK7CMD CMD="AddModifierToStopList">
     <Modifier id="{{modifierId}}"/>
+  <Modifier id="{{modifierId2}}"/>
   </RK7CMD>
 </RK7Query>
 ```

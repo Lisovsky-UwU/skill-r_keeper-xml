@@ -38,7 +38,7 @@
 
 - Имя команды - атрибут `CMD` элемента `RK7CMD`; параметры - его атрибуты и вложенные элементы.
 - Часть схем допускает вместо одного `RK7CMD` последовательность `RK7Command` / `RK7Command2`
-  (несколько команд в одном запросе); `SetRefData` и `ExchangePriority` записываются через `RK7Command`.
+  (несколько команд в одном запросе); `SetRefData` записывается через `RK7Command`.
 - XML-комментарии в теле допустимы - сервер их игнорирует.
 
 ## 3. Ответ и ошибки
@@ -109,18 +109,22 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
 - **Кассовый сервер** - основной адресат; запрос идет на его адрес.
 - Часть команд сервер сам пересылает на станцию (LogicalDevices, ListDeviceMenu, DeliveryEditOrder,
   печать): в ответе `NetName` будет именем станции. Станция должна быть запущена и в сети.
-- Некоторые команды выполняет только XML-интерфейс самой кассы (GotoOrder, ApplyMCR, PostMessage,
-  PerformMessage, WaitWindow) - кассовый сервер отвечает `Unknown command`; их шлют на адрес станции.
-- `SetRefData` и `ExchangePriority` - команды справочного сервера (RK7 Manager); кассовый сервер
-  отвечает `Unknown command`. Читать справочники (`GetRefData`) можно и с кассового сервера.
+- `SetRefData` - команда справочного сервера (RK7 Manager); кассовый сервер отвечает
+  `Unknown command`. Читать справочники (`GetRefData`) можно и с кассового сервера.
 - Список того, что реально поддерживает конкретный узел, - `GetFunctions` (там же пометка `deprecated="1"`).
-- Схемы и сервер расходятся в обе стороны. Сервер 7.26 не объявляет GotoOrder, PostMessage,
-  PerformMessage (по наблюдениям интеграторов, убраны в 7.5.8), ApplyMCR, WaitWindow, ReloadWorkUdb, а
-  SetRefData и ExchangePriority выполняет только справочный сервер. И наоборот, у него есть команды без
-  XSD: GetBatchOfGoodsList, GetOrders, FindEmployee, AddReservation / DelReservation /
-  GetReservationResults, GetRefItemBlob, KDSGetRefsData, KDSGetSystemInfo, KDSSetDishFlag, PrintRawData,
-  SetDishRate, WriteGtinToMenuItem, WriteOperationToLog, CheckEgaisMark, DeleteBottle, VerifyAgeViaMax и
-  другие. Для них справочника нет - пробуйте на стенде.
+  Но и он не исчерпывающий: ReloadWorkUdb сервер 7.26.8 не объявляет, а выполняет.
+- Схемы и сервер расходятся в обе стороны:
+  - схема есть, а сервер 7.26 команду не знает (`Unknown command`): GotoOrder, PostMessage, PerformMessage
+    (по наблюдениям интеграторов, убраны в 7.5.8), ApplyMCR, WaitWindow; SetRefData - только справочный сервер;
+  - UCS убрала схему из актуального набора, а сервер команду выполняет: CheckLicense, ReloadWorkUdb
+    (их схемы сохранены из предыдущего набора в `schemas/Hidden/`);
+  - команда есть, а схемы нет: GetSystemInfo и GetBatchOfGoodsList (для них страницы собраны из
+    проверки на сервере), а также GetOrders, FindEmployee, AddReservation / DelReservation /
+    GetReservationResults, GetRefItemBlob, KDSGetRefsData, KDSGetSystemInfo, KDSSetDishFlag, PrintRawData,
+    SetDishRate, WriteGtinToMenuItem, WriteOperationToLog, CheckEgaisMark, DeleteBottle и другие -
+    по ним справочника нет, пробуйте на стенде.
+- Имена команд чувствительны к регистру (`getsysteminfo` - `Unknown command`). Исключение -
+  CreaterkFriendsAnchor: сервер принимает и CreateRkFriendsAnchor.
 
 ## 7. Блокировки, лицензии, версии
 
@@ -142,9 +146,11 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
   доказывает, что разметка правильная (PrintDataXML отвечает Ok на выдуманный тег). Сверяйтесь с XSD.
 - **И наоборот:** иногда сервер требует то, что в XSD необязательно (expireTime у WaiterMessage,
   LicenseInfo у GetXMLLicenseInstanceSeqNumber, readyTime и Table у DeliveryEditOrder).
-- **Ошибки в самих XSD.** В наборе UCS встречаются невалидные схемы: `qryOpenLowAlcKeg.xsd` не
-  разбирается (это устаревший дубль LowAlcKegOpen), в `qryAddBatchOfGoods.xsd` атрибуты записаны без
-  complexType. Генератор такие места переживает, но в спорных случаях проверяйте на стенде.
+- **Ошибки в самих XSD.** В наборе UCS встречаются невалидные места: в `qryAddBatchOfGoods.xsd`
+  атрибуты записаны без complexType, тип `resLoyaltyInfo` в `common.xsd` описан не по правилам XSD.
+  Генератор такие места переживает, но в спорных случаях проверяйте на стенде.
+- **Регистр элементов ответа.** С 7.26 статусы КДС у блюд приходят как `<KdsState name at>` (не
+  `KDSState`); XML чувствителен к регистру, разборщик ответа должен это учитывать.
 - **Причины удаления с флагами.** Справочник ORDERVOIDS один на все случаи, но каждая операция
   принимает только причину с нужным флагом: удаление чека (ImplOnCheckVoid), аннулирование
   (ImplOnCheckUndo), возврат блюд (ImplOnDishReturn), стоп-лист (ImplOnAddDishInStopList), отмена
@@ -186,4 +192,12 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
 | `orderSum` | сумма к оплате заказа, копейки | `unpaidSum` из `CalcOrder2` |
 | `receiptNum`, `printCheckGuid` | номер и GUID чека | ответ `PayOrder` / `GetReceiptList` |
 | `lockGuid`, `deliveryGuid`, `licenseInstanceGuid` | GUID, придуманные клиентом | сгенерировать новый |
+| `newGuid`, `groupGuid`, `subgroupGuid` | GUID новых элементов справочника и их групп (SetRefData) | сгенерировать новый |
+| `modifierId`, `modifierId2` | модификаторы | MODIFIERS |
+| `employeeId`, `cryptedPassword` | работник и его зашифрованный пароль | EMPLOYEES; `scripts/rk7.py --crypt-password` |
+| `markingData`, `gtin` | марка (DataMatrix) в base64 и GTIN товара | сканер марок; GTIN - `ParseMarkingData` |
+| `tariffTableId`, `tariffDetailId` | тарифицируемый стол и тип тарификации | TABLES (стол-устройство), типы тарификации |
+| `sbpPayGuid` | идентификатор СБП-платежа | задан при оплате через PayOrder / IntentPayOrder |
+| `loyaltyPhone` | телефон участника лояльности r_k Friends | от гостя |
+| `maxSessionId` | сессия проверки возраста | QR-код в мессенджере MAX |
 | `readyTime` | время готовности доставки | не позже ~суток от текущего времени сервера |
