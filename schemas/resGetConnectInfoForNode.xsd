@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="common.xsd"/>
+
+	<xs:element name="RK7QueryResult">
+		<xs:annotation>
+			<xs:documentation xml:lang="ru">xml-ответ: GetConnectInfoForNode</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="RK7QueryResult">
+					<xs:sequence>
+						<xs:element name="ConnectInfo" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="ru">Информация о подключении</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:attribute name="SelfIP" type="xs:normalizedString">
+									<xs:annotation>
+										<xs:documentation xml:lang="ru"> 
+                                        IP узла, к которому был обращён XML запрос, в рамках подключения
+                                        </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="SelfPort" type="xs:integer">
+									<xs:annotation>
+										<xs:documentation xml:lang="ru"> 
+                                        Порт узла, к которому был обращён XML запрос, в рамках подключения
+                                        </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="PeerIP" type="xs:normalizedString">
+									<xs:annotation>
+										<xs:documentation xml:lang="ru"> 
+                                        IP интересующего узла в рамках подключения
+                                        </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="PeerPort" type="xs:integer">
+									<xs:annotation>
+										<xs:documentation xml:lang="ru"> 
+                                        Порт интересующего узла в рамках подключения
+                                        </xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

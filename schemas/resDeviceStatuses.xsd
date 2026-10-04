@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--  xsi:noNamespaceSchemaLocation="XMLSchema.xsd" -->
+  <xs:include schemaLocation="common.xsd"/>
+
+  <xs:complexType name="extDeviceState">
+    <xs:sequence>
+      <xs:any processContents="lax" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сырой xml с информацией о статусе от драйвера</xs:documentation>
+        </xs:annotation>
+      </xs:any>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="deviceState">
+    <xs:sequence>
+      <xs:element name="PaperStatus" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="PaperOut" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - в принтере закончилась бумага</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="PaperLow" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - бумага близка к окончанию</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="DoorOpen" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - у принтера открыта крышка</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="PaperOther" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - неизвестная проблема с бумагой</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LogicStatus" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="Fisc24Out" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - прошло 24 часа с момента закрытия общей смены, продолжение работы невозможно</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="EKLZNearEnd" use="optional" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - ЭКЛЗ близок к заполнению</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ExtDeviceState" type="extDeviceState" minOccurs="0" maxOccurs="1">        
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Online" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Флаг - устройство подключено и работает</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="Devices">
+    <xs:sequence>
+      <xs:element name="Device" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+             <xs:element name="DeviceState" type="deviceState" minOccurs="0" maxOccurs="1"/>
+          </xs:sequence>
+          <xs:attribute name="Ident" use="required" type="xs:positiveInteger">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Идентификатор логического устройства (принтера/терминала авторизации)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="code" use="required" type="xs:positiveInteger">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Код логического устройства</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="name" use="required" type="xs:string">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Наименование логического устройства</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="guid" type="guidString">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">GUID логического устройства</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="loaded" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Флаг - драйвер устройста загружен</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DevicesRes">
+    <xs:complexContent>
+      <xs:extension base="RK7QueryResult">
+        <xs:sequence>
+          <xs:element name="Devices" type="Devices" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RK7QueryResult" type="DevicesRes"/>
+  <!--            <xs:element name="RK7QueryResult">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CommandResult" type="DevicesResRes" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+                </xs:element>
+-->
+</xs:schema>

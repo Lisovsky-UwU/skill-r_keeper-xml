@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation=".\common.xsd"/>
+	<xs:simpleType name="gtinString">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]){8}([0-9]?){6}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MarkPlaceInfoType">
+    <xs:attribute name="restaurantGuid" type="guidString" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">guid соответствующего элемента справочника ресторанов</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="restaurantCode" type="xs:positiveInteger" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">полный 9-значный код ресторана (код объекта для WSA)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="orderCategGuid" type="guidString" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">guid соответствующего элемента справочника категории заказа (места учёта)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="orderCategCode" type="xs:positiveInteger" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">код соответствующего элемента справочника категории заказа (места учёта)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="kpp" type="xs:token" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">КПП юрю лица</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="inn" type="xs:token" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">ИНН юр. лица</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="fiasId" type="xs:token" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">ФИАС id юр. лица</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="fsrarId" type="xs:token" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">ФСРАР id юр. лица</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute processContents="skip"/>
+  </xs:complexType>
+  <xs:complexType name="OpenBottleCommand">
+    <xs:all>
+      <xs:element name="Order" type="orderElement" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Заказ, используется только для нужд внутреннего контроля лицензирования, заказ не обязан существовать</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderCategory" type="refItem" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Категория заказа, не обязательная</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Station" type="refItem" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Станция</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Mark" type="xs:base64Binary" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">марка в формате base64</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="CMD" fixed="OpenBottle"/>
+    <xs:attribute name="gtin" type="gtinString" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">ГТИН бутылки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="volume" type="xs:nonNegativeInteger" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">объём в ранее открытой бутылке, в миллилитрах</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="isOld" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">признак, что бутылка вскрыта до 1.7.2024</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute processContents="skip"/>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Открыть бутылку в системе учёта алкоголя (например SH5) с 7.7.0.347</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="RK7CMD" type="OpenBottleCommand"/>
+        <xs:sequence>
+          <xs:element name="RK7Command" type="OpenBottleCommand" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="RK7Command2" type="OpenBottleCommand" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

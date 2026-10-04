@@ -46,8 +46,10 @@ git archive --format=zip --prefix=rkeeper-xml/ -o rkeeper-xml.zip HEAD
 
 ## XSD-схемы
 
-Схемы принадлежат UCS и в репозиторий не входят - см. [`schemas/README.md`](schemas/README.md).
-Скилл работает и без них; схемы нужны для перегенерации справочника под свою версию r_keeper.
+В `schemas/` лежит набор XSD UCS для r_keeper 7.26 без изменений - из него собран справочник, и к
+нему агент обращается, когда в справочнике чего-то не хватает. Права на схемы принадлежат UCS,
+лицензия Apache на них не распространяется. Состав, известные огрехи набора и обновление -
+[`schemas/README.md`](schemas/README.md).
 
 ## Проверка на стенде
 
@@ -70,7 +72,9 @@ python scripts/rk7.py query.xml --var orderGuid={...}
 2. Добавьте заметку или пример в `references/command_notes.json` - поля `notes`, `examples`
    (`title` + `xml`, конкретные id заменяйте плейсхолдерами `{{имя}}` из `references/protocol.md`)
    и `impact` (`read` / `write` / `danger`).
-3. Перегенерируйте справочник: `python scripts/xsd_to_reference.py schemas .` (нужны XSD в `schemas/`).
+3. Перегенерируйте справочник: `python scripts/xsd_to_reference.py schemas .`, затем
+   `python scripts/check.py`. CI проверяет и то, и другое: закоммиченный справочник должен
+   совпадать с тем, что генератор собирает из схем и заметок.
 4. Общие правила протокола - в `references/protocol.md`, многошаговые сценарии - в
    `references/workflows.md`.
 
@@ -88,7 +92,8 @@ references/workflows.md        типовые сценарии
 references/refnames.md         справочники r_keeper
 scripts/rk7.py                 отправка запроса на стенд
 scripts/xsd_to_reference.py    генерация справочника из XSD
-schemas/                       сюда кладутся XSD (не в репозитории)
+scripts/check.py               проверка целостности
+schemas/                       XSD UCS для r_keeper 7.26 (права - у UCS)
 ```
 
 ## Лицензия

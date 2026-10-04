@@ -5,6 +5,10 @@ This product is licensed under the Apache License, Version 2.0.
 See the LICENSE file for the full license text.
 
 r_keeper and R-Keeper are trademarks of their respective owner (UCS).
-This project is not affiliated with or endorsed by UCS. The XSD schemas of the
-r_keeper XML interface are not distributed with this repository; the command
-reference in references/ is derived from them for interoperability purposes.
+This project is not affiliated with or endorsed by UCS.
+
+The XSD schemas in the schemas/ directory describe the r_keeper XML interface
+and were published by UCS. They are included unchanged for interoperability
+purposes and are NOT covered by the Apache License of this project; all rights
+to them remain with UCS. The command reference in references/ is derived from
+these schemas.

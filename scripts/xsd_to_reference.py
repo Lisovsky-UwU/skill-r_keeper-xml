@@ -231,6 +231,19 @@ def summarize(path, cache):
     return root_el, doc(root_el), printer.out
 
 
+def find_case_insensitive(path):
+    """UCS names a few files inconsistently (resFarCardsAnyInfoXml.xsd for
+    qryFarCardsAnyInfoXML.xsd). Windows does not care, Linux does - and the
+    reference must come out the same on both."""
+    if os.path.exists(path):
+        return path
+    folder, name = os.path.split(path)
+    for candidate in os.listdir(folder or "."):
+        if candidate.lower() == name.lower():
+            return os.path.join(folder, candidate)
+    return path
+
+
 def command_name(lines, fallback):
     for l in lines:
         m = re.search(r'@CMD!?: \S* = "([A-Za-z0-9]+)"', l)
@@ -271,7 +284,7 @@ def main():
             print("skip (not an RK7Query): %s" % qry, file=sys.stderr)
             continue
         cmd = command_name(req_lines, base)
-        res = os.path.join(os.path.dirname(qry), "res" + base + ".xsd")
+        res = find_case_insensitive(os.path.join(os.path.dirname(qry), "res" + base + ".xsd"))
         res_lines, res_doc = [], ""
         if os.path.exists(res):
             try:

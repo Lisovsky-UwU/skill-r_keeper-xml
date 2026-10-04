@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="RegisterLogs">
+    <xs:sequence>
+      <xs:element name="Logs">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Log" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute name="Module" type="xs:string" use="required"/>
+                    <xs:attribute name="Labels" type="xs:string" use="optional"/>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="CMD" fixed="RegisterLogs"/>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Зарегистрировать маски файлов логов</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="RK7CMD" type="RegisterLogs"/>
+        <xs:sequence>
+          <xs:element name="RK7Command" type="RegisterLogs" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="RK7Command2" type="RegisterLogs" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

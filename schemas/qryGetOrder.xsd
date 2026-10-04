@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:complexType name="extOrderElement">
+    <xs:complexContent>
+      <xs:extension base="orderElement">
+        <xs:all>
+          <xs:element name="ExternalProps" type="externalProps" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Список внешних свойств заказа</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Получение содержимого заказа. Порядок поиска: по трибутам visit+orderIdent, если заказ не найден, то поиск по атрибуту guid, если заказ не найден, то поиск по ExternalProps</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Order" type="extOrderElement" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="CMD" fixed="GetOrder"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

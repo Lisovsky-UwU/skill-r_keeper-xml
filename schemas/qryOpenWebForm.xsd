@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Касса, Кассовый сервер] Показать на кассе окно с web-браузером</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Station" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Касса</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Waiter" type="refItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Официант. Если задан, то сообщение получит только этот официант. 
+                                    Если не задан, то сообщение будет отправлено на станцию Station и его получит первый залогинившийся официант</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Headers" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Список кастомных заголовков, передаваемых при открытии страницы в браузере</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Header" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                              <xs:annotation>
+                                <xs:documentation xml:lang="ru">Заголовки, передаваемые при открытии страницы в браузере</xs:documentation>
+                              </xs:annotation>
+                              <xs:attribute type="xs:string" name="name" use="required">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="ru">Имя Header-заголовка</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="CMD" fixed="OpenWebForm"/>
+            <xs:attribute name="url" type="xs:normalizedString" use="required">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">URL который нужно открыть в браузере.
+                                    Используются следующие подстановки: 
+                                    {waiter.code} заменяется на код текущего официанта
+                                    {extguid} заменяется на значение атрибута extguid из данного запроса
+                                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="extguid" type="xs:normalizedString" use="required">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Случайный guid, используется как идентификатор сеанса
+                                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="timeoutAfterAction" type="xs:positiveInteger" use="optional">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Если открыта форма редактирования, то перед открытием веб-формы будет идти ожидание отсутствия активности на кассе столько, сколько указано в этом параметре - значение в милисекундах. Значение по умолчанию - 10000 (10 секунд). При передаче значений более 10 секунд оно будет считаться равным 10 секундам.
+                                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

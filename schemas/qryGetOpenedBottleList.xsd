@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="RK7CMD">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">GetOpenedBottleList: Получить список вскрытых бутылок</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Station" type="refItem" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Станция. Если заполнен, то при вызове выполняется синхронизация списка бутылок с учетной системой</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="CMD" fixed="GetOpenedBottleList" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

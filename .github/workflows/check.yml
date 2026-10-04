@@ -13,3 +13,13 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/check.py
+      - name: Reference is in sync with schemas and notes
+        run: |
+          python scripts/xsd_to_reference.py schemas .
+          changes="$(git status --porcelain -- references)"
+          if [ -n "$changes" ]; then
+            echo "references/ is out of date - run: python scripts/xsd_to_reference.py schemas ."
+            echo "$changes"
+            git diff -- references | head -50
+            exit 1
+          fi

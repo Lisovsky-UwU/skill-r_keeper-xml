@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Прервать оплату СБП, вызванную через xml интерфейс</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Payment" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="sbpPayGuid" type="xs:normalizedString" use="optional">
+                    <xs:annotation>
+                      <xs:documentation xml:lang="ru">Идентификатор СБП платежа, преданный при создании СБП платежа. Если поле не заполнено, то оно заполнится автоматически случайным гуидом</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="CMD" fixed="CancelSbpPay"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

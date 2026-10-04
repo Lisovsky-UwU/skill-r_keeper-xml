@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Определение ГТИНа по марке</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:attribute name="CMD" fixed="ParseMarkingData" use="required"/>
+            <xs:attribute name="base64data" type="xs:base64binary" use="required">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Строка с данными в base64 формате</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

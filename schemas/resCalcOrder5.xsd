@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+
+  <xs:complexType name="McrPay">
+    <xs:attribute name="amount" type="xs:long">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Сумма оплаты (в копейках)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="cardCode" type="xs:normalizedString">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Код карты</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Чек  -->
+  <xs:complexType name="PrintCheck">
+    <xs:sequence>
+      <xs:element name="Printer" type="refItem" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Принтер, на который будет напечатан чек</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Payments" type="Payments" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="seat" type="xs:int">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Номер посадочного места</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="basicSum" type="xs:long">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Сумма оплаты в базовой валюте (в копейках)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- Список способов оплаты (Pay) -->
+  <xs:complexType name="Payments">
+    <xs:sequence>
+      <xs:element name="Pay">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Item" type="McrPay" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Информация о связанных с платежом картах с остатками</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attributeGroup ref="refItemAttributes"/>
+          <xs:attribute name="name" type="xs:normalizedString">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Имя валюты</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="amount" type="xs:long">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Сумма оплаты (в копейках)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="errcode" type="xs:int" use="optional" default="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Код ошибки при обработке платежа</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          <xs:attribute name="text" type="xs:normalizedString" use="optional" default="">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Текст причины, по которой платеж этой валютой недоступен</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Описание биндинга (привязки суммы к строке чека) -->
+  <xs:complexType name="Binding">
+    <xs:attribute name="amount" type="xs:long">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Сумма (в копейках)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="quantity" type="xs:long">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Количество блюда (в тысячных долях)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="line_guid" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">GUID блюда или нераспределяемой наценки</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="uni" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">UNI строки чека, к которой привязан биндинг</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="currency_guid" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">GUID валюты биндинга</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- RK7QueryResult для CalcOrder5 -->
+  <xs:element name="RK7QueryResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">xml-ответ: CalcOrder5</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="RK7QueryResult">
+          <xs:sequence>
+            <xs:element name="Order" type="resOrderItem">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="PrintChecks">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="PrintCheck" type="PrintCheck" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Bindings">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Binding" type="Binding" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

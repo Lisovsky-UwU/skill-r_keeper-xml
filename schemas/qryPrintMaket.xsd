@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:include schemaLocation="unifr.xsd"/>
+
+  <xs:complexType name="ReprintReceiptData">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Данные чека, включая фискальные, засовываются в датасеты для документа FiscReceiptReprint</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Data" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Данные для печати в формате нефискальной печати универсального драйвера, данные можно взять из PrintedDocuments.Data</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Unfiscal" type="uniUnfiscal" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="JSONFiscalData" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Фискальные данные в формать JSON, данные можно взять из PrintedDocuments.JSONFiscalData</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name = "PrintMaket">
+    <xs:sequence>
+      <xs:element name="Station" type="refItem" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Станция</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Employee" type="refItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Работник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:choice>
+        <xs:element name="ReceiptNum" type="xs:int" minOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Номер чека (чтобы напечатать макет по конкретному чеку)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Order" type="orderElement" minOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+          </xs:annotation>
+        </xs:element>	
+        <xs:element name="ReprintReceipt" type="ReprintReceiptData"/>
+     </xs:choice>
+     <xs:choice>
+        <xs:element name="Maket" type="refItem" minOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Представление документа
+                (отчет, пользовательский макет или макет копии чека)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Document" type="refItem" minOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Тип документа для печати (отчет, пользовательский макет или копия чека)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="CMD" fixed="PrintMaket"/>
+    <xs:attribute name="LayoutFilters" type="xs:normalizedString">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Фильтр макета вида
+                поле=значение;поле=значение</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="DataSourceParams" type="xs:normalizedString">
+      <xs:annotation>
+	<xs:documentation xml:lang="ru">Параметры кубов вида
+          поле=значение;поле=значение</xs:documentation>
+	</xs:annotation>
+      </xs:attribute>
+    <xs:attribute name="Comment" type="xs:normalizedString">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Комментарий для макета. Доступен для печати в макете (предустановленная переменная MaketComment)
+          С версии 7.6.4.379, 7.6.5.187</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">Печать пользовательского документа</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="RK7CMD" type="PrintMaket"/>
+        <xs:sequence>
+          <xs:element name="RK7Command" type="PrintMaket" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="RK7Command2" type="PrintMaket" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

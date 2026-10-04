@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:complexType name="uKegItem">
+    <xs:all>
+      <xs:element name="SendInfo">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Статус отправки в сервис DocsExchange / Честный знак</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="status" type="HonestSignSendStatus" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Статус отправки кега</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="hsDocumentGuid" type="xs:token" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Гуид документа постановки на кран, который отправлен в Честный Знак</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="errorText" type="xs:normalizedString" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Текст возникшей ошибки</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="errorCode" type="xs:integer" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Код возникшей ошибки</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="errorSource" type="xs:normalizedString" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="ru">Сервис, который вернул ошибку</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Author" type="refItem">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Сотрудник, выполнивший постановку на кран</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Station" type="refItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Станция, на которой была выполнена постановка на кран</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Tap" type="refItem" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Кран, на который поставлен кег. С версии 7.26.02</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="markingData" type="xs:base64Binary" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Марка кега в формате base64</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="gtin" type="xs:normalizedString" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">GTIN кега</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:normalizedString" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Наименование товара</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="startDateTime" type="xs:dateTime" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Дата и время постановки кега на кран</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="bottleVolume" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Объем кега в миллилитрах</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="restVolume" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Остаток в кеге, в миллилитрах</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="expireDate" type="xs:date" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Дата окончания срока годности кега</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="finished" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Признак того, что кег отключен от крана. True - кег отключен.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="finishTime" type="xs:dateTime" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Дата и время отключения кега от крана</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="saleBeforeDate" type="xs:date" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">Дата, до которой кег должен быть реализован</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="RK7QueryResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">xml-ответ LowAlcKegList</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="RK7QueryResult">
+          <xs:sequence>
+            <xs:element name="KegsList">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Список поставленных на кран кег</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Keg" type="uKegItem" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

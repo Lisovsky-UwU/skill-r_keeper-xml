@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Регистрация партии маркированной продукции</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:attribute name="CMD" fixed="AddBatchOfGoods" use="required"/>
+            <xs:element name="Batch" minOccurs="1" maxOccurs="1">
+              <xs:attribute name="markingData" type="xs:base64binary" use="required">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Строка с данными в base64 формате</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="quantity" type="xs:nonNegativeInteger" use="required">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Остаток блюда (в тысячных долях)</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:element>
+            <xs:element name="Author" type="refItem">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Сотрудник, выполнивший регистрацию партии</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Station" type="refItem">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Станция, на которой была зарегистрирована партия</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

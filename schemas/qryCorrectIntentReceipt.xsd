@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+
+  <xs:complexType name="deleteReasonItem">
+    <xs:complexContent>
+      <xs:extension base="refItem">
+        <xs:attribute name="openName" type="xs:normalizedString" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="ru">Произвольное имя для причины удаления</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+
+  <xs:element name="RK7Query">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">[Кассовый сервер] Коррекция чека намерения, с 7.25.04.0</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="RK7CMD">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Order" type="orderElement" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Заказ</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Cashier" type="refItem" minOccurs="1">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Кассир</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="DeleteReason" type="deleteReasonItem" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation xml:lang="ru">Причина отмены пречека</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="CMD" fixed="CorrectIntentReceipt"/>
+            <xs:attribute name="lockguid" type="guidString" default="">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Токен блокировки (идентификатор сессии блокировки)</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="seat" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Номер места, для которого будет проведена коррекция. Если 0, то будет выполнена коррекция для всех чеков намерения</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

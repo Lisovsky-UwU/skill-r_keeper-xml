@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="common.xsd"/>
+  <xs:include schemaLocation="unifr.xsd"/>
+
+  <xs:complexType name="uPrintedDocument">
+    <xs:sequence>
+      <xs:element name="Operation" type="resOperationItem" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">операция, к которой привязан распечатанный документ</xs:documentation>
+        </xs:annotation>
+      </xs:element>	
+      <xs:element name="Device" type="resRefItem" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Логический принтер, на котором был распечатан документ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Document" type="resRefItem" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Тип распечатанного документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Maket" type="refItem" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Представление печати документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Data" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Данные для печати в формате нефискальной печати универсального драйвера</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Unfiscal" type="uniUnfiscal" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="JSONFiscalData" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="ru">Данные фискального документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="objUNI" type="xs:positiveInteger" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">UNI объекта, по которому печатался документ, для чека UNI чека</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="printedTime" type="xs:dateTime">
+      <xs:annotation>
+        <xs:documentation xml:lang="ru">ДатаВремя окончания печати в формате ISO</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="RK7QueryResult">
+    <xs:annotation>
+      <xs:documentation xml:lang="ru">xml-ответ: GetPrintedData</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="RK7QueryResult">
+          <xs:all>
+            <xs:element name="PrintedDocuments">
+              <xs:annotation>
+                <xs:documentation xml:lang="ru">Список сохранённых распечатанных документов</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="PrintedDocument" type="uPrintedDocument" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:all>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
