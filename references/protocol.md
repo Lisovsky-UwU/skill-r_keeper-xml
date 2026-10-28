@@ -132,6 +132,8 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
   клиента). Пока блокировка действует, изменяющие запросы должны передавать тот же `lockguid`
   (атрибут есть у SaveOrder, PayOrder, UpdateOrder, VoidOrder и многих других). Заказ, открытый на
   кассе (или через DeliveryEditOrder), заблокирован ключом станции - его отпускают на кассе.
+  Отказ из-за чужой блокировки - RK7ErrorN 2219 ("заблокирован другим ключом блокировки") или 2110
+  ("Заказ заблокирован станцией ..., оператор ..."). LockOrder "оживляет" удаленный заказ - см. LockOrder.
 - **Лицензии.** SaveOrder требует лицензию XML SaveOrder (`CheckLicense license="XMLSaveOrder"`).
   Элемент `LicenseInfo` (anchor, licenseToken, LicenseInstance guid/seqNumber) нужен в SaaS-схеме
   лицензирования UCS; без настоящих значений сервер отвечает `Bad license anchor`.
