@@ -5,6 +5,10 @@
 Схемы: `schemas/qryGetDishRests.xsd`, `schemas/resGetDishRests.xsd`
 Влияние: только чтение
 
+## Практика
+
+- В ответе - только блюда с остатком или запретом: <DishRest id code name guid quantity [prohibited="1"]>; quantity в тысячных, при запрете - quantity="0" и prohibited="1" (проверено).
+
 ## Запрос
 
 Обозначения: `!` обязательный атрибут, `?` необязательный элемент, `*` 0..n, `+` 1..n.
