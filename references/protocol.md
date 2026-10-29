@@ -179,6 +179,7 @@ KDSSetDishData, TerminalAuthPay2, DeleteReceiptPayments и т.д.
 | `orderTypeId` | тип заказа | CHANGEABLEORDERTYPES |
 | `guestTypeId` | тип гостей | GUESTTYPES |
 | `dishId`, `dishPrice` | блюдо и его цена в копейках | MENUITEMS, цены - `GetOrderMenu` |
+| `comboCode`, `comboModiCode` | комбо-блюдо и элемент его комбо-группы | MENUITEMS (`SaleObjectType="sotComboMenuItem"`), MODIFIERS (элемент группы `mgtCombo`, его `Dish` - блюдо для `dishId`) |
 | `discountId` | скидка | DISCOUNTS |
 | `currencyId`, `cardCurrencyId` | валюта (наличные / банковская карта) | CURRENCIES |
 | `deleteReasonId`, `checkDeleteReasonId`, `checkUndoReasonId`, `returnReasonId` | причины с нужными флагами (раздел 8) | ORDERVOIDS |

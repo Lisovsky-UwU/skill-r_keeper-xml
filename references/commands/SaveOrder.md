@@ -11,6 +11,10 @@
 - quantity - в тысячных (1000 = 1 шт), price - в копейках; без price берется цена из прайса.
 - Session без uni добавляет новый пакет; с uni перезаписывает существующий нераспечатанный пакет.
 - Скидка (<Discount>) и предоплата (<Prepay>) добавляются в заказ так же - внутри <Session>.
+- Комбо-блюдо (SaleObjectType="sotComboMenuItem") добавляется только элементом <Combo>: <Dish> с кодом комбо - "Use node "Combo" to create a combo dish." (RK7ErrorN 3327). <Modi> внутри <Combo> - модификаторы самого комбо, комбо-группы ими не заполняются (проверено).
+- Выбор в комбо-группе - <Component id="{{dishId}}"><ComboModi code="{{comboModiCode}}"/></Component>, где id - блюдо из атрибута Dish комбо-элемента. Без ссылки на блюдо - "Attribute .../Component/@code is not found" (RK7ErrorN 3485). Без <ComboModi> сервер берет первый подходящий элемент, и блюдо, которое есть в нескольких группах, попадает не в ту: "Выберите не менее N модификаторов из группы ..." (RK7ErrorN 2307) (проверено).
+- Цена комбо = цена блюда-комбо + цены выбранных комбо-элементов (обе - из GetOrderMenu); атрибут price у <Combo> игнорируется. quantity="2000" - два комбо, count у <Component> - на одно комбо (проверено).
+- Ограничения схемы комбо проверяет сервер: не заполнена обязательная группа - 2307, count больше MaxOneDish - "Модификатор ... не может использоваться более 1 раз" (3044), неактивный элемент - "Комбо Элемент ... не активен" (2303) (проверено).
 
 ## Запрос
 
@@ -545,6 +549,24 @@
     <Session>
       <Station id="{{stationId}}"/>
       <Prepay id="{{currencyId}}" amount="10000"/>
+    </Session>
+  </RK7CMD>
+</RK7Query>
+```
+
+## Пример: SaveOrder - Комбо-блюдо
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RK7Query>
+  <RK7CMD CMD="SaveOrder">
+    <Order guid="{{orderGuid}}"/>
+    <Session>
+      <Combo code="{{comboCode}}" quantity="1000">
+        <Component id="{{dishId}}">
+          <ComboModi code="{{comboModiCode}}"/>
+        </Component>
+      </Combo>
     </Session>
   </RK7CMD>
 </RK7Query>

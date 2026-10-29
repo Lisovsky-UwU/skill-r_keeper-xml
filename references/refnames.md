@@ -26,7 +26,8 @@
 | GuestType | GUESTTYPES | |
 | Dish, Dishes/Item | MENUITEMS | цены на станции - `GetOrderMenu` |
 | Modi | MODIFIERS | группы - MODIGROUPS, схемы - MODISCHEMES |
-| Combo, Component | MENUITEMS | |
+| Combo, Component | MENUITEMS | комбо - `SaleObjectType="sotComboMenuItem"`, компонент - блюдо из `Dish` комбо-элемента |
+| ComboModi | MODIFIERS | элемент комбо-группы (`ModiGroupType="mgtCombo"`), см. workflows.md, раздел 11 |
 | Discount | DISCOUNTS | |
 | Currency, Pay, Payment, Prepay | CURRENCIES | |
 | DeleteReason, Reason (удаление, возврат, стоп-лист) | ORDERVOIDS | нужен флаг под операцию, см. protocol.md, раздел 8 |

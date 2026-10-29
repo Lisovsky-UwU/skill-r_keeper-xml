@@ -502,7 +502,8 @@
    "Обязателен только <Table>; без <Visit> создается новый визит.",
    "Если в ресторане количество гостей - обязательное свойство, без <Guests> (хотя бы одного <Guest guestLabel=\"1\"/>) будет \"Количество гостей не может быть равно нулю\" (RK7ErrorN 3444).",
    "Если общая смена открыта слишком давно, новые заказы не создаются: \"Общая смена N была открыта слишком давно. Нужно закрыть\" (RK7ErrorN 2133). Изменять существующие заказы при этом можно.",
-   "В <Order> ответа есть version: у только что созданного пустого заказа version=\"0\" - по ней потом видно, менялся ли заказ (проверено)."
+   "В <Order> ответа есть version: у только что созданного пустого заказа version=\"0\" - по ней потом видно, менялся ли заказ (проверено).",
+   "Вместо списка гостей подходит и <Guests count=\"1\"/> (проверено)."
   ]
  },
  "GetOrderList": {
@@ -539,7 +540,8 @@
    "Отсюда берут uni пакетов (<Session uni>) и line_guid блюд, предоплат, чеков - они нужны в TransferDishes, MakeReturnGoods, KDSSetDishData и др.",
    "unpaidSum в GetOrder не учитывает обещанные (promised) предоплаты; сумму к оплате для PayOrder надежнее брать из CalcOrder2.",
    "Статусы КДС у блюда приходят элементами <KdsState name at> (с 7.26 - в этом регистре).",
-   "Если в заказе работает лояльность, в ответе есть <LoyaltyInfo AvailableWithdrawAmount=...> - сколько бонусов можно списать."
+   "Если в заказе работает лояльность, в ответе есть <LoyaltyInfo AvailableWithdrawAmount=...> - сколько бонусов можно списать.",
+   "Комбо приходит элементом <Combo> (price - цена комбо вместе с элементами) с вложенными <Component>: блюдо-компонент, price - цена комбо-элемента, count, <ComboModi id code name>. amount компонентов раскладывает по ним цену самого комбо, их сумма равна amount комбо. Кто читает только <Dish>, комбо не увидит (проверено)."
   ]
  },
  "SaveOrder": {
@@ -555,6 +557,10 @@
    {
     "title": "SaveOrder - Предоплата",
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SaveOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Station id=\"{{stationId}}\"/>\n      <Prepay id=\"{{currencyId}}\" amount=\"10000\"/>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
+   },
+   {
+    "title": "SaveOrder - Комбо-блюдо",
+    "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"SaveOrder\">\n    <Order guid=\"{{orderGuid}}\"/>\n    <Session>\n      <Combo code=\"{{comboCode}}\" quantity=\"1000\">\n        <Component id=\"{{dishId}}\">\n          <ComboModi code=\"{{comboModiCode}}\"/>\n        </Component>\n      </Combo>\n    </Session>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
   "impact": "write",
@@ -562,7 +568,11 @@
    "Нужна лицензия XML SaveOrder - проверяется запросом CheckLicense license=\"XMLSaveOrder\".",
    "quantity - в тысячных (1000 = 1 шт), price - в копейках; без price берется цена из прайса.",
    "Session без uni добавляет новый пакет; с uni перезаписывает существующий нераспечатанный пакет.",
-   "Скидка (<Discount>) и предоплата (<Prepay>) добавляются в заказ так же - внутри <Session>."
+   "Скидка (<Discount>) и предоплата (<Prepay>) добавляются в заказ так же - внутри <Session>.",
+   "Комбо-блюдо (SaleObjectType=\"sotComboMenuItem\") добавляется только элементом <Combo>: <Dish> с кодом комбо - \"Use node \"Combo\" to create a combo dish.\" (RK7ErrorN 3327). <Modi> внутри <Combo> - модификаторы самого комбо, комбо-группы ими не заполняются (проверено).",
+   "Выбор в комбо-группе - <Component id=\"{{dishId}}\"><ComboModi code=\"{{comboModiCode}}\"/></Component>, где id - блюдо из атрибута Dish комбо-элемента. Без ссылки на блюдо - \"Attribute .../Component/@code is not found\" (RK7ErrorN 3485). Без <ComboModi> сервер берет первый подходящий элемент, и блюдо, которое есть в нескольких группах, попадает не в ту: \"Выберите не менее N модификаторов из группы ...\" (RK7ErrorN 2307) (проверено).",
+   "Цена комбо = цена блюда-комбо + цены выбранных комбо-элементов (обе - из GetOrderMenu); атрибут price у <Combo> игнорируется. quantity=\"2000\" - два комбо, count у <Component> - на одно комбо (проверено).",
+   "Ограничения схемы комбо проверяет сервер: не заполнена обязательная группа - 2307, count больше MaxOneDish - \"Модификатор ... не может использоваться более 1 раз\" (3044), неактивный элемент - \"Комбо Элемент ... не активен\" (2303) (проверено)."
   ]
  },
  "UpdateOrder": {
@@ -694,7 +704,8 @@
   "notes": [
    "DeleteReason - причина из ORDERVOIDS; для заказа с распечатанными блюдами нужна причина, разрешенная для удаления чека/блюд.",
    "Пока заказ заблокирован LockOrder, VoidOrder даже с тем же lockguid получает \"Не получается заблокировать. Заказ заблокирован станцией ..., оператор ...\" (RK7ErrorN 2110) - сначала снимите блокировку (проверено).",
-   "Удаленный заказ остается доступен GetOrder по тому же guid: deleted=\"1\", finished=\"1\", version увеличена (проверено)."
+   "Удаленный заказ остается доступен GetOrder по тому же guid: deleted=\"1\", finished=\"1\", version увеличена (проверено).",
+   "Без <Manager> - \"Error: child element \"Manager\" not found\" (RK7ErrorN 3486); подходит и системный работник (проверено)."
   ]
  },
  "CloseVisit": {
@@ -717,7 +728,10 @@
     "xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<RK7Query>\n  <RK7CMD CMD=\"GetOrderMenu\" checkrests=\"1\">\n    <Station id=\"{{stationId}}\"/>\n  </RK7CMD>\n</RK7Query>\n"
    }
   ],
-  "impact": "read"
+  "impact": "read",
+  "notes": [
+   "Комбо-блюдо есть в <Dishes> со своей ценой, комбо-элементы - в <Modifiers> со своей ценой: это цена блюда внутри комбо, она может отличаться от цены самого блюда (проверено)."
+  ]
  },
  "GetOrderMenu2": {
   "examples": [

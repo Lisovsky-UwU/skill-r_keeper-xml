@@ -1,5 +1,17 @@
 # Изменения
 
+## 0.4.3 - 2026-10-29
+
+- Комбо-блюда: как комбо, комбо-группы и их элементы лежат в справочниках, сценарий заказа (workflows.md,
+  раздел 11), пример SaveOrder с `<Combo>`/`<Component>`/`<ComboModi>`. SaveOrder: `<Dish>` с кодом комбо -
+  RK7ErrorN 3327, `<Modi>` под `<Combo>` комбо-группы не заполняют, без блюда у `<Component>` - 3485, без
+  `<ComboModi>` элемент выбирается не из той группы; цена комбо = цена комбо + цены элементов, `price` у
+  `<Combo>` игнорируется; ошибки лимитов схемы (2307, 3044, 2303).
+- GetOrder: как читать `<Combo>` и `<Component>`; GetOrderMenu: цены комбо-элементов в `<Modifiers>`.
+- VoidOrder без `<Manager>` - RK7ErrorN 3486; CreateOrder принимает и `<Guests count="1"/>`.
+- Плейсхолдеры `comboCode`, `comboModiCode`; ComboModi в refnames.md.
+- Все проверено на сервере 7.26.8.
+
 ## 0.4.2 - 2026-10-28
 
 - LockOrder: удаленный заказ блокируется и "оживает" (пропадает deleted, finished становится 0), после

@@ -14,6 +14,7 @@
 8. Стоп-лист
 9. Касса, смены, печать
 10. Сообщения, КДС, опрос изменений
+11. Комбо-блюда
 
 ## 1. Знакомство с сервером
 
@@ -132,3 +133,25 @@
 - КДС: `KDSGetDishData3` -> статусы блюд по `line_guid` -> `KDSSetDishData3`.
 - Опрос без лишней нагрузки: GetOrderList, GetReceiptList, DeliveryGetOrderList, KDSGetDishData*
   принимают `lastversion` из предыдущего ответа и возвращают `Status="No changes"`, если ничего не менялось.
+
+## 11. Комбо-блюда
+
+Как устроено в справочниках (проверено на 7.26.8):
+
+- Комбо - блюдо MENUITEMS с `SaleObjectType="sotComboMenuItem"`; `ModiScheme` (он же `ComboScheme`) указывает
+  на схему с `ModiSchemeType="mstCombo"`.
+- Состав схемы - MODISCHEMEDETAILS, как у обычной: группа (`ModiGroup`) и лимиты `UpLimit`/`UseUpLimit`,
+  `DownLimit`/`UseDownLimit`. Группы - MODIGROUPS с `ModiGroupType="mgtCombo"`.
+- Элементы группы - обычные модификаторы MODIFIERS с `Dish` (ident блюда-компонента) и `Weight="0"`. Одно блюдо
+  в разных группах - разные элементы со своими кодами, поэтому выбор однозначно задается кодом элемента.
+- `GetOrderMenu`: комбо - в `Dishes` с ценой, элементы - в `Modifiers` с ценой блюда внутри комбо.
+
+Заказ:
+
+1. `GetRefData` MENUITEMS (`SaleObjectType`, `ModiScheme`), MODISCHEMEDETAILS, MODIGROUPS (`WithChildItems="3"`),
+   MODIFIERS (`Dish`) -> состав комбо и блюдо каждого элемента.
+2. `SaveOrder`: `<Combo code="{{comboCode}}" quantity="1000">` и на каждый выбранный элемент
+   `<Component id="{{dishId}}"><ComboModi code="{{comboModiCode}}"/></Component>`. `<Dish>` с кодом комбо
+   и `<Modi>` вместо компонентов не работают (SaveOrder, раздел "Практика").
+3. Цена комбо = цена блюда-комбо + цены выбранных элементов; `price` у `<Combo>` игнорируется.
+4. `GetOrder` -> `<Combo>` с `<Component>` и `<ComboModi>` внутри, а не `<Dish>`.
